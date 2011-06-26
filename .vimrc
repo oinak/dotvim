@@ -32,3 +32,11 @@ set incsearch		" Incremental search
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+"Requisito para rubyblock:
+runtime macros/matchit.vim  
+
+"Agregado para vim-colors-solarized
+syntax enable
+set background=dark
+colorscheme solarized
+
