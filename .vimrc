@@ -2,7 +2,13 @@
 " line enables syntax highlighting by default.
 syntax on
 
+set ruler
+set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
+set nowrap
+
+"" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
@@ -71,11 +77,13 @@ set guifont=Monospace\ 10
 :nmap <C-t> :tabnew<CR>
 :imap <C-t> <Esc>:tabnew<CR>
 
-" Indentación de regiones seleccionadas al estilo RubyMine
+" Region indent/outdent RubyMine style
 nmap <S-A-Left> <<
 nmap <S-A-Right> >>
 vmap <S-A-Left> <gv
 vmap <S-A-Right> >gv
+vmap <S-Tab> <gv
+vmap <Tab> >gv
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:→\ ,eol:⁋
@@ -87,9 +95,11 @@ highlight NonText guifg=#bbbbbb
 "highlight SpecialKey guifg=reverse 
 "white guibg=lightgray
 
-" Buffer siguiente y anterior
+" Previous and Next Buffer
 nmap <F7> <Esc>:bp<CR>
 nmap <F8> <Esc>:bn<CR> 
+map <F6> <Esc>:BufExplorer<CR>
+
 
 " Source the vimrc file after saving it
 if has("autocmd")
@@ -99,11 +109,43 @@ endif
 let mapleader = ","
 nmap <leader>v :tabedit $MYVIMRC<CR>
 
-"" Texto burbujeante
+" Yes I have a weak soul, and bad habits, just bear with me
+imap <C-s> <Esc>:w<CR>i
+nmap <C-s> :w<CR>
+
+"" Bubbling Text
 " Bubble single lines
 nmap <C-Up> ddkP
 nmap <C-Down> ddp
 " Bubble multiple lines
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
+
+
+" add Ctrl-V option for paste
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
+
+" Shift arrows to select
+imap <S-Down> <ESC>lvj
+vmap <S-Down> j
+nmap <S-Down> vj
+
+imap <S-Up> <ESC>vk
+vmap <S-Up> k
+nmap <S-Up> vk
+
+imap <S-Right> <ESC>lvl
+vmap <S-Right> l
+nmap <S-Right> vl
+
+imap <S-Left> <ESC>vh
+vmap <S-Left> h
+nmap <S-Left> vh
+
+
+map <S-A-o> <ESC>:FufFile<CR>
+
 
