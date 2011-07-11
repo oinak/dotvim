@@ -143,5 +143,7 @@ nmap <S-Left> vh
 
 
 map <S-A-o> <ESC>:FufFile<CR>
+imap <S-A-o> <ESC>:FufFile<CR>
+nmap <leader>o <ESC>:FufFile<CR>
 
 
