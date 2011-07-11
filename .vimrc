@@ -5,6 +5,10 @@ syntax on
 set ruler
 set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
+set nowrap
+
+"" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
@@ -47,7 +51,7 @@ let g:solarized_contrast="high"    "default value is normal
 let g:solarized_visibility="high"    "default value is normal
 syntax enable
 set background=dark
-colorscheme solarized
+colorscheme railscasts "solarized
 set guifont=Monospace\ 10
 " ------------------------------------------------------------------
 
