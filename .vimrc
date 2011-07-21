@@ -1,11 +1,17 @@
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
-syntax on
+if &t_Co > 2 || has("gui_running")
+  syntax on
+endif
 
 set ruler
 set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
 set nowrap
+
+set hidden
+set vb t_vb=
+set ts=2 sts=2 sw=2 expandtab
 
 "" allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -43,6 +49,13 @@ call pathogen#helptags()
 "Requisito para rubyblock:
 runtime macros/matchit.vim
 
+if $COLORTERM == 'gnome-terminal' 
+  set term=gnome-256color 
+  colorscheme railscasts 
+else 
+  colorscheme default 
+endif 
+
 " ------------------------------------------------------------------
 " Solarized Colorscheme Config
 " ------------------------------------------------------------------
@@ -52,7 +65,7 @@ let g:solarized_visibility="high"    "default value is normal
 syntax enable
 set background=dark
 colorscheme railscasts "solarized
-set guifont=Monospace\ 10
+set guifont=Monaco\ 11 "Envy\ Code\ R\ 12  "Monospaced\ 10
 " ------------------------------------------------------------------
 
 " The following items are available options, but do not need to be
@@ -68,14 +81,14 @@ set guifont=Monospace\ 10
 " let g:solarized_menu=1
 
 " tab navigation like firefox
-:nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
-:nmap <C-tab> :tabnext<CR>       " C-AvPag por defecto
-:map <C-S-tab> :tabprevious<CR>
-:map <C-tab> :tabnext<CR>
-:imap <C-S-tab> <Esc>:tabprevious<CR>i
-:imap <C-tab> <Esc>:tabnext<CR>i
-:nmap <C-t> :tabnew<CR>
-:imap <C-t> <Esc>:tabnew<CR>
+nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
+nmap <C-tab> :tabnext<CR>       " C-AvPag por defecto
+map <C-S-tab> :tabprevious<CR>
+map <C-tab> :tabnext<CR>
+imap <C-S-tab> <Esc>:tabprevious<CR>i
+imap <C-tab> <Esc>:tabnext<CR>i
+nmap <C-t> :tabnew<CR>
+imap <C-t> <Esc>:tabnew<CR>
 
 " Region indent/outdent RubyMine style
 nmap <S-A-Left> <<
@@ -99,6 +112,7 @@ highlight NonText guifg=#bbbbbb
 nmap <F7> <Esc>:bp<CR>
 nmap <F8> <Esc>:bn<CR> 
 map <F6> <Esc>:BufExplorer<CR>
+imap <F6> <Esc>:BufExplorer<CR>
 
 
 " Source the vimrc file after saving it
@@ -137,7 +151,7 @@ imap <S-Up> <ESC>vk
 vmap <S-Up> k
 nmap <S-Up> vk
 
-imap <S-Right> <ESC>lvl
+imap <S-Right> <ESC>vl
 vmap <S-Right> l
 nmap <S-Right> vl
 
@@ -145,7 +159,23 @@ imap <S-Left> <ESC>vh
 vmap <S-Left> h
 nmap <S-Left> vh
 
-
+" Find files quickly by regex of their paths
 map <S-A-o> <ESC>:FufFile<CR>
 
+" Red background beyond column 80
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/ 
+
+" Color column 80 (compatible) Better after theme loading
+if exists('+colorcolumn')
+  set colorcolumn=80
+  highlight ColorColumn guibg=#111111 cterm=NONE ctermbg=234
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
+" Toggleable current line/column highlight
+highlight CursorLine   cterm=NONE ctermbg=darkgray ctermfg=white guibg=#111111 guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=darkgray ctermfg=white guibg=#111111 guifg=NONE
+nnoremap <c-f12> :set cursorline! cursorcolumn!<CR>
 
