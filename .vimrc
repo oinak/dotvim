@@ -161,6 +161,8 @@ nmap <S-Left> vh
 
 " Find files quickly by regex of their paths
 map <S-A-o> <ESC>:FufFile<CR>
+imap <S-A-o> <ESC>:FufFile<CR>
+nmap <leader>o <ESC>:FufFile<CR>
 
 " Red background beyond column 80
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
