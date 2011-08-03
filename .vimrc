@@ -13,6 +13,7 @@ set hidden
 set vb t_vb=
 set ts=2 sts=2 sw=2 expandtab
 
+
 "" allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -34,51 +35,38 @@ endif
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
-set showcmd		" Show (partial) command in status line.
-set showmatch		" Show matching brackets.
-set ignorecase		" Do case insensitive matching
-set smartcase		" Do smart case matching
-set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
-"set hidden             " Hide buffers when they are abandoned
-"set mouse=a		" Enable mouse usage (all modes)
+set showcmd      " Show (partial) command in status line.
+set showmatch    " Show matching brackets.
+set ignorecase   " Do case insensitive matching
+set smartcase    " Do smart case matching
+set incsearch    " Incremental search
+"set autowrite   " Automatically save before commands like :next and :make
+"set hidden      " Hide buffers when they are abandoned
+"set mouse=a     " Enable mouse usage (all modes)
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+if has("autocmd")
+  autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=darkred
+  au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  au InsertLeave * match ExtraWhitespace /\s\+$/
+endif
+
 "Requisito para rubyblock:
-runtime macros/matchit.vim
+runtime macros/matchiT.VIM
 
-if $COLORTERM == 'gnome-terminal' 
-  set term=gnome-256color 
-  colorscheme railscasts 
-else 
-  colorscheme default 
-endif 
+if $COLORTERM == 'gnome-terminal'
+  set term=gnome-256color
+  colorscheme railscasts
+else
+  colorscheme desert
+endif
 
-" ------------------------------------------------------------------
-" Solarized Colorscheme Config
-" ------------------------------------------------------------------
-let g:solarized_italic=0    "default value is 1
-let g:solarized_contrast="high"    "default value is normal
-let g:solarized_visibility="high"    "default value is normal
 syntax enable
 set background=dark
-colorscheme railscasts "solarized
+colorscheme railscasts
 set guifont=Monaco\ 11 "Envy\ Code\ R\ 12  "Monospaced\ 10
-" ------------------------------------------------------------------
-
-" The following items are available options, but do not need to be
-" included in your .vimrc as they are currently set to their defaults.
-
-" let g:solarized_termtrans=0
-" let g:solarized_degrade=0
-" let g:solarized_bold=1
-" let g:solarized_underline=1
-" let g:solarized_termcolors=16
-" let g:solarized_diffmode="normal"
-" let g:solarized_hitrail=0
-" let g:solarized_menu=1
 
 " tab navigation like firefox
 nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
@@ -103,7 +91,7 @@ set listchars=tab:→\ ,eol:⁋
 
 "Invisible characters and colors
 nmap <F12> :set list!<CR>
-imap <F12> :set list!<CR>
+imap <F12> <ESC>:set list!<CR>
 highlight NonText guifg=#bbbbbb
 "highlight SpecialKey guifg=reverse 
 "white guibg=lightgray
@@ -135,7 +123,6 @@ nmap <C-Down> ddp
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
-
 " add Ctrl-V option for paste
 vmap <C-c> "+yi
 vmap <C-x> "+c
@@ -166,7 +153,7 @@ nmap <leader>o <ESC>:FufFile<CR>
 
 " Red background beyond column 80
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%81v.\+/ 
+" match OverLength /\%81v.\+/
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
@@ -177,7 +164,11 @@ else
 endif
 
 " Toggleable current line/column highlight
-highlight CursorLine   cterm=NONE ctermbg=darkgray ctermfg=white guibg=#111111 guifg=NONE
-highlight CursorColumn cterm=NONE ctermbg=darkgray ctermfg=white guibg=#111111 guifg=NONE
+highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#111111 guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#111111 guifg=NONE
 nnoremap <c-f12> :set cursorline! cursorcolumn!<CR>
+nnoremap <leader>h :set cursorline! cursorcolumn!<CR>
+
+" Save as root
+cmap w!! %!sudo tee > /dev/null %
 
