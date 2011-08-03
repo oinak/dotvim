@@ -5,7 +5,7 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 set ruler
-set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
+"set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
 set nowrap
 
@@ -19,7 +19,7 @@ set backspace=indent,eol,start
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
-"set background=dark
+set background=dark
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
@@ -41,16 +41,21 @@ set ignorecase   " Do case insensitive matching
 set smartcase    " Do smart case matching
 set incsearch    " Incremental search
 "set autowrite   " Automatically save before commands like :next and :make
-"set hidden      " Hide buffers when they are abandoned
-"set mouse=a     " Enable mouse usage (all modes)
+set hidden      " Hide buffers when they are abandoned
+set mouse=a     " Enable mouse usage (all modes)
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" Red color for trailing spaces in insert mode  
 if has("autocmd")
-  autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=darkred
+  "autocmd ColorScheme * highlight ExtraWhitespace guibg=#660000 ctermbg=52
+
+  highlight ExtraWhitespace guibg=#330000 ctermbg=52
+  au ColorScheme * highlight ExtraWhitespace guibg=#330000 ctermbg=52
+  au BufEnter * match ExtraWhitespace /\s\+$/
   au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  au InsertLeave * match ExtraWhitespace /\s\+$/
+  au InsertLeave * match ExtraWhiteSpace /\s\+$/
 endif
 
 "Requisito para rubyblock:
@@ -93,12 +98,12 @@ set listchars=tab:→\ ,eol:⁋
 nmap <F12> :set list!<CR>
 imap <F12> <ESC>:set list!<CR>
 highlight NonText guifg=#bbbbbb
-"highlight SpecialKey guifg=reverse 
+"highlight SpecialKey guifg=reverse
 "white guibg=lightgray
 
 " Previous and Next Buffer
 nmap <F7> <Esc>:bp<CR>
-nmap <F8> <Esc>:bn<CR> 
+nmap <F8> <Esc>:bn<CR>
 map <F6> <Esc>:BufExplorer<CR>
 imap <F6> <Esc>:BufExplorer<CR>
 
@@ -157,7 +162,7 @@ nmap <leader>o <ESC>:FufFile<CR>
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
-  set colorcolumn=80
+  set colorcolumn=80,110
   highlight ColorColumn guibg=#111111 cterm=NONE ctermbg=234
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
@@ -171,4 +176,10 @@ nnoremap <leader>h :set cursorline! cursorcolumn!<CR>
 
 " Save as root
 cmap w!! %!sudo tee > /dev/null %
+
+" Comment several lines, line by line or as a block
+noremap   <buffer> K      :s,^\(\s*\)[^# \t]\@=,\1#,e<CR>:nohls<CR>zvj
+noremap   <buffer> <C-K>  :s,^\(\s*\)#\s\@!,\1,e<CR>:nohls<CR>zvj
+
+
 
