@@ -49,12 +49,13 @@ call pathogen#helptags()
 "Requisito para rubyblock:
 runtime macros/matchit.vim
 
-if $COLORTERM == 'gnome-terminal' 
+"if $COLORTERM == 'gnome-terminal' 
   set term=gnome-256color 
   colorscheme railscasts 
-else 
-  colorscheme default 
-endif 
+"else 
+"  colorscheme default 
+"endif 
+
 
 " ------------------------------------------------------------------
 " Solarized Colorscheme Config
