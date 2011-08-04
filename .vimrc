@@ -40,17 +40,16 @@ set showmatch    " Show matching brackets.
 set ignorecase   " Do case insensitive matching
 set smartcase    " Do smart case matching
 set incsearch    " Incremental search
-"set autowrite   " Automatically save before commands like :next and :make
-set hidden      " Hide buffers when they are abandoned
-set mouse=a     " Enable mouse usage (all modes)
+set hlsearch     " Highlight search term
+set autowrite    " Automatically save before commands like :next and :make
+set hidden       " Hide buffers when they are abandoned
+set mouse=a      " Enable mouse usage (all modes)
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-" Red color for trailing spaces in insert mode  
+" Red color for trailing spaces in insert mode
 if has("autocmd")
-  "autocmd ColorScheme * highlight ExtraWhitespace guibg=#660000 ctermbg=52
-
   highlight ExtraWhitespace guibg=#330000 ctermbg=52
   au ColorScheme * highlight ExtraWhitespace guibg=#330000 ctermbg=52
   au BufEnter * match ExtraWhitespace /\s\+$/
@@ -162,7 +161,7 @@ nmap <leader>o <ESC>:FufFile<CR>
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
-  set colorcolumn=80,110
+  set colorcolumn=110
   highlight ColorColumn guibg=#111111 cterm=NONE ctermbg=234
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
