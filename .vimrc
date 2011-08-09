@@ -61,16 +61,14 @@ endif
 runtime macros/matchit.vim
 
 "if $COLORTERM == 'gnome-terminal'
+if has("gui_running")
+  "set guifont=Monaco:h14 "Envy\ Code\ R\ 12  "Monospaced\ 10
+else
   set term=gnome-256color
-  colorscheme railscasts
-"else
-"  colorscheme default
-"endif
+endif
 
-syntax enable
-set background=dark
-"colorscheme railscasts
-set guifont=Monaco\ 11 "Envy\ Code\ R\ 12  "Monospaced\ 10
+" Ok, I have it everywhere
+colorscheme railscasts
 
 " tab navigation like firefox
 nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
@@ -180,5 +178,7 @@ cmap w!! %!sudo tee > /dev/null %
 noremap   <buffer> K      :s,^\(\s*\)[^# \t]\@=,\1#,e<CR>:nohls<CR>zvj
 noremap   <buffer> <C-K>  :s,^\(\s*\)#\s\@!,\1,e<CR>:nohls<CR>zvj
 
-
-
+" Disable useless GUI Toolbar
+if has("gui_running")
+  set guioptions-=T
+endif 
