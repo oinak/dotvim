@@ -15,6 +15,7 @@ set ts=2 sts=2 sw=2 expandtab
 
 "" allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
@@ -34,14 +35,15 @@ endif
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
-set showcmd		" Show (partial) command in status line.
-set showmatch		" Show matching brackets.
-set ignorecase		" Do case insensitive matching
-set smartcase		" Do smart case matching
-set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
-"set hidden             " Hide buffers when they are abandoned
-"set mouse=a		" Enable mouse usage (all modes)
+set showcmd      " Show (partial) command in status line.
+set showmatch    " Show matching brackets.
+set ignorecase   " Do case insensitive matching
+set smartcase    " Do smart case matching
+set incsearch    " Incremental search
+set hlsearch     " Highlight search matches
+set autowrite    " Automatically save before commands like :next and :make
+set hidden       " Hide buffers when they are abandoned
+set mouse=a      " Enable mouse usage (all modes)
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -49,12 +51,12 @@ call pathogen#helptags()
 "Requisito para rubyblock:
 runtime macros/matchit.vim
 
-if $COLORTERM == 'gnome-terminal' 
-  set term=gnome-256color 
-  colorscheme railscasts 
-else 
-  colorscheme default 
-endif 
+if $COLORTERM == 'gnome-terminal'
+  set term=gnome-256color "farts at gvim TODO: check
+  colorscheme railscasts
+else
+  colorscheme default
+endif
 
 " ------------------------------------------------------------------
 " Solarized Colorscheme Config
@@ -65,7 +67,16 @@ let g:solarized_visibility="high"    "default value is normal
 syntax enable
 set background=dark
 colorscheme railscasts "solarized
-set guifont=Monaco\ 11 "Envy\ Code\ R\ 12  "Monospaced\ 10
+set guifont=Monaco\ 10 "Envy\ Code\ R\ 10  "Monospaced\ 10
+
+" Quickly set font (same config: diferent machines/displays)
+let mapleader = ","
+nmap <leader>fe :set guifont=Envy\ Code\ R\ 10<CR>
+nmap <leader>fm :set guifont=Monaco\ 10<CR>
+
+" Quickly edit vimrc
+nmap <leader>v :tabedit $MYVIMRC<CR>
+
 " ------------------------------------------------------------------
 
 " The following items are available options, but do not need to be
@@ -105,12 +116,12 @@ set listchars=tab:→\ ,eol:⁋
 nmap <F12> :set list!<CR>
 imap <F12> :set list!<CR>
 highlight NonText guifg=#bbbbbb
-"highlight SpecialKey guifg=reverse 
+"highlight SpecialKey guifg=reverse
 "white guibg=lightgray
 
 " Previous and Next Buffer
 nmap <F7> <Esc>:bp<CR>
-nmap <F8> <Esc>:bn<CR> 
+nmap <F8> <Esc>:bn<CR>
 map <F6> <Esc>:BufExplorer<CR>
 imap <F6> <Esc>:BufExplorer<CR>
 
@@ -119,9 +130,6 @@ imap <F6> <Esc>:BufExplorer<CR>
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
-
-let mapleader = ","
-nmap <leader>v :tabedit $MYVIMRC<CR>
 
 " Yes I have a weak soul, and bad habits, just bear with me
 imap <C-s> <Esc>:w<CR>i
@@ -166,7 +174,7 @@ nmap <leader>o <ESC>:FufFile<CR>
 
 " Red background beyond column 80
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%81v.\+/ 
+" match OverLength /\%81v.\+/
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
@@ -176,8 +184,12 @@ else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
+
+
+
 " Toggleable current line/column highlight
 highlight CursorLine   cterm=NONE ctermbg=darkgray ctermfg=white guibg=#111111 guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=darkgray ctermfg=white guibg=#111111 guifg=NONE
 nnoremap <c-f12> :set cursorline! cursorcolumn!<CR>
+
 
