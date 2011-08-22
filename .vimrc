@@ -5,7 +5,7 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 set ruler
-set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
+"set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
 set nowrap
 
@@ -13,13 +13,14 @@ set hidden
 set vb t_vb=
 set ts=2 sts=2 sw=2 expandtab
 
+
 "" allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 set whichwrap+=<,>,h,l
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
-"set background=dark
+set background=dark
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
@@ -48,48 +49,26 @@ set mouse=a      " Enable mouse usage (all modes)
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" Red color for trailing spaces in insert mode
+if has("autocmd")
+  highlight ExtraWhitespace guibg=#330000 ctermbg=52
+  au ColorScheme * highlight ExtraWhitespace guibg=#330000 ctermbg=52
+  au BufEnter * match ExtraWhitespace /\s\+$/
+  au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  au InsertLeave * match ExtraWhiteSpace /\s\+$/
+endif
+
 "Requisito para rubyblock:
 runtime macros/matchit.vim
 
-if $COLORTERM == 'gnome-terminal'
-  set term=gnome-256color "farts at gvim TODO: check
-  colorscheme railscasts
+"if $COLORTERM == 'gnome-terminal'
+if has("gui_running")
 else
-  colorscheme default
+  set term=gnome-256color
 endif
 
-" ------------------------------------------------------------------
-" Solarized Colorscheme Config
-" ------------------------------------------------------------------
-let g:solarized_italic=0    "default value is 1
-let g:solarized_contrast="high"    "default value is normal
-let g:solarized_visibility="high"    "default value is normal
-syntax enable
-set background=dark
-colorscheme railscasts "solarized
-set guifont=Monaco\ 10 "Envy\ Code\ R\ 10  "Monospaced\ 10
-
-" Quickly set font (same config: diferent machines/displays)
-let mapleader = ","
-nmap <leader>fe :set guifont=Envy\ Code\ R\ 10<CR>
-nmap <leader>fm :set guifont=Monaco\ 10<CR>
-
-" Quickly edit vimrc
-nmap <leader>v :tabedit $MYVIMRC<CR>
-
-" ------------------------------------------------------------------
-
-" The following items are available options, but do not need to be
-" included in your .vimrc as they are currently set to their defaults.
-
-" let g:solarized_termtrans=0
-" let g:solarized_degrade=0
-" let g:solarized_bold=1
-" let g:solarized_underline=1
-" let g:solarized_termcolors=16
-" let g:solarized_diffmode="normal"
-" let g:solarized_hitrail=0
-" let g:solarized_menu=1
+" Ok, I have it everywhere
+colorscheme railscasts
 
 " tab navigation like firefox
 nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
@@ -114,7 +93,7 @@ set listchars=tab:→\ ,eol:⁋
 
 "Invisible characters and colors
 nmap <F12> :set list!<CR>
-imap <F12> :set list!<CR>
+imap <F12> <ESC>:set list!<CR>
 highlight NonText guifg=#bbbbbb
 "highlight SpecialKey guifg=reverse
 "white guibg=lightgray
@@ -142,7 +121,6 @@ nmap <C-Down> ddp
 " Bubble multiple lines
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
-
 
 " add Ctrl-V option for paste
 vmap <C-c> "+yi
@@ -178,7 +156,7 @@ nmap <leader>o <ESC>:FufFile<CR>
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
-  set colorcolumn=80
+  set colorcolumn=110
   highlight ColorColumn guibg=#111111 cterm=NONE ctermbg=234
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
@@ -188,8 +166,19 @@ endif
 
 
 " Toggleable current line/column highlight
-highlight CursorLine   cterm=NONE ctermbg=darkgray ctermfg=white guibg=#111111 guifg=NONE
-highlight CursorColumn cterm=NONE ctermbg=darkgray ctermfg=white guibg=#111111 guifg=NONE
+highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#111111 guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#111111 guifg=NONE
 nnoremap <c-f12> :set cursorline! cursorcolumn!<CR>
+nnoremap <leader>h :set cursorline! cursorcolumn!<CR>
 
+" Save as root
+cmap w!! %!sudo tee > /dev/null %
 
+" Comment several lines, line by line or as a block
+noremap   <buffer> K      :s,^\(\s*\)[^# \t]\@=,\1#,e<CR>:nohls<CR>zvj
+noremap   <buffer> <C-K>  :s,^\(\s*\)#\s\@!,\1,e<CR>:nohls<CR>zvj
+
+" Disable useless GUI Toolbar
+if has("gui_running")
+  set guioptions-=T
+endif
