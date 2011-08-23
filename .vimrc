@@ -63,6 +63,7 @@ runtime macros/matchit.vim
 
 "if $COLORTERM == 'gnome-terminal'
 if has("gui_running")
+  " dealt with inside .gvimrc
 else
   set term=gnome-256color
 endif
