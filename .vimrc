@@ -160,14 +160,14 @@ nmap <leader>o <ESC>:FufFile<CR>
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
   set colorcolumn=110
-  highlight ColorColumn guibg=#111111 cterm=NONE ctermbg=234
+  highlight ColorColumn guibg=#331111 cterm=NONE ctermbg=234
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
 " Toggleable current line/column highlight
-highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#111111 guifg=NONE
-highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#111111 guifg=NONE
+highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
 nnoremap <c-f12> :set cursorline! cursorcolumn!<CR>
 nnoremap <leader>h :set cursorline! cursorcolumn!<CR>
 
