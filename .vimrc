@@ -16,6 +16,7 @@ set ts=2 sts=2 sw=2 expandtab
 
 "" allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
@@ -40,7 +41,7 @@ set showmatch    " Show matching brackets.
 set ignorecase   " Do case insensitive matching
 set smartcase    " Do smart case matching
 set incsearch    " Incremental search
-set hlsearch     " Highlight search term
+set hlsearch     " Highlight search matches
 set autowrite    " Automatically save before commands like :next and :make
 set hidden       " Hide buffers when they are abandoned
 set mouse=a      " Enable mouse usage (all modes)
@@ -62,7 +63,7 @@ runtime macros/matchit.vim
 
 "if $COLORTERM == 'gnome-terminal'
 if has("gui_running")
-  "set guifont=Monaco:h14 "Envy\ Code\ R\ 12  "Monospaced\ 10
+  " dealt with inside .gvimrc
 else
   set term=gnome-256color
 endif
@@ -109,9 +110,6 @@ imap <F6> <Esc>:BufExplorer<CR>
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
-
-let mapleader = ","
-nmap <leader>v :tabedit $MYVIMRC<CR>
 
 " Yes I have a weak soul, and bad habits, just bear with me
 imap <C-s> <Esc>:w<CR>i
@@ -165,6 +163,9 @@ else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
+
+
+
 " Toggleable current line/column highlight
 highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
@@ -181,4 +182,4 @@ noremap   <buffer> <C-K>  :s,^\(\s*\)#\s\@!,\1,e<CR>:nohls<CR>zvj
 " Disable useless GUI Toolbar
 if has("gui_running")
   set guioptions-=T
-endif 
+endif
