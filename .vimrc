@@ -146,6 +146,9 @@ imap <S-Left> <ESC>vh
 vmap <S-Left> h
 nmap <S-Left> vh
 
+" Preferred leader for spanish keyboard
+let mapleader = ","
+
 " Find files quickly by regex of their paths
 map <S-A-o> <ESC>:FufFile<CR>
 imap <S-A-o> <ESC>:FufFile<CR>
@@ -162,9 +165,6 @@ if exists('+colorcolumn')
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
-
-
-
 
 " Toggleable current line/column highlight
 highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
