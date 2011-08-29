@@ -150,6 +150,9 @@ imap <S-Left> <ESC>vh
 vmap <S-Left> h
 nmap <S-Left> vh
 
+" Preferred leader for spanish keyboard
+let mapleader = ","
+
 " Find files quickly by regex of their paths
 map <S-A-o> <ESC>:FufFile<CR>
 imap <S-A-o> <ESC>:FufFile<CR>
