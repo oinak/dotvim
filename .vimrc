@@ -106,6 +106,10 @@ map <F6> <Esc>:BufExplorer<CR>
 imap <F6> <Esc>:BufExplorer<CR>
 
 
+" Edit .vimrc configuration file
+let mapleader=","
+noremap <Leader>v :e $MYVIMRC<CR>
+
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
@@ -123,7 +127,7 @@ nmap <C-Down> ddp
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
-" add Ctrl-V option for paste
+" Ctrl-C, Ctrl-V option for copy/paste
 vmap <C-c> "+yi
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
@@ -163,14 +167,11 @@ else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
-
-
-
 " Toggleable current line/column highlight
 highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
 nnoremap <c-f12> :set cursorline! cursorcolumn!<CR>
-nnoremap <leader>h :set cursorline! cursorcolumn!<CR>
+nnoremap <leader>+ :set cursorline! cursorcolumn!<CR>
 
 " Save as root
 cmap w!! %!sudo tee > /dev/null %
@@ -181,5 +182,7 @@ noremap   <buffer> <C-K>  :s,^\(\s*\)#\s\@!,\1,e<CR>:nohls<CR>zvj
 
 " Disable useless GUI Toolbar
 if has("gui_running")
-  set guioptions-=T
+  " set guioptions-=T
+  " set guioptions-=m
+  set guioptions=aiA
 endif
