@@ -16,6 +16,7 @@ set ts=2 sts=2 sw=2 expandtab
 
 "" allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
@@ -40,7 +41,7 @@ set showmatch    " Show matching brackets.
 set ignorecase   " Do case insensitive matching
 set smartcase    " Do smart case matching
 set incsearch    " Incremental search
-set hlsearch     " Highlight search term
+set hlsearch     " Highlight search matches
 set autowrite    " Automatically save before commands like :next and :make
 set hidden       " Hide buffers when they are abandoned
 set mouse=a      " Enable mouse usage (all modes)
@@ -65,19 +66,17 @@ endfunction
 map <leader>s :call StripWhitespace()<CR>
 
 "Requisito para rubyblock:
-runtime macros/matchiT.VIM
+runtime macros/matchit.vim
 
-if $COLORTERM == 'gnome-terminal'
-  set term=gnome-256color
-  colorscheme railscasts
+"if $COLORTERM == 'gnome-terminal'
+if has("gui_running")
+  " dealt with inside .gvimrc
 else
-  colorscheme desert
+  set term=gnome-256color
 endif
 
-syntax enable
-set background=dark
+" Ok, I have it everywhere
 colorscheme railscasts
-set guifont=Monaco\ 11 "Envy\ Code\ R\ 12  "Monospaced\ 10
 
 " tab navigation like firefox
 nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
@@ -114,13 +113,14 @@ map <F6> <Esc>:BufExplorer<CR>
 imap <F6> <Esc>:BufExplorer<CR>
 
 
+" Edit .vimrc configuration file
+let mapleader=","
+noremap <Leader>v :e $MYVIMRC<CR>
+
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
-
-let mapleader = ","
-nmap <leader>v :tabedit $MYVIMRC<CR>
 
 " Yes I have a weak soul, and bad habits, just bear with me
 imap <C-s> <Esc>:w<CR>i
@@ -134,7 +134,7 @@ nmap <C-Down> ddp
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
-" add Ctrl-V option for paste
+" Ctrl-C, Ctrl-V option for copy/paste
 vmap <C-c> "+yi
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
@@ -157,6 +157,9 @@ imap <S-Left> <ESC>vh
 vmap <S-Left> h
 nmap <S-Left> vh
 
+" Preferred leader for spanish keyboard
+let mapleader = ","
+
 " Find files quickly by regex of their paths
 map <S-A-o> <ESC>:FufFile<CR>
 imap <S-A-o> <ESC>:FufFile<CR>
@@ -169,16 +172,16 @@ nmap <leader>o <ESC>:FufFile<CR>
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
   set colorcolumn=110
-  highlight ColorColumn guibg=#111111 cterm=NONE ctermbg=234
+  highlight ColorColumn guibg=#331111 cterm=NONE ctermbg=234
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
 " Toggleable current line/column highlight
-highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#111111 guifg=NONE
-highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#111111 guifg=NONE
+highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
 nnoremap <c-f12> :set cursorline! cursorcolumn!<CR>
-nnoremap <leader>h :set cursorline! cursorcolumn!<CR>
+nnoremap <leader>+ :set cursorline! cursorcolumn!<CR>
 
 " Save as root
 cmap w!! %!sudo tee > /dev/null %
@@ -213,3 +216,9 @@ set statusline+=\ %P    "percent through file
 set laststatus=2
 
 
+" Disable useless GUI Toolbar
+if has("gui_running")
+  " set guioptions-=T
+  " set guioptions-=m
+  set guioptions=aiA
+endif

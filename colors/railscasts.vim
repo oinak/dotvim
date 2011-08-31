@@ -46,9 +46,9 @@ hi link htmlEndTag                  xmlEndTag
 
 highlight Normal                    guifg=#E6E1DC guibg=#000000
 highlight Cursor                    guifg=#000000 ctermfg=0 guibg=#FFFFFF ctermbg=15
-highlight CursorLine                guibg=#111111 ctermbg=234 ctermfg=NONE
-highlight CursorColumn              guibg=#111111 ctermbg=234 ctermfg=NONE guifg=NONE
-highlight ColorColumn               guibg=#111111 cterm=NONE ctermbg=234
+highlight CursorLine                guibg=#222222 ctermbg=234 ctermfg=NONE
+highlight CursorColumn              guibg=#222222 ctermbg=234 ctermfg=NONE guifg=NONE
+highlight ColorColumn               guibg=#331111 cterm=NONE ctermbg=234
 
 highlight Comment                   guifg=#BC9458 ctermfg=180 gui=NONE
 highlight Constant                  guifg=#6D9CBE ctermfg=73
