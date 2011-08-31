@@ -44,6 +44,7 @@ set hlsearch     " Highlight search term
 set autowrite    " Automatically save before commands like :next and :make
 set hidden       " Hide buffers when they are abandoned
 set mouse=a      " Enable mouse usage (all modes)
+set ttymouse=xterm2 "Enable mouse in terminal
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -56,6 +57,12 @@ if has("autocmd")
   au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   au InsertLeave * match ExtraWhiteSpace /\s\+$/
 endif
+
+" strip trailing whitespace
+function! StripWhitespace()
+    exec ':%s/ \+$//gc'
+endfunction
+map <leader>s :call StripWhitespace()<CR>
 
 "Requisito para rubyblock:
 runtime macros/matchiT.VIM
@@ -180,5 +187,29 @@ cmap w!! %!sudo tee > /dev/null %
 noremap   <buffer> K      :s,^\(\s*\)[^# \t]\@=,\1#,e<CR>:nohls<CR>zvj
 noremap   <buffer> <C-K>  :s,^\(\s*\)#\s\@!,\1,e<CR>:nohls<CR>zvj
 
+" Fancy status line
+autocmd BufEnter *
+                       \ if exists("b:rails_root") |
+                       \   let g:base_dir = b:rails_root |
+                       \ endif |
+"statusline setup
+set statusline=%f       "tail of the filename
+
+"Git
+set statusline+=%{GitBranchInfoString()}
+let g:git_branch_status_head_current=1   " This will show just the current head branch name 
+let g:git_branch_status_text=" "         " This will show 'text' before the branches. If not set ' Git ' (with a trailing left space) will be displayed. 
+let g:git_branch_status_nogit=""         " The message when there is no Git repository on the current dir 
+let g:git_branch_status_around="()"      " Characters to put around the branch strings. Need to be a pair or characters, the first will be on the beginning of the branch string and the last on the end. 
+let g:git_branch_status_ignore_remotes=1 " Ignore the remote branches. If you don't want information about them, this can make things works faster
+
+"RVM
+" set statusline+=%{exists('g:loaded_rvm')?rvm#statusline():''}
+
+set statusline+=%=      "left/right separator
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+set laststatus=2
 
 
