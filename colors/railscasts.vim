@@ -50,7 +50,7 @@ highlight CursorLine                guibg=#111111 ctermbg=234 ctermfg=NONE
 highlight CursorColumn              guibg=#111111 ctermbg=234 ctermfg=NONE guifg=NONE
 highlight ColorColumn               guibg=#111111 cterm=NONE ctermbg=234
 
-highlight Comment                   guifg=#BC9458 ctermfg=180 gui=italic
+highlight Comment                   guifg=#BC9458 ctermfg=180 gui=NONE
 highlight Constant                  guifg=#6D9CBE ctermfg=73
 highlight Define                    guifg=#CC7833 ctermfg=173
 highlight Error                     guifg=#FFC66D ctermfg=221 guibg=#990000 ctermbg=88
