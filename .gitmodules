@@ -25,3 +25,6 @@
 [submodule "bundle/git-branch-info"]
   path = bundle/git-branch-info
   url = https://github.com/taq/vim-git-branch-info.git
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
