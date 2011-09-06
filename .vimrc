@@ -222,3 +222,12 @@ if has("gui_running")
   " set guioptions-=m
   set guioptions=aiA
 endif
+
+" Sytastic plugin options
+let g:syntastic_auto_loc_list=1
+"SyntasticEnable 'ruby'
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_jump=1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
