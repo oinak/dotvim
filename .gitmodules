@@ -10,9 +10,6 @@
 [submodule "bundle/gitv"]
   path = bundle/gitv
   url = https://github.com/gregsexton/gitv.git
-[submodule "bundle/snipmate"]
-  path = bundle/snipmate
-  url = https://github.com/msanders/snipmate.vim.git
 [submodule "bundle/vim-textobj-rubyblock"]
   path = bundle/vim-textobj-rubyblock
   url = https://github.com/nelstrom/vim-textobj-rubyblock.git
