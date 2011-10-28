@@ -231,3 +231,7 @@ let g:syntastic_auto_jump=1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+nmap <F9> :TlistToggle<CR>
+imap <F9> <ESC>:TlistToggle<CR>
+map <F9> :TlistToggle<CR>
