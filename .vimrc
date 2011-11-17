@@ -75,9 +75,6 @@ else
   set term=gnome-256color
 endif
 
-" Ok, I have it everywhere
-colorscheme railscasts
-
 " tab navigation like firefox
 nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
 nmap <C-tab> :tabnext<CR>       " C-AvPag por defecto
@@ -235,3 +232,22 @@ set statusline+=%*
 nmap <F9> :TlistToggle<CR>
 imap <F9> <ESC>:TlistToggle<CR>
 map <F9> :TlistToggle<CR>
+
+
+" IMPORTANT: Uncomment one of the following lines to force
+" using 256 colors (or 88 colors) if your terminal supports it,
+" but does not automatically use 256 colors by default.
+set t_Co=256
+" "set t_Co=88
+if (&t_Co == 256 || &t_Co == 88) && !has('gui_running') && filereadable(expand("$HOME/.vim/bundle/guicolorscheme/plugin/guicolorscheme.vim"))
+  " Use the guicolorscheme plugin to makes 256-color or 88-color
+  " terminal use GUI colors rather than cterm colors.
+  runtime! plugin/guicolorscheme.vim
+  GuiColorScheme railscasts
+else
+  " For 8-color 16-color terminals or for gvim, just use the
+  " regular :colorscheme command.
+  colorscheme railscasts
+endif
+
+
