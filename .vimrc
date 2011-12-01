@@ -186,10 +186,6 @@ nnoremap <leader>+ :set cursorline! cursorcolumn!<CR>
 " Save as root
 cmap w!! %!sudo tee > /dev/null %
 
-" Comment several lines, line by line or as a block
-noremap   <buffer> K      :s,^\(\s*\)[^# \t]\@=,\1#,e<CR>:nohls<CR>zvj
-noremap   <buffer> <C-K>  :s,^\(\s*\)#\s\@!,\1,e<CR>:nohls<CR>zvj
-
 " Fancy status line
 autocmd BufEnter *
                        \ if exists("b:rails_root") |
@@ -235,3 +231,18 @@ set statusline+=%*
 nmap <F9> :TlistToggle<CR>
 imap <F9> <ESC>:TlistToggle<CR>
 map <F9> :TlistToggle<CR>
+
+
+" Default File explorer (tree mode)
+let g:netrw_preview   = 1
+let g:netrw_liststyle = 1
+let g:netrw_winsize   = 35
+nmap <F2> :e.<CR>
+imap <F2> <ESC>:e.<CR>
+nmap <S-F2> :Ex<CR>
+imap <S-F2> <ESC>:Ex<CR>
+
+ab refrences references
+ab calse clase
+ab fisrt first
+
