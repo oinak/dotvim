@@ -120,6 +120,7 @@ if has("autocmd")
 endif
 
 " Yes I have a weak soul, and bad habits, just bear with me
+" remember to add 'stty -ixon -ixoff' to the shell rc file
 imap <C-s> <Esc>:w<CR>i
 nmap <C-s> :w<CR>
 
@@ -243,11 +244,11 @@ if (&t_Co == 256 || &t_Co == 88) && !has('gui_running') && filereadable(expand("
   " Use the guicolorscheme plugin to makes 256-color or 88-color
   " terminal use GUI colors rather than cterm colors.
   runtime! plugin/guicolorscheme.vim
-  GuiColorScheme railscasts
+  GuiColorScheme fer-railscasts
 else
   " For 8-color 16-color terminals or for gvim, just use the
   " regular :colorscheme command.
-  colorscheme railscasts
+  colorscheme fer-railscasts
 endif
 
 
