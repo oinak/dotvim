@@ -251,4 +251,6 @@ else
   colorscheme fer-railscasts
 endif
 
+" Leader shortcuts
+nnoremap <leader>a :Ack
 
