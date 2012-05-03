@@ -234,11 +234,6 @@ imap <F9> <ESC>:TlistToggle<CR>
 map <F9> :TlistToggle<CR>
 
 
-<<<<<<< HEAD
-" Default File explorer (tree mode)
-let g:netrw_preview   = 1
-let g:netrw_liststyle = 1
-let g:netrw_winsize   = 35
 nmap <F2> :e.<CR>
 imap <F2> <ESC>:e.<CR>
 nmap <S-F2> :Ex<CR>
@@ -247,7 +242,7 @@ imap <S-F2> <ESC>:Ex<CR>
 ab refrences references
 ab calse clase
 ab fisrt first
-=======
+
 " IMPORTANT: Uncomment one of the following lines to force
 " using 256 colors (or 88 colors) if your terminal supports it,
 " but does not automatically use 256 colors by default.
@@ -266,5 +261,4 @@ endif
 
 " Leader shortcuts
 nnoremap <leader>a :Ack
->>>>>>> ef4d0daf0639e0c142174ec7e5787fe959d38267
 
