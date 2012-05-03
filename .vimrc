@@ -131,9 +131,13 @@ nmap <C-s> :w<CR>
 " Bubble single lines
 nmap <C-Up> ddkP
 nmap <C-Down> ddp
+nmap <C-k> ddkP
+nmap <C-j> ddp
 " Bubble multiple lines
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
+vmap <C-k> xkP`[V`]
+vmap <C-j> xp`[V`]
 
 " Ctrl-C, Ctrl-V option for copy/paste
 vmap <C-c> "+yi
