@@ -123,6 +123,7 @@ if has("autocmd")
 endif
 
 " Yes I have a weak soul, and bad habits, just bear with me
+" remember to add 'stty -ixon -ixoff' to the shell rc file
 imap <C-s> <Esc>:w<CR>i
 nmap <C-s> :w<CR>
 
@@ -233,6 +234,7 @@ imap <F9> <ESC>:TlistToggle<CR>
 map <F9> :TlistToggle<CR>
 
 
+<<<<<<< HEAD
 " Default File explorer (tree mode)
 let g:netrw_preview   = 1
 let g:netrw_liststyle = 1
@@ -245,4 +247,24 @@ imap <S-F2> <ESC>:Ex<CR>
 ab refrences references
 ab calse clase
 ab fisrt first
+=======
+" IMPORTANT: Uncomment one of the following lines to force
+" using 256 colors (or 88 colors) if your terminal supports it,
+" but does not automatically use 256 colors by default.
+set t_Co=256
+" "set t_Co=88
+if (&t_Co == 256 || &t_Co == 88) && !has('gui_running') && filereadable(expand("$HOME/.vim/bundle/guicolorscheme/plugin/guicolorscheme.vim"))
+  " Use the guicolorscheme plugin to makes 256-color or 88-color
+  " terminal use GUI colors rather than cterm colors.
+  runtime! plugin/guicolorscheme.vim
+  GuiColorScheme fer-railscasts
+else
+  " For 8-color 16-color terminals or for gvim, just use the
+  " regular :colorscheme command.
+  colorscheme fer-railscasts
+endif
+
+" Leader shortcuts
+nnoremap <leader>a :Ack
+>>>>>>> ef4d0daf0639e0c142174ec7e5787fe959d38267
 
