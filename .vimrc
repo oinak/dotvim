@@ -239,15 +239,15 @@ map <F9> :TlistToggle<CR>
 " but does not automatically use 256 colors by default.
 set t_Co=256
 " "set t_Co=88
-if (&t_Co == 256 || &t_Co == 88) && !has('gui_running') && filereadable(expand("$HOME/.vim/bundle/guicolorscheme/plugin/guicolorscheme.vim"))
+"if (&t_Co == 256 || &t_Co == 88) && !has('gui_running') && filereadable(expand("$HOME/.vim/bundle/guicolorscheme/plugin/guicolorscheme.vim"))
   " Use the guicolorscheme plugin to makes 256-color or 88-color
   " terminal use GUI colors rather than cterm colors.
-  runtime! plugin/guicolorscheme.vim
-  GuiColorScheme railscasts
-else
+"  runtime! plugin/guicolorscheme.vim
+"  GuiColorScheme fer-railscasts
+"else
   " For 8-color 16-color terminals or for gvim, just use the
   " regular :colorscheme command.
   colorscheme railscasts
-endif
+"endif
 
 

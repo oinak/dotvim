@@ -5,3 +5,4 @@ if has("gui_running")
     set guifont=Monaco:h13.00
   endif
 endif
+colorscheme railscasts
