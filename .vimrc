@@ -75,6 +75,9 @@ else
   set term=gnome-256color
 endif
 
+" Ok, I have it everywhere
+colorscheme railscasts
+
 " tab navigation like firefox
 nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
 nmap <C-tab> :tabnext<CR>       " C-AvPag por defecto
@@ -120,6 +123,7 @@ if has("autocmd")
 endif
 
 " Yes I have a weak soul, and bad habits, just bear with me
+" remember to add 'stty -ixon -ixoff' to the shell rc file
 imap <C-s> <Esc>:w<CR>i
 nmap <C-s> :w<CR>
 
@@ -127,9 +131,13 @@ nmap <C-s> :w<CR>
 " Bubble single lines
 nmap <C-Up> ddkP
 nmap <C-Down> ddp
+nmap <C-k> ddkP
+nmap <C-j> ddp
 " Bubble multiple lines
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
+vmap <C-k> xkP`[V`]
+vmap <C-j> xp`[V`]
 
 " Ctrl-C, Ctrl-V option for copy/paste
 vmap <C-c> "+yi
@@ -183,10 +191,6 @@ nnoremap <leader>+ :set cursorline! cursorcolumn!<CR>
 " Save as root
 cmap w!! %!sudo tee > /dev/null %
 
-" Comment several lines, line by line or as a block
-noremap   <buffer> K      :s,^\(\s*\)[^# \t]\@=,\1#,e<CR>:nohls<CR>zvj
-noremap   <buffer> <C-K>  :s,^\(\s*\)#\s\@!,\1,e<CR>:nohls<CR>zvj
-
 " Fancy status line
 autocmd BufEnter *
                        \ if exists("b:rails_root") |
@@ -234,6 +238,15 @@ imap <F9> <ESC>:TlistToggle<CR>
 map <F9> :TlistToggle<CR>
 
 
+nmap <F2> :e.<CR>
+imap <F2> <ESC>:e.<CR>
+nmap <S-F2> :Ex<CR>
+imap <S-F2> <ESC>:Ex<CR>
+
+ab refrences references
+ab calse clase
+ab fisrt first
+
 " IMPORTANT: Uncomment one of the following lines to force
 " using 256 colors (or 88 colors) if your terminal supports it,
 " but does not automatically use 256 colors by default.
@@ -250,4 +263,6 @@ set t_Co=256
   colorscheme railscasts
 "endif
 
+" Leader shortcuts
+nnoremap <leader>a :Ack
 

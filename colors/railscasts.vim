@@ -71,7 +71,7 @@ highlight Visual                    guibg=#5A647E ctermbg=60
 
 highlight DiffAdd                   guifg=#E6E1DC ctermfg=7 guibg=#519F50 ctermbg=71
 highlight DiffDelete                guifg=#E6E1DC ctermfg=7 guibg=#660000 ctermbg=52
-highlight Special                   guifg=#DA4939 ctermfg=167 
+highlight Special                   guifg=#DA4939 ctermfg=167
 
 highlight pythonBuiltin             guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
 highlight rubyBlockParameter        guifg=#FFFFFF ctermfg=15
@@ -96,5 +96,17 @@ highlight SpellBad                  guifg=#D70000 ctermfg=160 ctermbg=NONE cterm
 highlight SpellRare                 guifg=#D75F87 ctermfg=168 guibg=NONE ctermbg=NONE gui=underline cterm=underline
 highlight SpellCap                  guifg=#D0D0FF ctermfg=189 guibg=NONE ctermbg=NONE gui=underline cterm=underline
 highlight MatchParen                guifg=#FFFFFF ctermfg=15 guibg=#005f5f ctermbg=23
+
+"" CtrlP buffer:
+"" the message when no match is found (Error)
+" highlight CtrlPNoEntries
+"" the line prefix '>' in the match window
+" highlight CtrlPLinePre
+"" the prompt’s base (Comment)
+" highlight CtrlPPrtBase
+"" the prompt’s text (|hl-Normal|)
+" highlight CtrlPPrtText
+" the prompt’s cursor when moving over the text (Constant)
+highlight CtrlPPrtCursor            guifg=#FFC66D ctermfg=221 gui=NONE cterm=underline
 
 
