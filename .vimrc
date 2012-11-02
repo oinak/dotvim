@@ -59,11 +59,6 @@ if has("autocmd")
   au InsertLeave * match ExtraWhiteSpace /\s\+$/
 endif
 
-" strip trailing whitespace
-function! StripWhitespace()
-    exec ':%s/ \+$//gc'
-endfunction
-map <leader>s :call StripWhitespace()<CR>
 
 "Requisito para rubyblock:
 runtime macros/matchit.vim
@@ -76,7 +71,7 @@ else
 endif
 
 " Ok, I have it everywhere
-colorscheme railscasts
+colorscheme solarized
 
 " tab navigation like firefox
 nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
@@ -247,22 +242,12 @@ ab refrences references
 ab calse clase
 ab fisrt first
 
-" IMPORTANT: Uncomment one of the following lines to force
-" using 256 colors (or 88 colors) if your terminal supports it,
-" but does not automatically use 256 colors by default.
-set t_Co=256
-" "set t_Co=88
-"if (&t_Co == 256 || &t_Co == 88) && !has('gui_running') && filereadable(expand("$HOME/.vim/bundle/guicolorscheme/plugin/guicolorscheme.vim"))
-  " Use the guicolorscheme plugin to makes 256-color or 88-color
-  " terminal use GUI colors rather than cterm colors.
-"  runtime! plugin/guicolorscheme.vim
-"  GuiColorScheme fer-railscasts
-"else
-  " For 8-color 16-color terminals or for gvim, just use the
-  " regular :colorscheme command.
-  colorscheme railscasts
-"endif
+let g:solarized_termcolors=16
+colorscheme solarized
 
 " Leader shortcuts
 nnoremap <leader>a :Ack
-
+nnoremap <leader>j <ESC>:w<CR>:!node %<CR>
+nnoremap <leader>m <ESC>:%s/<C-v><C-m>//g<CR>
+nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
+nnoremap <F5> <ESC>:e! %<CR>

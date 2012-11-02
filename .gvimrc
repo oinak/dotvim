@@ -1,8 +1,8 @@
 if has("gui_running")
   if has("gui_gtk2")
-    set guifont=Ubuntu\ Mono\ 15 "Envy\ Code\ R\ 10 " Better rendering & two more lines
-  else "if has("gui_win32")
+    set guifont=Ubuntu\ Mono\ 12
+  else
     set guifont=Monaco:h13.00
   endif
 endif
-colorscheme railscasts
+colorscheme solarized
