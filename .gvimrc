@@ -6,3 +6,5 @@ if has("gui_running")
   endif
 endif
 colorscheme solarized
+set mousemodel=popup
+

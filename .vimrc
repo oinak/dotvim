@@ -251,3 +251,6 @@ nnoremap <leader>j <ESC>:w<CR>:!node %<CR>
 nnoremap <leader>m <ESC>:%s/<C-v><C-m>//g<CR>
 nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
 nnoremap <F5> <ESC>:e! %<CR>
+
+runtime plugins/spellfile.vim
+setlocal spell spelllang=es
