@@ -261,3 +261,5 @@ if exists(":Tabularize")
   vmap <leader>a> :Tabularize /=><cr>
 endif
 
+runtime plugins/spellfile.vim
+setlocal spell spelllang=es
