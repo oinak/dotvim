@@ -263,3 +263,38 @@ endif
 
 runtime plugins/spellfile.vim
 " setlocal spell spelllang=es
+"
+
+
+" If enabled, syntastic will do syntax checks when buffers are first loaded as
+" well as on saving
+let g:syntastic_check_on_open=1
+
+" If enabled, syntastic will error message associated with the current line to
+" the command window. If multiple errors are found, the first will be used.
+let g:syntastic_echo_current_error=1
+
+" Use this option to tell syntastic whether to use the |:sign| interface to mark
+" syntax errors:
+let g:syntastic_enable_signs=1
+
+" Use this option to control what the syntastic |:sign| text contains. Several
+" error symobls can be customized:
+let g:syntastic_error_symbol = '!!'
+let g:syntastic_style_error_symbol = 's!'
+let g:syntastic_warning_symbol = '!?'
+let g:syntastic_style_warning_symbol = 's?'
+
+" Use this option to tell syntastic whether to display error messages in balloons
+" when the mouse is hovered over erroneous lines:
+let g:syntastic_enable_balloons = 1
+
+" Use this option to tell syntastic whether to use syntax highlighting to mark
+" errors (where possible). Highlighting can be turned off with 0
+let g:syntastic_enable_highlighting = 1
+
+" Enable this option if you want the cursor to jump to the first detected error
+" when saving or opening a file:
+let g:syntastic_auto_jump = 1
+
+
