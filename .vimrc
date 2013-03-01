@@ -110,7 +110,7 @@ imap <F6> <Esc>:BufExplorer<CR>
 
 " Edit .vimrc configuration file
 let mapleader=","
-noremap <Leader>v :e $MYVIMRC<CR>
+noremap <Leader>r :e $MYVIMRC<CR>
 
 " Source the vimrc file after saving it
 if has("autocmd")
@@ -160,14 +160,9 @@ nmap <S-Left> vh
 " Preferred leader for spanish keyboard
 let mapleader = ","
 
-" Find files quickly by regex of their paths
-map <S-A-o> <ESC>:FufFile<CR>
-imap <S-A-o> <ESC>:FufFile<CR>
-nmap <leader>o <ESC>:FufFile<CR>
-
 " Red background beyond column 80
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%81v.\+/
+highlight OverLength ctermbg=red ctermfg=white guibg=#331111
+match OverLength /\%111v.\+/
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
@@ -297,4 +292,8 @@ let g:syntastic_enable_highlighting = 1
 " when saving or opening a file:
 let g:syntastic_auto_jump = 1
 
-
+" <Leader>b - set breakpoint at current line
+" <Leader>v - open/close window with variables. You can expand/collapse variables by 'o' in normal mode or left-mouse double-click
+" <Leader>n - step over
+" <Leader>s - step into
+" <Leader>c - continue
