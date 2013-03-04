@@ -300,3 +300,12 @@ let g:syntastic_auto_jump = 1
 " <Leader>n - step over
 " <Leader>s - step into
 " <Leader>c - continue
+
+" Use Ag as Ack
+" let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Read about ag from https://github.com/ggreer/the_silver_searcher
+" Install from http://swiftsignal.com/packages/
+let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
+
+
