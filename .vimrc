@@ -49,6 +49,7 @@ set ttymouse=xterm2 "Enable mouse in terminal
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
+call pathogen#infect()
 
 " Red color for trailing spaces in insert mode
 if has("autocmd")
@@ -217,11 +218,13 @@ endif
 " Sytastic plugin options
 let g:syntastic_auto_loc_list=1
 "SyntasticEnable 'ruby'
+let g:syntastic_ruby_checkers=['mri']
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_jump=1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+autocmd FileType ruby map <F4> :w<CR>:!ruby -c %<CR>
 
 nmap <F9> :TlistToggle<CR>
 imap <F9> <ESC>:TlistToggle<CR>
