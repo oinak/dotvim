@@ -81,8 +81,8 @@ map <C-S-tab> :tabprevious<CR>
 map <C-tab> :tabnext<CR>
 imap <C-S-tab> <Esc>:tabprevious<CR>i
 imap <C-tab> <Esc>:tabnext<CR>i
-nmap <C-t> :tabnew<CR>
-imap <C-t> <Esc>:tabnew<CR>
+"nmap <C-t> :tabnew<CR>
+"imap <C-t> <Esc>:tabnew<CR>
 
 " Region indent/outdent RubyMine style
 nmap <S-A-Left> <<
@@ -307,5 +307,4 @@ let g:syntastic_auto_jump = 1
 " Read about ag from https://github.com/ggreer/the_silver_searcher
 " Install from http://swiftsignal.com/packages/
 let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
-
 

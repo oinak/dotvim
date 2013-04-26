@@ -80,6 +80,7 @@ highlight rubyConstant              guifg=#DA4939 ctermfg=167
 highlight rubyInstanceVariable      guifg=#D0D0FF ctermfg=189
 highlight rubyInterpolation         guifg=#519F50 ctermfg=107
 highlight rubyLocalVariableOrMethod guifg=#D0D0FF ctermfg=189
+
 highlight rubyPredefinedConstant    guifg=#DA4939 ctermfg=167
 highlight rubyPseudoVariable        guifg=#FFC66D ctermfg=221
 highlight rubyStringDelimiter       guifg=#A5C261 ctermfg=143
@@ -109,4 +110,9 @@ highlight MatchParen                guifg=#FFFFFF ctermfg=15 guibg=#005f5f cterm
 " the prompt’s cursor when moving over the text (Constant)
 highlight CtrlPPrtCursor            guifg=#FFC66D ctermfg=221 gui=NONE cterm=underline
 
+hi Pmenu ctermfg=0 ctermbg=6 guibg=#444444 
+hi PmenuSel ctermfg=7 ctermbg=4 guibg=#555555 guifg=#ffffff gui=bold
+
+" let ruby_operators = 1
+highlight rubyOperator             guifg=#CC7833 ctermfg=173 cterm=NONE
 
