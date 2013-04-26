@@ -71,7 +71,7 @@ else
 endif
 
 " Ok, I have it everywhere
-colorscheme solarized
+colorscheme railscasts
 
 " tab navigation like firefox
 nmap <C-S-tab> :tabprevious<CR> " C-RePag por defecto
@@ -243,7 +243,7 @@ ab calse clase
 ab fisrt first
 
 let g:solarized_termcolors=16
-colorscheme solarized
+colorscheme railscasts
 
 " Leader shortcuts
 nnoremap <leader>a :Ack
@@ -253,4 +253,4 @@ nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
 nnoremap <F5> <ESC>:e! %<CR>
 
 runtime plugins/spellfile.vim
-setlocal spell spelllang=es
+" setlocal spell spelllang=es
