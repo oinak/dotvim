@@ -49,6 +49,7 @@ set ttymouse=xterm2 "Enable mouse in terminal
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
+call pathogen#infect()
 
 " Red color for trailing spaces in insert mode
 if has("autocmd")
@@ -80,8 +81,8 @@ map <C-S-tab> :tabprevious<CR>
 map <C-tab> :tabnext<CR>
 imap <C-S-tab> <Esc>:tabprevious<CR>i
 imap <C-tab> <Esc>:tabnext<CR>i
-nmap <C-t> :tabnew<CR>
-imap <C-t> <Esc>:tabnew<CR>
+"nmap <C-t> :tabnew<CR>
+"imap <C-t> <Esc>:tabnew<CR>
 
 " Region indent/outdent RubyMine style
 nmap <S-A-Left> <<
@@ -110,7 +111,7 @@ imap <F6> <Esc>:BufExplorer<CR>
 
 " Edit .vimrc configuration file
 let mapleader=","
-noremap <Leader>v :e $MYVIMRC<CR>
+noremap <Leader>r :e $MYVIMRC<CR>
 
 " Source the vimrc file after saving it
 if has("autocmd")
@@ -160,14 +161,9 @@ nmap <S-Left> vh
 " Preferred leader for spanish keyboard
 let mapleader = ","
 
-" Find files quickly by regex of their paths
-map <S-A-o> <ESC>:FufFile<CR>
-imap <S-A-o> <ESC>:FufFile<CR>
-nmap <leader>o <ESC>:FufFile<CR>
-
 " Red background beyond column 80
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%81v.\+/
+highlight OverLength ctermbg=red ctermfg=white guibg=#331111
+match OverLength /\%111v.\+/
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
@@ -222,11 +218,13 @@ endif
 " Sytastic plugin options
 let g:syntastic_auto_loc_list=1
 "SyntasticEnable 'ruby'
+let g:syntastic_ruby_checkers=['mri']
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_jump=1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+autocmd FileType ruby map <F4> :w<CR>:!ruby -c %<CR>
 
 nmap <F9> :TlistToggle<CR>
 imap <F9> <ESC>:TlistToggle<CR>
@@ -242,15 +240,68 @@ ab refrences references
 ab calse clase
 ab fisrt first
 
-let g:solarized_termcolors=16
 colorscheme railscasts
 
 " Leader shortcuts
-nnoremap <leader>a :Ack
 nnoremap <leader>j <ESC>:w<CR>:!node %<CR>
 nnoremap <leader>m <ESC>:%s/<C-v><C-m>//g<CR>
 nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
 nnoremap <F5> <ESC>:e! %<CR>
 
+" Assisted alignment
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+  nmap <leader>a> :Tabularize /=><cr>
+  vmap <leader>a> :Tabularize /=><cr>
+endif
+
 runtime plugins/spellfile.vim
 " setlocal spell spelllang=es
+
+" If enabled, syntastic will do syntax checks when buffers are first loaded as
+" well as on saving
+let g:syntastic_check_on_open=1
+
+" If enabled, syntastic will error message associated with the current line to
+" the command window. If multiple errors are found, the first will be used.
+let g:syntastic_echo_current_error=1
+
+" Use this option to tell syntastic whether to use the |:sign| interface to mark
+" syntax errors:
+let g:syntastic_enable_signs=1
+
+" Use this option to control what the syntastic |:sign| text contains. Several
+" error symobls can be customized:
+let g:syntastic_error_symbol = '!!'
+let g:syntastic_style_error_symbol = 's!'
+let g:syntastic_warning_symbol = '!?'
+let g:syntastic_style_warning_symbol = 's?'
+
+" Use this option to tell syntastic whether to display error messages in balloons
+" when the mouse is hovered over erroneous lines:
+let g:syntastic_enable_balloons = 1
+
+" Use this option to tell syntastic whether to use syntax highlighting to mark
+" errors (where possible). Highlighting can be turned off with 0
+let g:syntastic_enable_highlighting = 1
+
+" Enable this option if you want the cursor to jump to the first detected error
+" when saving or opening a file:
+let g:syntastic_auto_jump = 1
+
+" <Leader>b - set breakpoint at current line
+" <Leader>v - open/close window with variables. You can expand/collapse variables by 'o' in normal mode or left-mouse double-click
+" <Leader>n - step over
+" <Leader>s - step into
+" <Leader>c - continue
+
+" Use Ag as Ack
+" let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Read about ag from https://github.com/ggreer/the_silver_searcher
+" Install from http://swiftsignal.com/packages/
+let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
+
