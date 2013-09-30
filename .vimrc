@@ -305,3 +305,8 @@ let g:syntastic_auto_jump = 1
 " Install from http://swiftsignal.com/packages/
 let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
 
+
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd  guibg=#000000 ctermbg=black
+hi IndentGuidesEven guibg=#202020 ctermbg=darkgrey
+
