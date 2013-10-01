@@ -242,10 +242,14 @@ ab fisrt first
 
 colorscheme railscasts
 
-" Leader shortcuts
+"" Leader shortcuts
+" evaluar en nodejs
 nnoremap <leader>j <ESC>:w<CR>:!node %<CR>
+" remove ^M carriage returns
 nnoremap <leader>m <ESC>:%s/<C-v><C-m>//g<CR>
+" remove trailing whitespace
 nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
+" manually reload file
 nnoremap <F5> <ESC>:e! %<CR>
 
 " Assisted alignment
