@@ -239,6 +239,7 @@ imap <S-F2> <ESC>:Ex<CR>
 ab refrences references
 ab calse clase
 ab fisrt first
+ab fmc Fernando Martínez de la Cueva
 
 colorscheme railscasts
 
@@ -313,4 +314,12 @@ let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
 let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd  guibg=#000000 ctermbg=black
 hi IndentGuidesEven guibg=#202020 ctermbg=darkgrey
+nmap <F10> <ESC>:IndentGuidesToggle<CR>
+vmap <F10> <ESC>:IndentGuidesToggle<CR>
+imap <F10> <ESC>:IndentGuidesToggle<CR>
+
+
+" jscomplete-vim is the modern complement Vim plugin for JavaScript guys.
+" Using as omnifunc
+autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
