@@ -239,13 +239,18 @@ imap <S-F2> <ESC>:Ex<CR>
 ab refrences references
 ab calse clase
 ab fisrt first
+ab fmc Fernando Martínez de la Cueva
 
 colorscheme railscasts
 
-" Leader shortcuts
+"" Leader shortcuts
+" evaluar en nodejs
 nnoremap <leader>j <ESC>:w<CR>:!node %<CR>
+" remove ^M carriage returns
 nnoremap <leader>m <ESC>:%s/<C-v><C-m>//g<CR>
+" remove trailing whitespace
 nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
+" manually reload file
 nnoremap <F5> <ESC>:e! %<CR>
 
 " Assisted alignment
@@ -304,4 +309,17 @@ let g:syntastic_auto_jump = 1
 " Read about ag from https://github.com/ggreer/the_silver_searcher
 " Install from http://swiftsignal.com/packages/
 let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
+
+
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd  guibg=#000000 ctermbg=black
+hi IndentGuidesEven guibg=#202020 ctermbg=darkgrey
+nmap <F10> <ESC>:IndentGuidesToggle<CR>
+vmap <F10> <ESC>:IndentGuidesToggle<CR>
+imap <F10> <ESC>:IndentGuidesToggle<CR>
+
+
+" jscomplete-vim is the modern complement Vim plugin for JavaScript guys.
+" Using as omnifunc
+autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
