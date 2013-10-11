@@ -1,5 +1,5 @@
 if has("gui_running")
-  set guifont=Ubuntu\ Mono\ 12
+  set guifont=terminus\ 11
 endif
 " colorscheme solarized
 set mousemodel=popup
