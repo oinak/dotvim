@@ -226,6 +226,8 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 autocmd FileType ruby map <F4> :w<CR>:!ruby -c %<CR>
 
+let g:syntastic_javascript_checkers = ['jshint']
+
 nmap <F9> :TlistToggle<CR>
 imap <F9> <ESC>:TlistToggle<CR>
 map <F9> :TlistToggle<CR>
