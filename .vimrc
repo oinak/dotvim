@@ -323,5 +323,5 @@ imap <F10> <ESC>:IndentGuidesToggle<CR>
 
 " jscomplete-vim is the modern complement Vim plugin for JavaScript guys.
 " Using as omnifunc
-autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
+" autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
