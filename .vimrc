@@ -217,16 +217,43 @@ endif
 
 " Sytastic plugin options
 let g:syntastic_auto_loc_list=1
-"SyntasticEnable 'ruby'
 let g:syntastic_ruby_checkers=['mri']
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_jump=1
+
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-autocmd FileType ruby map <F4> :w<CR>:!ruby -c %<CR>
 
-let g:syntastic_javascript_checkers = ['jshint']
+" If enabled, syntastic will do syntax checks when buffers are first loaded as well as on saving
+let g:syntastic_check_on_open=0
+
+" If enabled, syntastic will error message associated with the current line to the command window. If multiple errors are found, the first will be used.
+let g:syntastic_echo_current_error=1
+
+" Use this option to tell syntastic whether to use the |:sign| interface to mark syntax errors:
+let g:syntastic_enable_signs=1
+
+" Use this option to control what the syntastic |:sign| text contains. Several error symobls can be customized:
+let g:syntastic_error_symbol = '!!'
+let g:syntastic_style_error_symbol = 's!'
+let g:syntastic_warning_symbol = '!?'
+let g:syntastic_style_warning_symbol = 's?'
+
+" Use this option to tell syntastic whether to display error messages in balloons when the mouse is hovered over erroneous lines:
+let g:syntastic_enable_balloons = 1
+
+" Use this option to tell syntastic whether to use syntax highlighting to mark errors (where possible). Highlighting can be turned off with 0
+let g:syntastic_enable_highlighting = 1
+
+" Enable this option if you want the cursor to jump to the first detected error when saving or opening a file:
+let g:syntastic_auto_jump = 1
+
+let g:syntastic_always_populate_loc_list=1
+
+" let g:syntastic_javascript_checkers = ['jshint']
+
+" Config manual syntax checking
+autocmd FileType javascript map <F4> <ESC>:!jssyntax.lua %<CR>
+autocmd FileType ruby map <F4> :w<CR>:!ruby -c %<CR>
 
 nmap <F9> :TlistToggle<CR>
 imap <F9> <ESC>:TlistToggle<CR>
@@ -255,6 +282,7 @@ nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
 " manually reload file
 nnoremap <F5> <ESC>:e! %<CR>
 
+
 " Assisted alignment
 if exists(":Tabularize")
   nmap <Leader>a= :Tabularize /=<CR>
@@ -267,37 +295,6 @@ endif
 
 runtime plugins/spellfile.vim
 " setlocal spell spelllang=es
-
-" If enabled, syntastic will do syntax checks when buffers are first loaded as
-" well as on saving
-let g:syntastic_check_on_open=1
-
-" If enabled, syntastic will error message associated with the current line to
-" the command window. If multiple errors are found, the first will be used.
-let g:syntastic_echo_current_error=1
-
-" Use this option to tell syntastic whether to use the |:sign| interface to mark
-" syntax errors:
-let g:syntastic_enable_signs=1
-
-" Use this option to control what the syntastic |:sign| text contains. Several
-" error symobls can be customized:
-let g:syntastic_error_symbol = '!!'
-let g:syntastic_style_error_symbol = 's!'
-let g:syntastic_warning_symbol = '!?'
-let g:syntastic_style_warning_symbol = 's?'
-
-" Use this option to tell syntastic whether to display error messages in balloons
-" when the mouse is hovered over erroneous lines:
-let g:syntastic_enable_balloons = 1
-
-" Use this option to tell syntastic whether to use syntax highlighting to mark
-" errors (where possible). Highlighting can be turned off with 0
-let g:syntastic_enable_highlighting = 1
-
-" Enable this option if you want the cursor to jump to the first detected error
-" when saving or opening a file:
-let g:syntastic_auto_jump = 1
 
 " <Leader>b - set breakpoint at current line
 " <Leader>v - open/close window with variables. You can expand/collapse variables by 'o' in normal mode or left-mouse double-click
@@ -315,7 +312,7 @@ let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
 
 let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd  guibg=#000000 ctermbg=black
-hi IndentGuidesEven guibg=#202020 ctermbg=darkgrey
+hi IndentGuidesEven guibg=#101010 ctermbg=darkgrey
 nmap <F10> <ESC>:IndentGuidesToggle<CR>
 vmap <F10> <ESC>:IndentGuidesToggle<CR>
 imap <F10> <ESC>:IndentGuidesToggle<CR>
@@ -325,3 +322,22 @@ imap <F10> <ESC>:IndentGuidesToggle<CR>
 " Using as omnifunc
 " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
+" ctags config
+:set tags=./tags,/home/avature/.tags;
+
+autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
+au BufEnter *.js set ai sw=4 ts=4 sta et fo=croql
+
+nmap <F8> :TagbarToggle<CR>
+
+hi Search guibg=#ffff00 guifg=Black cterm=none gui=none
+
+" swap file outside of project grepers reach
+:set dir=~/tmp
+
+" discard other splits as FullScreen
+nmap <F11> <ESC><C-w>o<CR>
+vmap <F11> <ESC><C-w>o<CR>
+imap <F11> <ESC><C-w>o<CR>
+
+noremap <C-p> <ESC>:CtrlPMixed<CR>
