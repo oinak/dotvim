@@ -323,7 +323,7 @@ imap <F10> <ESC>:IndentGuidesToggle<CR>
 " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
 " ctags config
-:set tags=./tags,/home/avature/.tags;
+":set tags=./tags,/home/avature/.tags;
 
 autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
 au BufEnter *.js set ai sw=4 ts=4 sta et fo=croql
