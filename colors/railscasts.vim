@@ -116,3 +116,4 @@ hi PmenuSel ctermfg=7 ctermbg=4 guibg=#555555 guifg=#ffffff gui=bold
 " let ruby_operators = 1
 highlight rubyOperator             guifg=#CC7833 ctermfg=173 cterm=NONE
 
+
