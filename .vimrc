@@ -341,3 +341,9 @@ vmap <F11> <ESC><C-w>o<CR>
 imap <F11> <ESC><C-w>o<CR>
 
 noremap <C-p> <ESC>:CtrlPMixed<CR>
+
+highlight SignColumn      guibg=#000000 guifg=#ffffff ctermbg=16  ctermfg=100
+highlight GitGutterAdd    guibg=#66aa66 guifg=#000000 ctermbg=71  ctermfg=16
+highlight GitGutterChange guibg=#6666aa guifg=#000000 ctermbg=100 ctermfg=16
+highlight GitGutterDelete guibg=#aa6666 guifg=#000000 ctermbg=52  ctermfg=16
+
