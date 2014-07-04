@@ -1,3 +1,4 @@
+ignore = dirty
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
 	url = http://github.com/tpope/vim-fugitive.git
@@ -73,3 +74,6 @@
 [submodule "bundle/covim"]
 	path = bundle/covim
 	url = git@github.com:FredKSchott/CoVim.git
+[submodule "bundle/vim-gitgutter"]
+	path = bundle/vim-gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git

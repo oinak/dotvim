@@ -394,3 +394,15 @@ endif
 
 
 set ttymouse=xterm2 "Enable mouse in terminal
+
+noremap <C-p> <ESC>:CtrlPMixed<CR>
+
+" Config for https://github.com/airblade/vim-gitgutter
+highlight SignColumn      guibg=#000000 guifg=#ffffff ctermbg=16  ctermfg=100
+highlight GitGutterAdd    guibg=#66aa66 guifg=#000000 ctermbg=71  ctermfg=16
+highlight GitGutterChange guibg=#6666aa guifg=#000000 ctermbg=100 ctermfg=16
+highlight GitGutterDelete guibg=#aa6666 guifg=#000000 ctermbg=52  ctermfg=16
+
+let g:gitgutter_enabled = 1
+let g:gitgutter_signs = 1
+let g:gitgutter_sign_column_always = 1
