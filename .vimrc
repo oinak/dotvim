@@ -223,7 +223,7 @@ if has("gui_running")
 endif
 
 " Sytastic plugin options
-let g:syntastic_auto_loc_list=1
+let g:syntastic_auto_loc_list=0
 let g:syntastic_ruby_checkers=['mri']
 
 set statusline+=%#warningmsg#
@@ -252,11 +252,11 @@ let g:syntastic_enable_balloons = 1
 let g:syntastic_enable_highlighting = 1
 
 " Enable this option if you want the cursor to jump to the first detected error when saving or opening a file:
-let g:syntastic_auto_jump = 1
+let g:syntastic_auto_jump = 0
 
 let g:syntastic_always_populate_loc_list=1
 
-" let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['jshint']
 
 " Config manual syntax checking
 autocmd FileType javascript map <F4> <ESC>:!jssyntax.lua %<CR>
