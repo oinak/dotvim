@@ -350,7 +350,7 @@ au BufEnter *.js set ai sw=4 ts=4 sta et fo=croql
 
 nmap <F8> :TagbarToggle<CR>
 
-hi Search guibg=#ffff00 guifg=Black cterm=none gui=none
+hi Search guibg=#dd6666 guifg=Black cterm=none gui=none
 
 " swap file outside of project grepers reach
 :set dir=~/tmp
