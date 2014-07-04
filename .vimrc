@@ -360,5 +360,18 @@ nmap <F11> <ESC><C-w>o<CR>
 vmap <F11> <ESC><C-w>o<CR>
 imap <F11> <ESC><C-w>o<CR>
 
-noremap <C-p> <ESC>:CtrlPMixed<CR>
+" noremap <C-p> <ESC>:CtrlPMixed<CR>
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|packs|RESOURCE)$',
+  \ }
+"let g:ctrlp_working_path_mode = '0'
+let g:ctrlp_working_path_mode = 'ra'
+
+" automatically close the quick fix window when leaving a file
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+aug END
+
 set ttymouse=xterm2 "Enable mouse in terminal
