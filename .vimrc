@@ -44,8 +44,9 @@ set incsearch    " Incremental search
 set hlsearch     " Highlight search matches
 set autowrite    " Automatically save before commands like :next and :make
 set hidden       " Hide buffers when they are abandoned
+set ttyfast
 set mouse=a      " Enable mouse usage (all modes)
-set ttymouse=xterm2 "Enable mouse in terminal
+" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -344,3 +345,4 @@ vmap <F11> <ESC><C-w>o<CR>
 imap <F11> <ESC><C-w>o<CR>
 
 noremap <C-p> <ESC>:CtrlPMixed<CR>
+set ttymouse=xterm2 "Enable mouse in terminal
