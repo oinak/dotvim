@@ -314,7 +314,7 @@ runtime plugins/spellfile.vim
 
 " Read about ag from https://github.com/ggreer/the_silver_searcher
 " Install from http://swiftsignal.com/packages/
-let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
+let g:agprg="/usr/local/bin/ag --column"
 
 
 let g:indent_guides_auto_colors = 0
