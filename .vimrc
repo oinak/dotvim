@@ -164,11 +164,17 @@ let mapleader = ","
 
 " Red background beyond column 80
 highlight OverLength ctermbg=red ctermfg=white guibg=#331111
-match OverLength /\%111v.\+/
+match OverLength /\%120v.\+/
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
-  set colorcolumn=110
+  set colorcolumn=120
+  if exists("*matchadd")
+     augroup colorColumn
+        au!
+        au VimEnter,WinEnter * call matchadd('ColorColumn', '\%121v.\+', 100)
+     augroup END
+  endif
   highlight ColorColumn guibg=#331111 cterm=NONE ctermbg=234
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
