@@ -77,3 +77,9 @@ ignore = dirty
 [submodule "bundle/vim-gitgutter"]
 	path = bundle/vim-gitgutter
 	url = git://github.com/airblade/vim-gitgutter.git
+[submodule "bundle/scoped_tags"]
+  path = bundle/scoped_tags
+  url = https://github.com/clausreinke/scoped_tags.git
+[submodule "bundle/tern_for_vim"]
+  path = bundle/tern_for_vim
+	url = https://github.com/marijnh/tern_for_vim.git
