@@ -46,6 +46,7 @@ hi link htmlEndTag                  xmlEndTag
 
 highlight Normal                    guifg=#E6E1DC guibg=#000000
 highlight Cursor                    guifg=#000000 ctermfg=0 guibg=#FFFFFF ctermbg=15
+highlight iCursor                    guifg=#ffff00 ctermfg=1 guibg=#000000 ctermbg=16
 highlight CursorLine                guibg=#222222 ctermbg=234 ctermfg=NONE
 highlight CursorColumn              guibg=#222222 ctermbg=234 ctermfg=NONE guifg=NONE
 highlight ColorColumn               guibg=#331111 cterm=NONE ctermbg=234
@@ -65,7 +66,7 @@ highlight PreProc                   guifg=#E6E1DC ctermfg=103
 highlight Search                    guifg=NONE ctermfg=16 guibg=#2b2b2b ctermbg=226 gui=italic
 highlight Statement                 guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
 highlight String                    guifg=#A5C261 ctermfg=107
-highlight Title                     guifg=#FFFF00 ctermfg=15
+highlight Title                     guifg=#FFDD66 ctermfg=15
 highlight Type                      guifg=#DA4939 ctermfg=167 gui=NONE cterm=NONE
 highlight Visual                    guibg=#5A647E ctermbg=60
 
@@ -97,6 +98,8 @@ highlight SpellBad                  guifg=#D70000 ctermfg=160 ctermbg=NONE cterm
 highlight SpellRare                 guifg=#D75F87 ctermfg=168 guibg=NONE ctermbg=NONE gui=underline cterm=underline
 highlight SpellCap                  guifg=#D0D0FF ctermfg=189 guibg=NONE ctermbg=NONE gui=underline cterm=underline
 highlight MatchParen                guifg=#FFFFFF ctermfg=15 guibg=#005f5f ctermbg=23
+
+highlight Operator                  guifg=#CC7833 ctermfg=173 cterm=NONE
 
 "" CtrlP buffer:
 "" the message when no match is found (Error)
