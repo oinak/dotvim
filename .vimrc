@@ -311,8 +311,11 @@ let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
 
 
 let g:indent_guides_auto_colors = 0
+let g:indent_guides_guide_size = 4
+" let g:indent_guides_start_level = 2
+
 hi IndentGuidesOdd  guibg=#000000 ctermbg=black
-hi IndentGuidesEven guibg=#101010 ctermbg=darkgrey
+hi IndentGuidesEven guibg=#1a1a1a ctermbg=darkgrey
 nmap <F10> <ESC>:IndentGuidesToggle<CR>
 vmap <F10> <ESC>:IndentGuidesToggle<CR>
 imap <F10> <ESC>:IndentGuidesToggle<CR>
