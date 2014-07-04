@@ -333,7 +333,17 @@ imap <F10> <ESC>:IndentGuidesToggle<CR>
 " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
 " ctags config
-":set tags=./tags,/home/avature/.tags;
+"set tags+=./tags,tags,/home/avature/.tags;
+"let g:tagbar_ctags_bin="/usr/bin/ctags"
+" https://github.com/clausreinke/scoped_tags
+" ~/bin/jtags.sh to rebuild for '.' -> 6s
+imap <F3> <ESC>_]
+nmap <F3> <ESC>_]
+imap <S-F3> <ESC>_*
+nmap <S-F3> <ESC>_*
+
+:call scoped_tags#DefaultKeyBindings()
+
 
 autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
 au BufEnter *.js set ai sw=4 ts=4 sta et fo=croql
