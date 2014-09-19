@@ -369,7 +369,8 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|packs|RESOURCE)$',
   \ }
 "let g:ctrlp_working_path_mode = '0'
-let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'r'
 
 " automatically close the quick fix window when leaving a file
 aug QFClose
