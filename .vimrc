@@ -317,7 +317,7 @@ runtime plugins/spellfile.vim
 " Install from http://swiftsignal.com/packages/
 let g:agprg="/usr/local/bin/ag --column"
 
-
+let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_guide_size = 4
 " let g:indent_guides_start_level = 2
