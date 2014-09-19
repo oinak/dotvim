@@ -289,7 +289,7 @@ nnoremap <leader>m <ESC>:%s/<C-v><C-m>//g<CR>
 nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
 " manually reload file
 nnoremap <F5> <ESC>:e! %<CR>
-
+imap <F5> <ESC><F5>i
 
 " Assisted alignment
 if exists(":Tabularize")
