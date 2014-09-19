@@ -46,7 +46,6 @@ set autowrite    " Automatically save before commands like :next and :make
 set hidden       " Hide buffers when they are abandoned
 set ttyfast
 set mouse=a      " Enable mouse usage (all modes)
-" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -394,7 +393,7 @@ if &term =~ '^xterm'
   " 6 -> solid vertical bar
 endif
 
-
+" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
 set ttymouse=xterm2 "Enable mouse in terminal
 
 noremap <C-p> <ESC>:CtrlPMixed<CR>
