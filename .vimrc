@@ -104,7 +104,7 @@ highlight NonText guifg=#bbbbbb
 
 " Previous and Next Buffer
 nmap <F7> <Esc>:bp<CR>
-nmap <F8> <Esc>:bn<CR>
+"nmap <F8> <Esc>:bn<CR>
 map <F6> <Esc>:BufExplorer<CR>
 imap <F6> <Esc>:BufExplorer<CR>
 
@@ -350,6 +350,7 @@ autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
 au BufEnter *.js set ai sw=4 ts=4 sta et fo=croql
 
 nmap <F8> :TagbarToggle<CR>
+imap <F8> <ESC>:TagbarToggle<CR>i
 
 hi Search guibg=#dd6666 guifg=Black cterm=none gui=none
 
