@@ -277,7 +277,6 @@ ab calse clase
 ab fisrt first
 ab fmc Fernando Martínez de la Cueva
 ab funtcion function
-ab proto prototype
 
 colorscheme railscasts
 
