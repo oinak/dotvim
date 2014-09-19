@@ -355,7 +355,7 @@ imap <F8> <ESC>:TagbarToggle<CR>i
 hi Search guibg=#dd6666 guifg=Black cterm=none gui=none
 
 " swap file outside of project grepers reach
-:set dir=~/tmp
+:set dir=~/tmp//
 
 " discard other splits as FullScreen
 nmap <F11> <ESC><C-w>o<CR>
