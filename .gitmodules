@@ -62,9 +62,6 @@ ignore = dirty
 [submodule "bundle/vim-indent-guides"]
 	path = bundle/vim-indent-guides
 	url = git://github.com/nathanaelkane/vim-indent-guides.git
-[submodule "bundle/jscomplete-vim"]
-	path = bundle/jscomplete-vim
-	url = https://github.com/teramako/jscomplete-vim
 [submodule "bundle/vim-snippets"]
 	path = bundle/vim-snippets
 	url = git@github.com:honza/vim-snippets.git
