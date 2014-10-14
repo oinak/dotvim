@@ -351,3 +351,7 @@ highlight GitGutterDelete guibg=#aa6666 guifg=#000000 ctermbg=52  ctermfg=16
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
 let g:gitgutter_sign_column_always = 1
+
+" cofee-script
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+
