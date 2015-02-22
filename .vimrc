@@ -44,8 +44,8 @@ set incsearch    " Incremental search
 set hlsearch     " Highlight search matches
 set autowrite    " Automatically save before commands like :next and :make
 set hidden       " Hide buffers when they are abandoned
+set ttyfast
 set mouse=a      " Enable mouse usage (all modes)
-set ttymouse=xterm2 "Enable mouse in terminal
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -104,7 +104,7 @@ highlight NonText guifg=#bbbbbb
 
 " Previous and Next Buffer
 nmap <F7> <Esc>:bp<CR>
-nmap <F8> <Esc>:bn<CR>
+"nmap <F8> <Esc>:bn<CR>
 map <F6> <Esc>:BufExplorer<CR>
 imap <F6> <Esc>:BufExplorer<CR>
 
@@ -163,11 +163,17 @@ let mapleader = ","
 
 " Red background beyond column 80
 highlight OverLength ctermbg=red ctermfg=white guibg=#331111
-match OverLength /\%111v.\+/
+match OverLength /\%120v.\+/
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
-  set colorcolumn=110
+  set colorcolumn=120
+  if exists("*matchadd")
+     augroup colorColumn
+        au!
+        au VimEnter,WinEnter * call matchadd('ColorColumn', '\%121v.\+', 100)
+     augroup END
+  endif
   highlight ColorColumn guibg=#331111 cterm=NONE ctermbg=234
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
@@ -245,14 +251,15 @@ let g:syntastic_enable_balloons = 1
 let g:syntastic_enable_highlighting = 1
 
 " Enable this option if you want the cursor to jump to the first detected error when saving or opening a file:
-let g:syntastic_auto_jump = 1
+let g:syntastic_auto_jump = 0
 
-let g:syntastic_always_populate_loc_list=1
+let g:syntastic_always_populate_loc_list=0
 
-" let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 
 " Config manual syntax checking
-autocmd FileType javascript map <F4> <ESC>:!jssyntax.lua %<CR>
+autocmd FileType javascript map <F4> <ESC>:SyntasticToggleMode<CR>
+autocmd FileType javascript imap <F4> <ESC>:SyntasticToggleMode<CR>
 autocmd FileType ruby map <F4> :w<CR>:!ruby -c %<CR>
 
 nmap <F9> :TlistToggle<CR>
@@ -269,6 +276,7 @@ ab refrences references
 ab calse clase
 ab fisrt first
 ab fmc Fernando Martínez de la Cueva
+ab funtcion function
 
 colorscheme railscasts
 
@@ -281,7 +289,7 @@ nnoremap <leader>m <ESC>:%s/<C-v><C-m>//g<CR>
 nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
 " manually reload file
 nnoremap <F5> <ESC>:e! %<CR>
-
+imap <F5> <ESC><F5>i
 
 " Assisted alignment
 if exists(":Tabularize")
@@ -307,12 +315,15 @@ runtime plugins/spellfile.vim
 
 " Read about ag from https://github.com/ggreer/the_silver_searcher
 " Install from http://swiftsignal.com/packages/
-let g:agprg="/usr/bin/ag -H --nocolor --nogroup --column"
+let g:agprg="/usr/local/bin/ag --column"
 
-
+let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
+let g:indent_guides_guide_size = 4
+" let g:indent_guides_start_level = 2
+
 hi IndentGuidesOdd  guibg=#000000 ctermbg=black
-hi IndentGuidesEven guibg=#101010 ctermbg=darkgrey
+hi IndentGuidesEven guibg=#1a1a1a ctermbg=darkgrey
 nmap <F10> <ESC>:IndentGuidesToggle<CR>
 vmap <F10> <ESC>:IndentGuidesToggle<CR>
 imap <F10> <ESC>:IndentGuidesToggle<CR>
@@ -323,35 +334,85 @@ imap <F10> <ESC>:IndentGuidesToggle<CR>
 " autocmd FileType javascript setlocal omnifunc=jscomplete#CompleteJS
 
 " ctags config
-":set tags=./tags,/home/avature/.tags;
+"set tags+=./tags,tags,/home/avature/.tags;
+"let g:tagbar_ctags_bin="/usr/bin/ctags"
+" https://github.com/clausreinke/scoped_tags
+" ~/bin/jtags.sh to rebuild for '.' -> 6s
+imap <F3> <ESC>_]
+nmap <F3> <ESC>_]
+imap <S-F3> <ESC>_*
+nmap <S-F3> <ESC>_*
+
+:call scoped_tags#DefaultKeyBindings()
+
 
 autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
 au BufEnter *.js set ai sw=4 ts=4 sta et fo=croql
 
 nmap <F8> :TagbarToggle<CR>
+imap <F8> <ESC>:TagbarToggle<CR>i
 
-hi Search guibg=#ffff00 guifg=Black cterm=none gui=none
+hi Search guibg=#dd6666 guifg=Black cterm=none gui=none
 
 " swap file outside of project grepers reach
-:set dir=~/tmp
+:set dir=~/tmp//
 
 " discard other splits as FullScreen
 nmap <F11> <ESC><C-w>o<CR>
 vmap <F11> <ESC><C-w>o<CR>
 imap <F11> <ESC><C-w>o<CR>
 
+" noremap <C-p> <ESC>:CtrlPMixed<CR>
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|packs|RESOURCE)$',
+  \ }
+"let g:ctrlp_working_path_mode = '0'
+"let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'r'
+
+" automatically close the quick fix window when leaving a file
+aug QFClose
+  au!
+  au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+aug END
+
+" Avoid accidentally enter Ex mode
+nnoremap Q <nop>
+
+
+if &term =~ '^xterm'
+  " solid underscore
+  let &t_SI .= "\<Esc>[4 q"
+  " solid block
+  let &t_EI .= "\<Esc>[2 q"
+  " 1 or 0 -> blinking block
+  " 3 -> blinking underscore
+  " Recent versions of xterm (282 or above) also support
+  " 5 -> blinking vertical bar
+  " 6 -> solid vertical bar
+endif
+
+" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
+set ttymouse=xterm2 "Enable mouse in terminal
+
 noremap <C-p> <ESC>:CtrlPMixed<CR>
 
 " Config for https://github.com/airblade/vim-gitgutter
-highlight SignColumn      guibg=#000000 guifg=#ffffff ctermbg=16  ctermfg=100
-highlight GitGutterAdd    guibg=#66aa66 guifg=#000000 ctermbg=71  ctermfg=16
-highlight GitGutterChange guibg=#6666aa guifg=#000000 ctermbg=100 ctermfg=16
-highlight GitGutterDelete guibg=#aa6666 guifg=#000000 ctermbg=52  ctermfg=16
+highlight SignColumn      guifg=#ffffff guibg=#000000 ctermbg=16  ctermfg=100
+highlight GitGutterAdd    guifg=#66aa66 guibg=#000000 ctermbg=71  ctermfg=16
+highlight GitGutterChange guifg=#6666aa guibg=#000000 ctermbg=100 ctermfg=16
+highlight GitGutterDelete guifg=#aa6666 guibg=#000000 ctermbg=52  ctermfg=16
 
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
 let g:gitgutter_sign_column_always = 1
+let g:gitgutter_realtime = 1
+let g:gitgutter_eager = 1
+
 
 " cofee-script
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+
+
 
