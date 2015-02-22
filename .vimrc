@@ -163,15 +163,16 @@ let mapleader = ","
 
 " Red background beyond column 80
 highlight OverLength ctermbg=red ctermfg=white guibg=#331111
-match OverLength /\%120v.\+/
+
+match OverLength /\%81v.\+/
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
-  set colorcolumn=120
+  set colorcolumn=80
   if exists("*matchadd")
      augroup colorColumn
         au!
-        au VimEnter,WinEnter * call matchadd('ColorColumn', '\%121v.\+', 100)
+        au VimEnter,WinEnter * call matchadd('ColorColumn', '\%81v.\+', 100)
      augroup END
   endif
   highlight ColorColumn guibg=#331111 cterm=NONE ctermbg=234
@@ -222,8 +223,9 @@ if has("gui_running")
 endif
 
 " Sytastic plugin options
-let g:syntastic_auto_loc_list=1
-let g:syntastic_ruby_checkers=['mri']
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+" let g:syntastic_ruby_checkers = ['mri']
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -255,17 +257,17 @@ let g:syntastic_auto_jump = 0
 
 let g:syntastic_always_populate_loc_list=0
 
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['jshint']
 
-" Config manual syntax checking
-autocmd FileType javascript map <F4> <ESC>:SyntasticToggleMode<CR>
-autocmd FileType javascript imap <F4> <ESC>:SyntasticToggleMode<CR>
-autocmd FileType ruby map <F4> :w<CR>:!ruby -c %<CR>
+let g:syntastic_cofee_checkers = ['coffeelint -f ~/.coffeelint.json']
+
+imap <F4> <ESC>:SyntasticToggleMode<CR>i
+nmap <F4> <ESC>:SyntasticToggleMode<CR>
+map <F4> <ESC>:SyntasticToggleMode<CR>
 
 nmap <F9> :TlistToggle<CR>
 imap <F9> <ESC>:TlistToggle<CR>
 map <F9> :TlistToggle<CR>
-
 
 nmap <F2> :e.<CR>
 imap <F2> <ESC>:e.<CR>
@@ -283,6 +285,9 @@ colorscheme railscasts
 "" Leader shortcuts
 " evaluar en nodejs
 nnoremap <leader>j <ESC>:w<CR>:!node %<CR>
+
+nnoremap <leader>c <ESC>:w<CR>:!coffee %<CR>
+
 " remove ^M carriage returns
 nnoremap <leader>m <ESC>:%s/<C-v><C-m>//g<CR>
 " remove trailing whitespace
@@ -408,9 +413,8 @@ let g:gitgutter_sign_column_always = 1
 let g:gitgutter_realtime = 1
 let g:gitgutter_eager = 1
 
-
 " cofee-script
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
-
-
+" zeal search
+:nnoremap gz :!zeal --query "<cword>"&<CR><CR>
