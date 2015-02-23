@@ -405,6 +405,10 @@ endif
 " Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
 set ttymouse=xterm2 "Enable mouse in terminal
 
+"-----------------------------------------------------------------------AIRLINE
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+
 "-------------------------------------------------------------------MISCAELANEA
 " automatically close the quick fix window when leaving a file
 aug QFClose
