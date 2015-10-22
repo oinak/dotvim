@@ -83,7 +83,7 @@ endif
 " -----------------------------------------------------------------------COLORS
 " Red color for trailing spaces in insert mode
 if has("autocmd")
-  highlight ExtraWhitespace guibg=#330000 ctermbg=52
+  highlight ExtraWhitespace guibg=#331111 ctermbg=52
   au ColorScheme * highlight ExtraWhitespace guibg=#330000 ctermbg=52
   au BufEnter * match ExtraWhitespace /\s\+$/
   au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
@@ -363,7 +363,7 @@ let g:indent_guides_guide_size = 4
 " let g:indent_guides_start_level = 2
 
 hi IndentGuidesOdd  guibg=#000000 ctermbg=black
-hi IndentGuidesEven guibg=#1a1a1a ctermbg=darkgrey
+hi IndentGuidesEven guibg=#222222 ctermbg=darkgrey
 
 "---------------------------------------------------------------------GITGUTTER
 " Config for https://github.com/airblade/vim-gitgutter

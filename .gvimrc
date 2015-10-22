@@ -1,6 +1,7 @@
 if has("gui_running")
-  set guifont=Ubuntu\ Mono\ 11
+  set guifont=Terminus\ 10
+  "set guifont=Hack\ 11
 endif
-colorscheme solarized
+" colorscheme railscasts
 set mousemodel=popup
 
