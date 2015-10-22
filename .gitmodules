@@ -77,3 +77,6 @@ ignore = dirty
 [submodule "bundle/vim-airline"]
 	path = bundle/vim-airline
 	url = https://github.com/bling/vim-airline
+[submodule "bundle/slim-template"]
+	path = bundle/slim-template
+	url = git://github.com/slim-template/vim-slim.git
