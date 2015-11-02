@@ -409,6 +409,31 @@ set ttymouse=xterm2 "Enable mouse in terminal
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
+"----------------------------------------------------------------GUIFONT_RESIZE
+function! EnlargeFont()
+    let l:font=split( &guifont )
+    let l:font[-1] = l:font[-1] + 1
+    let &guifont=join( l:font, ' ' )
+endfunction
+
+function! ShrinkFont()
+    let l:font=split( &guifont )
+    if l:font[-1] > 2 
+        let l:font[-1] = l:font[-1] - 1
+        let &guifont=join( l:font, ' ' )
+    endif
+endfunction
+
+"set guifont=Monospace\ 10
+imap <C-kPlus>  <ESC>:call EnlargeFont()<CR>i
+nmap <C-kPlus>  :call EnlargeFont()<CR>
+
+imap <C-kMinus> <ESC>:call ShrinkFont()<CR>i
+nmap <C-kMinus> :call ShrinkFont()<CR>
+
+nnoremap <leader><Up> :call EnlargeFont()<CR>
+nnoremap <leader><Down> :call ShrinkFont()<CR>
+
 "-------------------------------------------------------------------MISCAELANEA
 " automatically close the quick fix window when leaving a file
 aug QFClose
