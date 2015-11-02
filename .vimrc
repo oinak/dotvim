@@ -389,6 +389,10 @@ au BufEnter *.js set ai sw=4 ts=4 sta et fo=croql
 " cofee-script
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
+" php (okn)
+autocmd FileType php set tabstop=4|set shiftwidth=4|set expandtab
+au BufEnter *.php set ai sw=4 ts=4 sta et fo=croql
+
 "--------------------------------------------------------------------------TERM
 if &term =~ '^xterm'
   " solid underscore
