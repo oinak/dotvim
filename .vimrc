@@ -7,6 +7,7 @@ endif
 set ruler
 "set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
+" set relativenumber
 set nowrap
 set hidden
 set vb t_vb=
@@ -26,6 +27,11 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+" Plugin loader (must be before filetype):
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+call pathogen#infect()
+
 " Uncomment the following to have Vim load indentation rules and plugins
 " according to the detected filetype.
 if has("autocmd")
@@ -44,11 +50,6 @@ set autowrite    " Automatically save before commands like :next and :make
 set hidden       " Hide buffers when they are abandoned
 set ttyfast
 set mouse=a      " Enable mouse usage (all modes)
-
-" Plugin loader:
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-call pathogen#infect()
 
 " Rubyblock requirement:
 runtime macros/matchit.vim
@@ -70,6 +71,8 @@ nnoremap <leader>m <ESC>:%s/<C-v><C-m>//g<CR>
 nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
 "* nnoremap <leader>+ :set cursorline! cursorcolumn!<CR>
 
+" auto-indent whole file
+nnoremap <leader>< <ESC>ggVG=
 
 " ---------------------------------------------------------- META CONFIGURATION
 " Edit .vimrc configuration file
@@ -78,6 +81,7 @@ noremap <Leader>r :e $MYVIMRC<CR>
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
+  autocmd FocusLost * silent! wa
 endif
 
 " -----------------------------------------------------------------------COLORS
@@ -125,16 +129,12 @@ nnoremap <c-f12> :set cursorline! cursorcolumn!<CR>
 nnoremap <leader>+ :set cursorline! cursorcolumn!<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:→\ ,eol:⁋
+"set listchars=tab:→\ ,eol:⁋
 
 hi Search guibg=#dd6666 guifg=Black cterm=none gui=none
 
 " --------------------------------------------------TEXT SELECTION AND MOVEMENT
-"" Region indent/outdent RubyMine style
-nmap <S-A-Left> <<
-nmap <S-A-Right> >>
-vmap <S-A-Left> <gv
-vmap <S-A-Right> >gv
+"" Region indent/outdent
 vmap <S-Tab> <gv
 vmap <Tab> >gv
 
@@ -183,8 +183,8 @@ nmap <S-F2> :Ex<CR>
 imap <S-F2> <ESC>:Ex<CR>
 
 " <F3> " Goto definition (ctags)
-imap <F3> <ESC>_]
-nmap <F3> <ESC>_]
+imap <F3> <ESC>g]
+nmap <F3> <ESC>g]
 imap <S-F3> <ESC>_*
 nmap <S-F3> <ESC>_*
 
@@ -332,7 +332,7 @@ let g:syntastic_enable_highlighting = 1
 let g:syntastic_auto_jump = 0
 let g:syntastic_always_populate_loc_list=0
 let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_cofee_checkers = ['coffeelint -f ~/.coffeelint.json']
+let g:syntastic_coffee_checkers = ['coffeelint']
 
 
 ab refrences references
@@ -393,6 +393,9 @@ autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 autocmd FileType php set tabstop=4|set shiftwidth=4|set expandtab
 au BufEnter *.php set ai sw=4 ts=4 sta et fo=croql
 
+" jbuilder
+au BufEnter *.jbuilder set ft=ruby
+
 "--------------------------------------------------------------------------TERM
 if &term =~ '^xterm'
   " solid underscore
@@ -422,7 +425,7 @@ endfunction
 
 function! ShrinkFont()
     let l:font=split( &guifont )
-    if l:font[-1] > 2 
+    if l:font[-1] > 2
         let l:font[-1] = l:font[-1] - 1
         let &guifont=join( l:font, ' ' )
     endif
@@ -447,4 +450,6 @@ aug END
 
 " Avoid accidentally enter Ex mode
 nnoremap Q <nop>
+"------------------------------------------------------------------------------
+let g:rails_ctags_arguments = '--languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)' 
 
