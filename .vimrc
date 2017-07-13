@@ -363,14 +363,14 @@ let g:indent_guides_guide_size = 4
 " let g:indent_guides_start_level = 2
 
 hi IndentGuidesOdd  guibg=#000000 ctermbg=black
-hi IndentGuidesEven guibg=#222222 ctermbg=darkgrey
+hi IndentGuidesEven guibg=#222222 ctermbg=234
 
 "---------------------------------------------------------------------GITGUTTER
 " Config for https://github.com/airblade/vim-gitgutter
 highlight SignColumn      guifg=#ffffff guibg=#000000 ctermbg=16  ctermfg=100
-highlight GitGutterAdd    guifg=#66aa66 guibg=#000000 ctermbg=71  ctermfg=16
-highlight GitGutterChange guifg=#6666aa guibg=#000000 ctermbg=100 ctermfg=16
-highlight GitGutterDelete guifg=#aa6666 guibg=#000000 ctermbg=52  ctermfg=16
+highlight GitGutterAdd    guifg=#66aa66 guibg=#000000 ctermfg=71  ctermbg=16
+highlight GitGutterChange guifg=#6666aa guibg=#000000 ctermfg=100 ctermbg=16
+highlight GitGutterDelete guifg=#aa6666 guibg=#000000 ctermfg=52  ctermbg=16
 
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
@@ -414,7 +414,7 @@ set ttymouse=xterm2 "Enable mouse in terminal
 
 "-----------------------------------------------------------------------AIRLINE
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 
 "----------------------------------------------------------------GUIFONT_RESIZE
 function! EnlargeFont()
@@ -453,3 +453,30 @@ nnoremap Q <nop>
 "------------------------------------------------------------------------------
 let g:rails_ctags_arguments = '--languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)' 
 
+" Search down into subfolders
+set path+=**
+
+" Display all matching entries when we tab complete
+set wildmenu
+
+" Tabular
+if exists(":Tabularize")
+  nmap <Leader>t= :Tabularize /=<CR>
+  vmap <Leader>t= :Tabularize /=<CR>
+  nmap <Leader>t: :Tabularize /:\zs<CR>
+  vmap <Leader>t: :Tabularize /:\zs<CR>
+endif
+
+" block comment
+"vmap <Leader>c :norm ^i# <ESC>
+"vmap <Leader>C :norm ^xx<ESC>
+
+" Commenting blocks of code.
+autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+autocmd FileType conf,fstab       let b:comment_leader = '# '
+autocmd FileType tex              let b:comment_leader = '% '
+autocmd FileType mail             let b:comment_leader = '> '
+autocmd FileType vim              let b:comment_leader = '" '
+noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>

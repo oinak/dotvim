@@ -60,7 +60,7 @@ highlight Identifier                guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
 highlight Include                   guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
 highlight PreCondit                 guifg=#CC7833 ctermfg=173 gui=NONE cterm=NONE
 highlight Keyword                   guifg=#CC7833 ctermfg=173 cterm=NONE
-highlight LineNr                    guifg=#666666 ctermfg=159 guibg=#000000
+highlight LineNr                    guifg=#666666 ctermfg=59 guibg=#000000
 highlight Number                    guifg=#A5C261 ctermfg=107
 highlight PreProc                   guifg=#E6E1DC ctermfg=103
 highlight Search                    guifg=NONE ctermfg=16 guibg=#2b2b2b ctermbg=226 gui=italic
@@ -113,10 +113,12 @@ highlight Operator                  guifg=#CC7833 ctermfg=173 cterm=NONE
 " the prompt’s cursor when moving over the text (Constant)
 highlight CtrlPPrtCursor            guifg=#FFC66D ctermfg=221 gui=NONE cterm=underline
 
-hi Pmenu ctermfg=0 ctermbg=6 guibg=#444444 
+hi Pmenu ctermfg=0 ctermbg=6 guibg=#444444
 hi PmenuSel ctermfg=7 ctermbg=4 guibg=#555555 guifg=#ffffff gui=bold
 
 " let ruby_operators = 1
 highlight rubyOperator             guifg=#CC7833 ctermfg=173 cterm=NONE
 
 
+hi IndentGuidesOdd  guibg=#000000 ctermbg=black
+hi IndentGuidesEven guibg=#222222 ctermbg=235
