@@ -47,9 +47,9 @@ ignore = dirty
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
-[submodule "bundle/vim-ruby-debugger"]
-	path = bundle/vim-ruby-debugger
-	url = https://github.com/astashov/vim-ruby-debugger.git
+#[submodule "bundle/vim-ruby-debugger"]
+#	path = bundle/vim-ruby-debugger
+#	url = https://github.com/astashov/vim-ruby-debugger.git
 [submodule "bundle/ag"]
 	path = bundle/ag
 	url = https://github.com/rking/ag.vim
