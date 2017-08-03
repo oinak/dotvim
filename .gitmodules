@@ -80,3 +80,6 @@ ignore = dirty
 [submodule "bundle/slim-template"]
 	path = bundle/slim-template
 	url = git://github.com/slim-template/vim-slim.git
+[submodule "bundle/rspec"]
+	path = bundle/rspec
+	url = https://github.com/Keithbsmiley/rspec.vim.git
