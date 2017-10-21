@@ -53,7 +53,8 @@ highlight ColorColumn               guibg=#331111 cterm=NONE ctermbg=234
 
 highlight Comment                   guifg=#BC9458 ctermfg=180 gui=NONE
 highlight Constant                  guifg=#6D9CBE ctermfg=73
-highlight Define                    guifg=#CC7833 ctermfg=173
+highlight Define                    ctermfg=172 guifg=#d78700 
+"   guifg=#CC7833 ctermfg=173
 highlight Error                     guifg=#FFC66D ctermfg=221 guibg=#990000 ctermbg=88
 highlight Function                  guifg=#FFC66D ctermfg=221 gui=NONE cterm=NONE
 highlight Identifier                guifg=#6D9CBE ctermfg=73 gui=NONE cterm=NONE
