@@ -129,7 +129,7 @@ nnoremap <c-f12> :set cursorline! cursorcolumn!<CR>
 nnoremap <leader>+ :set cursorline! cursorcolumn!<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-"set listchars=tab:→\ ,eol:⁋
+set listchars=tab:▹\ ,eol:⁋
 
 hi Search guibg=#dd6666 guifg=Black cterm=none gui=none
 
@@ -480,3 +480,15 @@ autocmd FileType mail             let b:comment_leader = '> '
 autocmd FileType vim              let b:comment_leader = '" '
 noremap <silent> ,c :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> ,u :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+" Golang integration
+set autowrite
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
