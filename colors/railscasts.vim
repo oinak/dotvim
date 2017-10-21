@@ -124,6 +124,8 @@ highlight rubyOperator             guifg=#CC7833 ctermfg=173 cterm=NONE
 hi IndentGuidesOdd  guibg=#000000 ctermbg=black
 hi IndentGuidesEven guibg=#222222 ctermbg=235
 
+" override rspen colors for groups
+highlight link rspecGroupMethods Define 
 
 
 hi x016_Grey0 ctermfg=16 guifg=#000000 "rgb=0,0,0
