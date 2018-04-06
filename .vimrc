@@ -451,7 +451,7 @@ aug END
 " Avoid accidentally enter Ex mode
 nnoremap Q <nop>
 "------------------------------------------------------------------------------
-let g:rails_ctags_arguments = '--languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)' 
+let g:rails_ctags_arguments = '--languages=ruby --exclude=.git --exclude=log --exclude=tmp $(bundle list --paths)'
 
 " Search down into subfolders
 set path+=**
