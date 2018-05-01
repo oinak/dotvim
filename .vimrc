@@ -374,7 +374,7 @@ highlight GitGutterDelete guifg=#aa6666 guibg=#000000 ctermfg=52  ctermbg=16
 
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
-let g:gitgutter_sign_column_always = 1
+set signcolumn=yes
 let g:gitgutter_realtime = 1
 let g:gitgutter_eager = 1
 
