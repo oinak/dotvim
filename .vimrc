@@ -300,6 +300,13 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 " let g:syntastic_ruby_checkers = ['mri']
 
+function! RubocopAutocorrect()
+  execute "!rubocop -a " . bufname("%")
+  call SyntasticCheck()
+endfunction
+
+map <silent> <Leader>cop :call RubocopAutocorrect()<cr>
+
 " If enabled, syntastic will do syntax checks when buffers are first loaded as
 " well as on saving
 let g:syntastic_check_on_open=0
