@@ -78,6 +78,9 @@ nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
 " auto-indent whole file
 nnoremap <leader>< <ESC>ggVG=
 
+" toggle all folds under cursor
+nnoremap <leader>z <ESC>zA
+
 " ---------------------------------------------------------- META CONFIGURATION
 " Edit .vimrc configuration file
 noremap <Leader>r :e $MYVIMRC<CR>
