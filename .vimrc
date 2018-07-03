@@ -51,6 +51,10 @@ set hidden       " Hide buffers when they are abandoned
 set ttyfast
 set mouse=a      " Enable mouse usage (all modes)
 
+" disable annoying ruby tooltips from vim-ruby
+set balloonexpr=
+set noballooneval
+
 " Rubyblock requirement:
 runtime macros/matchit.vim
 
