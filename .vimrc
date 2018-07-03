@@ -335,7 +335,7 @@ let g:syntastic_enable_highlighting = 1
 " when saving or opening a file:
 let g:syntastic_auto_jump = 0
 let g:syntastic_always_populate_loc_list=0
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_coffee_checkers = ['coffeelint']
 
 
@@ -387,10 +387,11 @@ let g:gitgutter_eager = 1
 
 "---------------------------------------------------------------------FILETYPES
 " javascript
-autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab
-au BufEnter *.js set ai sw=4 ts=4 sta et fo=croql
+autocmd FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+augroup filetype javascript syntax=javascript
+au BufEnter *.js set ai sw=2 ts=2 sta et fo=croql
 
-" cofee-script
+" coffee-script
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " php (okn)
@@ -477,6 +478,7 @@ endif
 
 " Commenting blocks of code.
 autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType javascript       let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   let b:comment_leader = '# '
 autocmd FileType conf,fstab       let b:comment_leader = '# '
 autocmd FileType tex              let b:comment_leader = '% '
