@@ -113,20 +113,20 @@ colorscheme railscasts
 
 " Red background beyond column 80
 highlight OverLength ctermbg=red ctermfg=white guibg=#331111
-match OverLength /\%81v.\+/
+match OverLength /\%121v.\+/
 
 " Color column 80 (compatible) Better after theme loading
 if exists('+colorcolumn')
-  set colorcolumn=80
+  set colorcolumn=120
   if exists("*matchadd")
      augroup colorColumn
         au!
-        au VimEnter,WinEnter * call matchadd('ColorColumn', '\%81v.\+', 100)
+        au VimEnter,WinEnter * call matchadd('ColorColumn', '\%121v.\+', 100)
      augroup END
   endif
   highlight ColorColumn guibg=#331111 cterm=NONE ctermbg=234
 else
-  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1)
 endif
 
 " Toggleable current line/column highlight
@@ -306,6 +306,13 @@ endif
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 " let g:syntastic_ruby_checkers = ['mri']
+
+function! RubocopAutocorrect()
+  execute "!rubocop -a " . bufname("%")
+  call SyntasticCheck()
+endfunction
+
+map <silent> <Leader>cop :call RubocopAutocorrect()<cr>
 
 " If enabled, syntastic will do syntax checks when buffers are first loaded as
 " well as on saving
@@ -503,3 +510,4 @@ let g:go_highlight_operators = 1
 
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
+set cryptmethod=blowfish2
