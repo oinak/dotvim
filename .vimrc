@@ -215,9 +215,9 @@ nmap <F7> <Esc>:bp<CR>
 nmap <F8> <Esc>:bn<CR>
 
 " <F9> " Tag list (show/hide)
-nmap <F9> :TlistToggle<CR>
-imap <F9> <ESC>:TlistToggle<CR>
-map <F9> :TlistToggle<CR>
+nmap <F9> :Tagbar<CR>
+imap <F9> <ESC>:Tagbar<CR>
+map <F9> :Tagbar<CR>
 
 " <F10> " Indent Guides (show/hide)
 nmap <F10> <ESC>:IndentGuidesToggle<CR>
