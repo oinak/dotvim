@@ -314,6 +314,13 @@ endfunction
 
 map <silent> <Leader>cop :call RubocopAutocorrect()<cr>
 
+function! EslintAutocorrect()
+  execute "!eslint --fix " . bufname("%")
+  call SyntasticCheck()
+endfunction
+
+map <silent> <Leader>esl :call EslintAutocorrect()<cr>
+
 " If enabled, syntastic will do syntax checks when buffers are first loaded as
 " well as on saving
 let g:syntastic_check_on_open=0
