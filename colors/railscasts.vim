@@ -127,6 +127,9 @@ hi IndentGuidesEven guibg=#222222 ctermbg=235
 " override rspen colors for groups
 highlight link rspecGroupMethods Define 
 
+" override rspen colors for folds
+highlight Folded guibg=#222222 guifg=#ffff00
+highlight FoldColumn guibg=darkgrey guifg=white
 
 hi x016_Grey0 ctermfg=16 guifg=#000000 "rgb=0,0,0
 hi x017_NavyBlue ctermfg=17 guifg=#00005f "rgb=0,0,95

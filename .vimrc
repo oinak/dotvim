@@ -51,6 +51,10 @@ set hidden       " Hide buffers when they are abandoned
 set ttyfast
 set mouse=a      " Enable mouse usage (all modes)
 
+" disable annoying ruby tooltips from vim-ruby
+set balloonexpr=
+set noballooneval
+
 " Rubyblock requirement:
 runtime macros/matchit.vim
 
@@ -73,6 +77,9 @@ nnoremap <leader>s <ESC>:%s/\s\+$//g<CR>
 
 " auto-indent whole file
 nnoremap <leader>< <ESC>ggVG=
+
+" toggle all folds under cursor
+nnoremap <leader>z <ESC>zA
 
 " ---------------------------------------------------------- META CONFIGURATION
 " Edit .vimrc configuration file
@@ -208,9 +215,9 @@ nmap <F7> <Esc>:bp<CR>
 nmap <F8> <Esc>:bn<CR>
 
 " <F9> " Tag list (show/hide)
-nmap <F9> :TlistToggle<CR>
-imap <F9> <ESC>:TlistToggle<CR>
-map <F9> :TlistToggle<CR>
+nmap <F9> :Tagbar<CR>
+imap <F9> <ESC>:Tagbar<CR>
+map <F9> :Tagbar<CR>
 
 " <F10> " Indent Guides (show/hide)
 nmap <F10> <ESC>:IndentGuidesToggle<CR>
@@ -388,7 +395,9 @@ highlight GitGutterDelete guifg=#aa6666 guibg=#000000 ctermfg=52  ctermbg=16
 
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
+" let g:gitgutter_sign_column_always = 1
 set signcolumn=yes
+
 let g:gitgutter_realtime = 1
 let g:gitgutter_eager = 1
 
@@ -398,9 +407,10 @@ let g:gitgutter_eager = 1
 "---------------------------------------------------------------------FILETYPES
 " javascript
 autocmd FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+augroup filetype javascript syntax=javascript
 au BufEnter *.js set ai sw=2 ts=2 sta et fo=croql
 
-" cofee-script
+" coffee-script
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " php (okn)
@@ -487,6 +497,7 @@ endif
 
 " Commenting blocks of code.
 autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+autocmd FileType javascript       let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   let b:comment_leader = '# '
 autocmd FileType conf,fstab       let b:comment_leader = '# '
 autocmd FileType tex              let b:comment_leader = '% '
