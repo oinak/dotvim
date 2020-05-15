@@ -8,6 +8,9 @@
 "   2.4 SYNTASTIC
 "   2.5 FZF
 "   2.6 SOLARIZED
+"   2.7 RANGER
+"   2.8 SPLIT_JOIN
+"   2.9 TAG_ALONG
 " 3.- LEADER_KEY
 " 4.- FILES_FINDING
 " 5.- TAG_NAVIGATION
@@ -110,25 +113,38 @@ colorscheme oinak
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'tpope/vim-fugitive'       " git integration
-Plug 'airblade/vim-gitgutter'   " Git markings on the gutter
+" GIT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Plug 'tpope/vim-fugitive'        " Git integration
+Plug 'airblade/vim-gitgutter'    " Git markings on the gutter
 
-Plug 'vim-ruby/vim-ruby'        " ruby support
-Plug 'tpope/vim-rails'          " rails support
-Plug 'vim-syntastic/syntastic'  " Linters integration
+" SOURCE CODE MANIPULATION - - - - - - - - - - - - - - - - - - - - - - - - - -
+Plug 'vim-ruby/vim-ruby'         " Ruby support
+Plug 'tpope/vim-rails'           " Rails support
+Plug 'vim-syntastic/syntastic'   " Linters integration
 
-Plug 'tpope/vim-commentary'     " commenting
-Plug 'kien/ctrlp.vim'           " fuzzy file finder
-Plug 'bling/vim-airline'        " Airline
-Plug 'jlanzarotta/bufexplorer'  " Buffer explorer
+Plug 'kana/vim-textobj-user'     " requirement of vim-textobj-ruby
+Plug 'rhysd/vim-textobj-ruby'    " make vim understand ruby blocks as motions
 
-" Plug 'prabirshrestha/async.vim' " LSP dependency
-" Plug 'prabirshrestha/vim-lsp'   " Language Server Protocol (for languages support)
-Plug 'ervandew/supertab'        " completion operated by Tab
+Plug 'AndrewRadev/splitjoin.vim' " Split/Join ruby hashes, arglists, etc
+Plug 'AndrewRadev/tagalong.vim'  " Change closing html-ish tags automatically
 
-Plug 'junegunn/fzf' ", { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'ervandew/supertab'         " Completion operated by Tab
+Plug 'tpope/vim-commentary'      " Commenting shortcuts gc
 
+" FILE/DIRECTORY OPERATIONS - - - - - - - - - - - - - - - - - - - - - - - - -
+Plug 'jlanzarotta/bufexplorer'   " Buffer explorer
+Plug 'kien/ctrlp.vim'            " fuzzy file finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF Binary
+Plug 'junegunn/fzf.vim'          " FZF Vim integration
+
+Plug 'rbgrouleff/bclose.vim'     " Ranger dependency on neovim
+Plug 'francoiscabrol/ranger.vim' " Terminal file manager
+
+" VIUSAL AIDS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Plug 'bling/vim-airline'         " Airline ruler enhancements
+Plug 'nathanaelkane/vim-indent-guides'
+
+"" COLORSCHEME PLUGINS - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'altercation/vim-colors-solarized'
 Plug 'dracula/vim'
 Plug 'arcticicestudio/nord-vim'
@@ -136,9 +152,6 @@ Plug 'morhetz/gruvbox'
 
 " Initialize plugin system
 call plug#end()
-
-"" Source Vim-lsp configuration
-" source /Users/fernando/.vim/vim-lsp.vim
 
 "-----------------------------------------------------------------------AIRLINE
 let g:airline#extensions#tabline#enabled = 1
@@ -175,7 +188,7 @@ endif
 
 " --------------------------------------------------------------------SYNTASTIC
 " Sytastic plugin options
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 
 " If enabled, syntastic will do syntax checks when buffers are first loaded as
@@ -270,6 +283,23 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --colo
 syntax enable
 set background=dark
 " colorscheme solarized
+
+" -----------------------------------------------------------------------RANGER
+let g:ranger_replace_netrw = 0 " open ranger when vim open a directory
+let g:ranger_command_override = 'ranger --cmd "set show_hidden=true"'
+let g:ranger_map_keys = 1 " maps <Leader>f to open ranger
+
+" -------------------------------------------------------------------SPLIT_JOIN
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+
+nmap <Leader>j :SplitjoinJoin<cr>
+nmap <Leader>s :SplitjoinSplit<cr>
+" For the record, my personal preference is to avoid mnemonics in this case and
+" go for an approach that makes more sense to my fingers instead:
+
+nmap ss :SplitjoinSplit<cr>
+nmap sj :SplitjoinJoin<cr>
 
 " ================================================================== LEADER_KEY
 " Required by many others:
