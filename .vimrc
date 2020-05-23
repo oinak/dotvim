@@ -1,17 +1,17 @@
 " == INDEX == (use '*' to navigate)
 "
 " 1.- GENERAL_SETTINGS
-" 2.- PLUGIN_SETUP
-"   2.1 AIRLINE
-"   2.2 INDENT_GUIDES
-"   2.3 GITGUTTER
-"   2.4 SYNTASTIC
-"   2.5 FZF
-"   2.6 SOLARIZED
-"   2.7 RANGER
-"   2.8 SPLIT_JOIN
-"   2.9 TAG_ALONG
-" 3.- LEADER_KEY
+" 2.- LEADER_KEY
+" 3.- PLUGIN_SETUP
+"   3.1 AIRLINE
+"   3.2 INDENT_GUIDES
+"   3.3 GITGUTTER
+"   3.4 SYNTASTIC
+"   3.5 FZF
+"   3.6 BUFEXPLORER
+"   3.7 SOLARIZED
+"   3.8 SPLIT_JOIN
+"   3.9 TAG_ALONG
 " 4.- FILES_FINDING
 " 5.- TAG_NAVIGATION
 " 6.- AUTOCOMPLETION
@@ -107,6 +107,13 @@ endif
 
 colorscheme oinak
 
+" ================================================================== LEADER_KEY
+" Required by many others:
+let mapleader=","
+
+" Edit .vimrc configuration file
+noremap <Leader>r :e $MYVIMRC<CR>
+
 " ================================================================ PLUGIN_SETUP
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -120,6 +127,7 @@ Plug 'airblade/vim-gitgutter'    " Git markings on the gutter
 " SOURCE CODE MANIPULATION - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'vim-ruby/vim-ruby'         " Ruby support
 Plug 'tpope/vim-rails'           " Rails support
+Plug 'tpope/vim-endwise'         " auto insert 'end' and '}'
 Plug 'vim-syntastic/syntastic'   " Linters integration
 
 Plug 'kana/vim-textobj-user'     " requirement of vim-textobj-ruby
@@ -136,9 +144,6 @@ Plug 'jlanzarotta/bufexplorer'   " Buffer explorer
 Plug 'kien/ctrlp.vim'            " fuzzy file finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF Binary
 Plug 'junegunn/fzf.vim'          " FZF Vim integration
-
-Plug 'rbgrouleff/bclose.vim'     " Ranger dependency on neovim
-Plug 'francoiscabrol/ranger.vim' " Terminal file manager
 
 " VIUSAL AIDS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 Plug 'bling/vim-airline'         " Airline ruler enhancements
@@ -242,14 +247,14 @@ function! RubocopAutocorrect()
   call SyntasticCheck()
 endfunction
 
-map <silent> <Leader>cop :call RubocopAutocorrect()<cr>
+map <Leader>cop :call RubocopAutocorrect()<cr>
 
 function! EslintAutocorrect()
   execute "!eslint --fix " . bufname("%")
   call SyntasticCheck()
 endfunction
 
-map <silent> <Leader>esl :call EslintAutocorrect()<cr>
+map <Leader>esl :call EslintAutocorrect()<cr>
 
 "---------------------------------------------------------------------------FZF
 " --color fg:-1,bg:-1,hl:230,fg+:3,bg+:233,hl+:229
@@ -276,6 +281,21 @@ let g:fzf_colors =
 
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
 
+noremap <Leader>b :Buffers<CR>
+noremap <Leader>f :Files<CR>
+" Lines in loaded buffers
+noremap <Leader>zl :Lines<CR>
+" Lines in the current buffer
+noremap <Leader>zbl :BLines<CR>
+" Tags in the project (ctags -R)
+noremap <Leader>zt :Tags<CR>
+" Tags in the current buffer
+noremap <Leader>zbt :BTags<CR>
+
+" -------------------------------------------------------------------BUFEXPLORER
+" I am testing to replace this with fzf :Buffers command, thus the uppercase
+noremap <Leader>B :BufExplorer<CR>
+
 " --------------------------------------------------------------------SOLARIZED
 " let g:solarized_contrast="high"    "default value is normal
 " let g:solarized_visibility="high"    "default value is normal
@@ -284,10 +304,6 @@ syntax enable
 set background=dark
 " colorscheme solarized
 
-" -----------------------------------------------------------------------RANGER
-let g:ranger_replace_netrw = 0 " open ranger when vim open a directory
-let g:ranger_command_override = 'ranger --cmd "set show_hidden=true"'
-let g:ranger_map_keys = 1 " maps <Leader>f to open ranger
 
 " -------------------------------------------------------------------SPLIT_JOIN
 let g:splitjoin_split_mapping = ''
@@ -295,24 +311,13 @@ let g:splitjoin_join_mapping = ''
 
 nmap <Leader>j :SplitjoinJoin<cr>
 nmap <Leader>s :SplitjoinSplit<cr>
-" For the record, my personal preference is to avoid mnemonics in this case and
-" go for an approach that makes more sense to my fingers instead:
-
-nmap ss :SplitjoinSplit<cr>
 nmap sj :SplitjoinJoin<cr>
+nmap ss :SplitjoinSplit<cr>
 
-" ================================================================== LEADER_KEY
-" Required by many others:
-let mapleader=","
-
-noremap <Leader>b :BufExplorer<CR>
-noremap <Leader>B :Buffers<CR>
-
-" Edit .vimrc configuration file
-noremap <Leader>r :e $MYVIMRC<CR>
-
-" map <silent> <Leader>cop :call RubocopAutocorrect()<cr>
-" map <silent> <Leader>esl :call EslintAutocorrect()<cr>
+" ---------------------------------------------------------------------TAGALONG
+" let g:tagalong_filetypes = ['html', 'xml', 'jsx', 'eruby', 'ejs', 'eco',
+"                             'php', 'htmldjango', 'javascriptreact', 'typescriptreact']
+" let g:tagalong_additional_filetypes = ['custom', 'another']
 
 " =============================================================== FILES_FINDING
 set path+=**                      " Search down into subfolders
@@ -321,8 +326,8 @@ set wildignore+=*/node_modules/*  " exclude node_modules (npm dependencies)
 set wildignore+=*/.git/*          " exclude git database
 set wildmenu                      " Display all matching entries when we tab complete
 
-noremap <F6> :BufExplorer<CR>
-noremap <S-F6> :Buffers<CR>
+noremap <S-F6> :BufExplorer<CR>
+noremap <F6> :Buffers<CR>
 nmap <F7> <Esc>:bp<CR>
 nmap <F8> <Esc>:bn<CR>
 
@@ -363,7 +368,7 @@ nmap <S-F3> <ESC>_*
 " Change the behavior of the <Enter> key when the popup menu is visible.
 " In that case the Enter key will simply select the highlighted menu item,
 " " just as <C-Y> does
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " =======================================================================COLORS
 " Red color for trailing spaces in insert mode
