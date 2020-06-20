@@ -425,16 +425,16 @@ nmap <C-Down> ddp
 nmap <C-k> ddkP
 nmap <C-j> ddp
 " Bubble multiple lines
-vmap <C-Up> xkP`[V`]
-vmap <C-Down> xp`[V`]
-vmap <C-k> xkP`[V`]
-vmap <C-j> xp`[V`]
+vmap <C-Up> xkP`[V`]=gv
+vmap <C-Down> xp`[V`]=gv
+vmap <C-k> xkP`[V`]=gv
+vmap <C-j> xp`[V`]=gv
 
 " Ctrl-C, Ctrl-V option for copy/paste
-vmap <C-c> "+yi
-vmap <C-x> "+c
-vmap <C-v> c<ESC>"+p
-imap <C-v> <ESC>"+pa
+" vmap <C-c> "+yi
+" vmap <C-x> "+c
+" vmap <C-v> c<ESC>"+p
+" imap <C-v> <ESC>"+pa
 
 " Shift arrows to select
 imap <S-Down> <ESC>lvj
