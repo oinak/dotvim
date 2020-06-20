@@ -7,11 +7,12 @@
 "   3.2 INDENT_GUIDES
 "   3.3 GITGUTTER
 "   3.4 SYNTASTIC
-"   3.5 FZF
-"   3.6 BUFEXPLORER
-"   3.7 SOLARIZED
-"   3.8 SPLIT_JOIN
-"   3.9 TAG_ALONG
+"   3.5 GOLANG
+"   3.6 FZF
+"   3.7 BUFEXPLORER
+"   3.8 SOLARIZED
+"   3.9 SPLIT_JOIN
+"   3.10 TAG_ALONG
 " 4.- FILES_FINDING
 " 5.- TAG_NAVIGATION
 " 6.- AUTOCOMPLETION
@@ -105,6 +106,9 @@ if !has('nvim')
   set ttymouse=xterm2 "Enable mouse in terminal
 endif
 
+" let g:gruvbox_contrast_dark = 'hard'
+" let g:gruvbox_contrast_light = 'hard'
+" colorscheme gruvbox
 colorscheme oinak
 
 " ================================================================== LEADER_KEY
@@ -127,7 +131,6 @@ Plug 'airblade/vim-gitgutter'    " Git markings on the gutter
 " SOURCE CODE MANIPULATION - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'vim-ruby/vim-ruby'         " Ruby support
 Plug 'tpope/vim-rails'           " Rails support
-Plug 'tpope/vim-endwise'         " auto insert 'end' and '}'
 Plug 'vim-syntastic/syntastic'   " Linters integration
 
 Plug 'kana/vim-textobj-user'     " requirement of vim-textobj-ruby
@@ -136,7 +139,6 @@ Plug 'rhysd/vim-textobj-ruby'    " make vim understand ruby blocks as motions
 Plug 'AndrewRadev/splitjoin.vim' " Split/Join ruby hashes, arglists, etc
 Plug 'AndrewRadev/tagalong.vim'  " Change closing html-ish tags automatically
 
-Plug 'ervandew/supertab'         " Completion operated by Tab
 Plug 'tpope/vim-commentary'      " Commenting shortcuts gc
 
 " FILE/DIRECTORY OPERATIONS - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -154,9 +156,32 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'dracula/vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-vividchalk'
+
+" languages
+Plug 'othree/html5.vim'
+Plug 'burnettk/vim-angular'
+Plug 'leafgarland/typescript-vim'
+
+Plug 'Yggdroot/indentLine'
+
+" WIP (stuff in test)
+
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'vim-scripts/AutoComplPop'
+" Plug 'ervandew/supertab'         " Completion operated by Tab
+
+Plug 'fatih/vim-go'
 
 " Initialize plugin system
 call plug#end()
+
+let g:indentLine_char = '│'
+
+let g:rubycomplete_rails = 1
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
 
 "-----------------------------------------------------------------------AIRLINE
 let g:airline#extensions#tabline#enabled = 1
@@ -164,7 +189,7 @@ let g:airline_powerline_fonts = 0
 "------------------------------------------------------------------------------
 
 "-----------------------------------------------------------------INDENT_GUIDES
-let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_guide_size = 4
 " let g:indent_guides_start_level = 2
@@ -195,6 +220,7 @@ endif
 " Sytastic plugin options
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+" let g:syntastic_ruby_rubocop_exe = 'bundle exec rubocop'
 
 " If enabled, syntastic will do syntax checks when buffers are first loaded as
 " well as on saving
@@ -256,6 +282,21 @@ endfunction
 
 map <Leader>esl :call EslintAutocorrect()<cr>
 
+"------------------------------------------------------------------------GOLANG
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+" Enable goimports to automatically insert import paths instead of gofmt:
+let g:go_fmt_command = "goimports"
+au FileType go nmap <leader>gr <Plug>(go-run)
+au FileType go nmap <leader>gb <Plug>(go-build)
+au FileType go nmap <leader>gt <Plug>(go-test)
+" au FileType go nmap <leader>gcov <Plug>(go-coverage)
+
 "---------------------------------------------------------------------------FZF
 " --color fg:-1,bg:-1,hl:230,fg+:3,bg+:233,hl+:229
 " --color info:150,prompt:110,spinner:150,pointer:167,marker:174
@@ -291,6 +332,11 @@ noremap <Leader>zbl :BLines<CR>
 noremap <Leader>zt :Tags<CR>
 " Tags in the current buffer
 noremap <Leader>zbt :BTags<CR>
+
+" Tags in the project for the word under cursor
+noremap <Leader>t      :exe "Tags ". expand("<cword>")<CR>
+nnoremap <2-LeftMouse> :exe "Tags ". expand("<cword>")<CR>
+noremap <Leader>a      :exe "Ag ". expand("<cword>")<CR>
 
 " -------------------------------------------------------------------BUFEXPLORER
 " I am testing to replace this with fzf :Buffers command, thus the uppercase
@@ -356,19 +402,29 @@ nmap <S-F3> <ESC>_*
 " ============================================================== AUTOCOMPLETION
 "" To config preview window:
 " set complete-=.,w,b,u,t,i
-" set completeopt+=preview
-" set completeopt+=menuone
+set completeopt+=preview
+set completeopt+=menuone
 
-"" Managed by SuperTab plugin:
+" Managed by UltiSnips  plugin:
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" If you want :UltiSnipsEdit to split your window.
+"let g:UltiSnipsEditSplit="vertical"
+
+" AutoComplPop makes this redundant:
+" Managed by SuperTab plugin:
 " let g:SuperTabMappingForward = "<tab>"
 " let g:SuperTabMappingBackward = "<s-tab>"
-" let g:SuperTabDefaultCompletionType = "<c-n>"
-" let g:SuperTabContextDefaultCompletionType = "<c-n>"
+" let g:SuperTabDefaultCompletionType = "<c-p>"
+" let g:SuperTabContextDefaultCompletionType = "<c-p>"
 
 " Change the behavior of the <Enter> key when the popup menu is visible.
 " In that case the Enter key will simply select the highlighted menu item,
 " " just as <C-Y> does
-" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" using the previous to confirm AutoComplPop suggestions
+" it is incompatible with tpope/endwise (both activate on <CR>)
 
 " =======================================================================COLORS
 " Red color for trailing spaces in insert mode
@@ -415,8 +471,8 @@ hi NonText guifg=#bbbbbb
 
 " ============================================================== TEXT_SELECTION
 "" Region indent/outdent
-vmap <S-Tab> <gv
-vmap <Tab> >gv
+vmap < <gv
+vmap > >gv
 
 "" Bubbling Text
 " Bubble single lines

@@ -8,9 +8,10 @@ if has("gui_running")
   " set guifont=Terminess\ Powerline\ 10
   " set guifont=Menlo\ Regular:h13
   " set guifont=Monaco:h13
+  " set guifont=Fira\ Code:h18
+  set guifont=IBMPlexMono-Text:h17
   set antialias
   set macligatures
-  set guifont=Fira\ Code:h16
   set mousemodel=popup
 endif
 
