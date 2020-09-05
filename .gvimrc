@@ -14,7 +14,8 @@ if has("gui_running")
     set guifont=IBMPlexMono-Text:h17
     set macligatures
   endif
-  set antialias
+  set guifont=UbuntuMono-Regular:h20
   set mousemodel=popup
+  set antialias
 endif
 
