@@ -9,9 +9,12 @@ if has("gui_running")
   " set guifont=Menlo\ Regular:h13
   " set guifont=Monaco:h13
   " set guifont=Fira\ Code:h18
-  set guifont=IBMPlexMono-Text:h17
+  set guifont=IBM\ Plex\ Mono\ weight=453\ 10
+  if has("gui_macvim")
+    set guifont=IBMPlexMono-Text:h17
+    set macligatures
+  endif
   set antialias
-  set macligatures
   set mousemodel=popup
 endif
 
