@@ -148,8 +148,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF Binary
 Plug 'junegunn/fzf.vim'          " FZF Vim integration
 
 " VIUSAL AIDS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-Plug 'bling/vim-airline'         " Airline ruler enhancements
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'bling/vim-airline'               " Airline ruler enhancements
+Plug 'nathanaelkane/vim-indent-guides' " differently colored tabstops
+Plug 'bignimbus/you-are-here.vim'      " name and navigate window splits
 
 "" COLORSCHEME PLUGINS - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'altercation/vim-colors-solarized'
@@ -197,6 +198,35 @@ let g:indent_guides_guide_size = 4
 hi IndentGuidesOdd  guibg=#000000 ctermbg=black
 hi IndentGuidesEven guibg=#222222 ctermbg=234
 
+"-----------------------------------------------------------------INDENT_GUIDES
+
+" Add a map of your choice.  I prefer to  use
+" <leader>here.  My leader key is set to the
+" backslash (\), so by typing \here in normal
+" mode, I activate you-are-here.vim. When I
+" am ready to close the popups, I use the same
+" mapping.
+
+nnoremap <silent> <leader>here :call you_are_here#Toggle()<CR>
+
+" Optional: 
+
+" If you want to add a different (shorter?) map
+" to close the popups, that option is available.
+" I personally prefer to use <ESC> but that's a bit
+" intrusive so I don't endorse it :)
+nnoremap <silent> <leader>bye :call you_are_here#Close()<CR>
+
+" Most users wouldn't need to manually refresh you-are-here
+" while it's open, but it's possible:
+nnoremap <silent> <leader>upd :call you_are_here#Update()<CR>
+
+let g:youarehere_padding=[0,1,0,0]
+
+" <F1> " Invisible characters and colors
+nmap <F1> :call you_are_here#Toggle()<CR>
+vmap <F1> <ESC>:call you_are_here#Toggle()<CR>
+imap <F1> <C-\><C-O>:call you_are_here#Toggle()<CR>
 "---------------------------------------------------------------------GITGUTTER
 " Config for https://github.com/airblade/vim-gitgutter
 highlight SignColumn      guifg=#ffffff guibg=#000000 ctermbg=16  ctermfg=100
