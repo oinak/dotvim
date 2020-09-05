@@ -335,7 +335,6 @@ noremap <Leader>zbt :BTags<CR>
 
 " Tags in the project for the word under cursor
 noremap <Leader>t      :exe "Tags ". expand("<cword>")<CR>
-nnoremap <2-LeftMouse> :exe "Tags ". expand("<cword>")<CR>
 noremap <Leader>a      :exe "Ag ". expand("<cword>")<CR>
 
 " -------------------------------------------------------------------BUFEXPLORER
@@ -391,7 +390,7 @@ if executable('ag')
 endif
 
 " ===============================================================TAG_NAVIGATION
-let g:rails_ctags_arguments = '--languages=ruby --exclude=.git --exclude=log --exclude=tmp $(bundle list --paths |grep -e "returnly\|properties\|image_server")'
+let g:rails_ctags_arguments = '--languages=ruby --exclude=.git --exclude=log --exclude=tmp . $(bundle list --paths |grep -e "returnly\|properties\|image_server")'
 
 " <F3> " Goto definition (ctags)
 imap <F3> <ESC>g]
