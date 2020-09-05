@@ -158,6 +158,8 @@ Plug 'dracula/vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-vividchalk'
+Plug 'cocopon/iceberg.vim'
+Plug 'YorickPeterse/vim-paper'
 
 " languages
 Plug 'othree/html5.vim'
