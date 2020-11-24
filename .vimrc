@@ -44,7 +44,6 @@ set vb t_vb=
 set ts=2 sts=2 sw=2 expandtab
 set backspace=indent,eol,start "" allow backspacing over everything in insert mode
 set whichwrap+=<,>,h,l
-set antialias
 set dir=~/tmp/ " swap file outside of project grepers reach
 
 if has("gui_macvim")
@@ -106,11 +105,6 @@ if !has('nvim')
   set ttymouse=xterm2 "Enable mouse in terminal
 endif
 
-" let g:gruvbox_contrast_dark = 'hard'
-" let g:gruvbox_contrast_light = 'hard'
-" colorscheme gruvbox
-colorscheme oinak
-
 " ================================================================== LEADER_KEY
 " Required by many others:
 let mapleader=","
@@ -124,22 +118,34 @@ noremap <Leader>r :e $MYVIMRC<CR>
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-" GIT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+" Snippets - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Plug 'SirVer/ultisnips' " conflitcs with pyhton2/3 installed
+Plug 'honza/vim-snippets'
+Plug 'vim-scripts/AutoComplPop'
+Plug 'ervandew/supertab'         " Completion operated by Tab
+
+" GIT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'tpope/vim-fugitive'        " Git integration
 Plug 'airblade/vim-gitgutter'    " Git markings on the gutter
 
 " SOURCE CODE MANIPULATION - - - - - - - - - - - - - - - - - - - - - - - - - -
-Plug 'vim-ruby/vim-ruby'         " Ruby support
-Plug 'tpope/vim-rails'           " Rails support
 Plug 'vim-syntastic/syntastic'   " Linters integration
-
 Plug 'kana/vim-textobj-user'     " requirement of vim-textobj-ruby
 Plug 'rhysd/vim-textobj-ruby'    " make vim understand ruby blocks as motions
-
 Plug 'AndrewRadev/splitjoin.vim' " Split/Join ruby hashes, arglists, etc
 Plug 'AndrewRadev/tagalong.vim'  " Change closing html-ish tags automatically
-
 Plug 'tpope/vim-commentary'      " Commenting shortcuts gc
+
+" Languages
+Plug 'vim-ruby/vim-ruby'         " Ruby support
+Plug 'tpope/vim-rails'           " Rails support
+Plug 'tpope/vim-bundler'
+Plug 'othree/html5.vim'
+Plug 'burnettk/vim-angular'
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'fatih/vim-go'
+Plug 'ludovicchabant/vim-gutentags' " auto manage ctags files
 
 " FILE/DIRECTORY OPERATIONS - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'jlanzarotta/bufexplorer'   " Buffer explorer
@@ -147,40 +153,26 @@ Plug 'kien/ctrlp.vim'            " fuzzy file finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF Binary
 Plug 'junegunn/fzf.vim'          " FZF Vim integration
 
-" VIUSAL AIDS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+" VIUSAL AIDS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'bling/vim-airline'               " Airline ruler enhancements
-Plug 'nathanaelkane/vim-indent-guides' " differently colored tabstops
+Plug 'Yggdroot/indentLine'
 Plug 'bignimbus/you-are-here.vim'      " name and navigate window splits
 
 "" COLORSCHEME PLUGINS - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'altercation/vim-colors-solarized'
-Plug 'dracula/vim'
-Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
-Plug 'tpope/vim-vividchalk'
-Plug 'cocopon/iceberg.vim'
-Plug 'YorickPeterse/vim-paper'
+Plug 'cormacrelf/vim-colors-github'
 
-" languages
-Plug 'othree/html5.vim'
-Plug 'burnettk/vim-angular'
-Plug 'leafgarland/typescript-vim'
-
-Plug 'Yggdroot/indentLine'
 
 " WIP (stuff in test)
 
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'vim-scripts/AutoComplPop'
-" Plug 'ervandew/supertab'         " Completion operated by Tab
+Plug 'vim-test/vim-test' " run tests from vim
 
-Plug 'fatih/vim-go'
+" make test commands execute using dispatch.vim
+let test#strategy = "vimterminal"
 
 " Initialize plugin system
 call plug#end()
-
-let g:indentLine_char = '│'
 
 let g:rubycomplete_rails = 1
 let g:rubycomplete_buffer_loading = 1
@@ -191,14 +183,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 0
 "------------------------------------------------------------------------------
 
-"-----------------------------------------------------------------INDENT_GUIDES
-let g:indent_guides_enable_on_vim_startup = 0
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_guide_size = 4
-" let g:indent_guides_start_level = 2
+"------------------------------------------------------------------INDENT_LINES
+let g:indentLine_char = '│'
 
-hi IndentGuidesOdd  guibg=#000000 ctermbg=black
-hi IndentGuidesEven guibg=#222222 ctermbg=234
+let g:indentLine_fileTypeExclude = ['json','markdown']
 
 "-----------------------------------------------------------------INDENT_GUIDES
 
@@ -337,25 +325,27 @@ au FileType go nmap <leader>gt <Plug>(go-test)
 " let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Default options are --nogroup --column --color
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+" let g:fzf_colors =
+" \ { 'fg':      ['fg', 'Normal'],
+"   \ 'bg':      ['bg', 'Normal'],
+"   \ 'hl':      ['fg', 'Comment'],
+"   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+"   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+"   \ 'hl+':     ['fg', 'Statement'],
+"   \ 'info':    ['fg', 'PreProc'],
+"   \ 'border':  ['fg', 'Ignore'],
+"   \ 'prompt':  ['fg', 'Conditional'],
+"   \ 'pointer': ['fg', 'Exception'],
+"   \ 'marker':  ['fg', 'Keyword'],
+"   \ 'spinner': ['fg', 'Label'],
+"   \ 'header':  ['fg', 'Comment'] }
 
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
 
 noremap <Leader>b :Buffers<CR>
 noremap <Leader>f :Files<CR>
+noremap <Leader>g :GFiles<CR>
+
 " Lines in loaded buffers
 noremap <Leader>zl :Lines<CR>
 " Lines in the current buffer
@@ -374,12 +364,28 @@ noremap <Leader>a      :exe "Ag ". expand("<cword>")<CR>
 noremap <Leader>B :BufExplorer<CR>
 
 " --------------------------------------------------------------------SOLARIZED
-" let g:solarized_contrast="high"    "default value is normal
-" let g:solarized_visibility="high"    "default value is normal
-" let g:solarized_hitrail=1    "default value is 0
+
 syntax enable
+
+" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
+" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
+" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+if (has('termguicolors'))
+  set termguicolors
+endif
+
+
+let g:solarized_contrast="high"    "default value is normal
+let g:solarized_visibility="high"    "default value is normal
+" let g:solarized_hitrail=1    "default value is 0
+" colorscheme thegoodluck
+" hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_light = 'hard'
 set background=dark
-" colorscheme solarized
+" colorscheme gruvbox
+colorscheme oinak
 
 
 " -------------------------------------------------------------------SPLIT_JOIN
@@ -424,9 +430,12 @@ endif
 " ===============================================================TAG_NAVIGATION
 let g:rails_ctags_arguments = '--languages=ruby --exclude=.git --exclude=log --exclude=tmp . $(bundle list --paths |grep -e "returnly\|properties\|image_server")'
 
+au FileType {rb} au BufWritePost <buffer> silent! Ctags
+
 " <F3> " Goto definition (ctags)
 imap <F3> <ESC>g]
 nmap <F3> <ESC>g]
+vmap <F3> v_g]
 imap <S-F3> <ESC>_*
 nmap <S-F3> <ESC>_*
 
@@ -504,6 +513,8 @@ hi NonText guifg=#bbbbbb
 "" Region indent/outdent
 vmap < <gv
 vmap > >gv
+vmap <S-Tab> <gv
+vmap <Tab> >gv
 
 "" Bubbling Text
 " Bubble single lines
