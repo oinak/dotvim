@@ -51,7 +51,12 @@ highlight CursorLine                guibg=#222222 ctermbg=234 ctermfg=NONE
 highlight CursorColumn              guibg=#222222 ctermbg=234 ctermfg=NONE guifg=NONE
 highlight ColorColumn               guibg=#331111 cterm=NONE ctermbg=234
 
-highlight Comment                   guifg=#BC9458 ctermfg=180 cterm=italic gui=italic
+" https://stackoverflow.com/questions/1326998/enabling-italics-in-vim-syntax-highlighting-for-mac-terminal/53625973#53625973
+" enable italic support on terminal
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+
+highlight Comment                   guifg=#BC9458 ctermfg=180 gui=italic cterm=italic 
 highlight Constant                  guifg=#6D9CBE ctermfg=73
 highlight Define                    ctermfg=172 guifg=#d78700 
 "   guifg=#CC7833 ctermfg=173
