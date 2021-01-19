@@ -431,6 +431,7 @@ endif
 let g:rails_ctags_arguments = '--languages=ruby --exclude=.git --exclude=log --exclude=tmp . $(bundle list --paths |grep -e "returnly\|properties\|image_server")'
 
 au FileType {rb} au BufWritePost <buffer> silent! Ctags
+au! FileType css,scss setl iskeyword+=-
 
 " <F3> " Goto definition (ctags)
 imap <F3> <ESC>g]
