@@ -37,7 +37,7 @@ set mouse=a      " Enable mouse usage (all modes)
 set ruler        " show a ruler at the bottom of the page
 "set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
-" set relativenumber
+" set norelativenumber
 set nowrap
 set hidden
 set vb t_vb=
