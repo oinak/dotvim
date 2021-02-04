@@ -145,7 +145,8 @@ Plug 'burnettk/vim-angular'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'fatih/vim-go'
-Plug 'ludovicchabant/vim-gutentags' " auto manage ctags files
+" Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-easytags'
 
 " FILE/DIRECTORY OPERATIONS - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'jlanzarotta/bufexplorer'   " Buffer explorer
@@ -428,17 +429,21 @@ if executable('ag')
 endif
 
 " ===============================================================TAG_NAVIGATION
-let g:rails_ctags_arguments = '--languages=ruby --exclude=.git --exclude=log --exclude=tmp . $(bundle list --paths |grep -e "returnly\|properties\|image_server")'
+let g:rails_ctags_arguments = '-f .tags --languages=ruby --exclude=.git --exclude=log --exclude=tmp --exclude=.bundle . $(bundle list --paths |grep -e "returnly\|properties\|image_server") &'
 
+set tags=.tags
+" au FileType {rb} au BufWritePost <buffer> silent! Ctags
 au FileType {rb} au BufWritePost <buffer> silent! Ctags
 au! FileType css,scss setl iskeyword+=-
 
 " <F3> " Goto definition (ctags)
 imap <F3> <ESC>g]
 nmap <F3> <ESC>g]
+nmap gt <ESC>g]
+nmap rt :Ctags<CR><CR>
 vmap <F3> v_g]
-imap <S-F3> <ESC>_*
-nmap <S-F3> <ESC>_*
+imap <F2> <ESC>g<C-]>
+nmap <F2> <ESC>g<C-]>
 
 " ============================================================== AUTOCOMPLETION
 "" To config preview window:
