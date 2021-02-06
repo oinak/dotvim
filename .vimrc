@@ -241,7 +241,7 @@ endif
 " Sytastic plugin options
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-" let g:syntastic_ruby_rubocop_exe = 'bundle exec rubocop'
+let g:syntastic_ruby_rubocop_exe = 'bundle exec rubocop'
 
 " If enabled, syntastic will do syntax checks when buffers are first loaded as
 " well as on saving
@@ -535,10 +535,10 @@ vmap <C-k> xkP`[V`]=gv
 vmap <C-j> xp`[V`]=gv
 
 " Ctrl-C, Ctrl-V option for copy/paste
-" vmap <C-c> "+yi
-" vmap <C-x> "+c
-" vmap <C-v> c<ESC>"+p
-" imap <C-v> <ESC>"+pa
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
 
 " Shift arrows to select
 imap <S-Down> <ESC>lvj
