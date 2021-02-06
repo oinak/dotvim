@@ -22,7 +22,7 @@ if has("gui_running")
       " set guifont=Iosevka-Light:h20
       set guifont=IBMPlexMono-Light:h17
     else
-      set guifont=Ubuntu\ Mono\ 14
+      set guifont=Ubuntu\ Mono\ 12
     endif
   endif
   set mousemodel=popup
