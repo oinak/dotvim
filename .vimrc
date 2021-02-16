@@ -162,8 +162,7 @@ Plug 'bignimbus/you-are-here.vim'      " name and navigate window splits
 "" COLORSCHEME PLUGINS - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
-Plug 'cormacrelf/vim-colors-github'
-
+Plug 'endel/vim-github-colorscheme'
 
 " WIP (stuff in test)
 
@@ -224,6 +223,8 @@ highlight SignColumn      guifg=#ffffff guibg=#000000 ctermbg=16  ctermfg=100
 highlight GitGutterAdd    guifg=#66aa66 guibg=#000000 ctermfg=71  ctermbg=16
 highlight GitGutterChange guifg=#6666aa guibg=#000000 ctermfg=100 ctermbg=16
 highlight GitGutterDelete guifg=#aa6666 guibg=#000000 ctermfg=52  ctermbg=16
+
+
 
 let g:gitgutter_enabled = 1
 let g:gitgutter_signs = 1
@@ -322,6 +323,7 @@ au FileType go nmap <leader>gt <Plug>(go-test)
 " --color fg:-1,bg:-1,hl:230,fg+:3,bg+:233,hl+:229
 " --color info:150,prompt:110,spinner:150,pointer:167,marker:174
 
+
 " Tell Ag not to color results
 " let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -341,10 +343,12 @@ au FileType go nmap <leader>gt <Plug>(go-test)
 "   \ 'spinner': ['fg', 'Label'],
 "   \ 'header':  ['fg', 'Comment'] }
 
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
 
-noremap <Leader>b :Buffers<CR>
-noremap <Leader>f :Files<CR>
+
+" command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
+
+noremap <Leader>b :Buffers!<CR>
+noremap <Leader>f :Files!<CR>
 noremap <Leader>g :GFiles<CR>
 
 " Lines in loaded buffers
@@ -357,8 +361,8 @@ noremap <Leader>zt :Tags<CR>
 noremap <Leader>zbt :BTags<CR>
 
 " Tags in the project for the word under cursor
-noremap <Leader>t      :exe "Tags ". expand("<cword>")<CR>
-noremap <Leader>a      :exe "Ag ". expand("<cword>")<CR>
+noremap <Leader>t      :exe "Tags! ". expand("<cword>")<CR>
+noremap <Leader>a      :exe "Ag! ". expand("<cword>")<CR>
 
 " -------------------------------------------------------------------BUFEXPLORER
 " I am testing to replace this with fzf :Buffers command, thus the uppercase
@@ -379,22 +383,39 @@ endif
 let g:solarized_contrast="high"    "default value is normal
 let g:solarized_visibility="high"    "default value is normal
 " let g:solarized_hitrail=1    "default value is 0
-" colorscheme thegoodluck
 " hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'hard'
 set background=dark
 " colorscheme gruvbox
-colorscheme oinak
+" colorscheme oinak
+let g:nord_uniform_diff_background = 1
+" colorscheme nord
+
+function! ColorschemeLight()
+  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;35" --color-match "30;43"', fzf#vim#with_preview(), <bang>0)
+  colorscheme thegoodluck
+  let $BAT_THEME = 'GitHub' " make bat (used for fzf previews) readable
+endfunction
+
+function! ColorschemeDark()
+  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
+  colorscheme oinak
+  let $BAT_THEME = 'gruvbox' " make bat (used for fzf previews) readable
+endfunction
+
+call ColorschemeDark()
+
+nmap <Leader>cd :call ColorschemeDark()<CR>
+nmap <Leader>cl :call ColorschemeLight()<CR>
+
 
 
 " -------------------------------------------------------------------SPLIT_JOIN
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
 
-nmap <Leader>j :SplitjoinJoin<cr>
-nmap <Leader>s :SplitjoinSplit<cr>
 nmap sj :SplitjoinJoin<cr>
 nmap ss :SplitjoinSplit<cr>
 
@@ -584,4 +605,7 @@ function! Writer ()
   setlocal expandtab
 endfunction
 com! WR call Writer()
+
+
+ab coaby co-authored-by:  <@returnly.com>
 
