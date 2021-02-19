@@ -180,10 +180,15 @@ Plug 'fatih/vim-go'
 " Plug 'xolox/vim-easytags'
 
 " FILE/DIRECTORY OPERATIONS - - - - - - - - - - - - - - - - - - - - - - - - -
-Plug 'jlanzarotta/bufexplorer'   " Buffer explorer
-Plug 'kien/ctrlp.vim'            " fuzzy file finder
+" Plug 'jlanzarotta/bufexplorer'   " Buffer explorer
+" Plug 'kien/ctrlp.vim'            " fuzzy file finder
+" BufferExplorer and ctrlp functions covered by FZF
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF Binary
 Plug 'junegunn/fzf.vim'          " FZF Vim integration
+
+" Unicode selector with fzf
+" needs: `ln -s ~/.vim/plugged/unicodemoji/plugin/unicodemoji ~/bin/`
+Plug 'yazgoo/unicodemoji' 
 
 " VIUSAL AIDS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'bling/vim-airline'               " Airline ruler enhancements
@@ -381,6 +386,8 @@ au FileType go nmap <leader>gt <Plug>(go-test)
 noremap <Leader>b :Buffers!<CR>
 noremap <Leader>f :Files!<CR>
 noremap <Leader>g :GFiles<CR>
+noremap <C-p> :GFiles<CR>
+inoremap <C-p> :GFiles<CR>
 
 " Lines in loaded buffers
 noremap <Leader>zl :Lines<CR>
@@ -395,9 +402,13 @@ noremap <Leader>zbt :BTags<CR>
 noremap <Leader>t      :exe "Tags! ". expand("<cword>")<CR>
 noremap <Leader>a      :exe "Ag! ". expand("<cword>")<CR>
 
+"" Unicode emojis
+nmap <leader>u :Unicodemoji<CR>
+nmap <leader>U :UnicodemojiCode<CR>
+
 " -------------------------------------------------------------------BUFEXPLORER
 " I am testing to replace this with fzf :Buffers command, thus the uppercase
-noremap <Leader>B :BufExplorer<CR>
+" noremap <Leader>B :BufExplorer<CR>
 
 " --------------------------------------------------------------------SOLARIZED
 
@@ -468,17 +479,17 @@ nmap <F7> <Esc>:bp<CR>
 nmap <F8> <Esc>:bn<CR>
 
 "" CtrlP Fuzzy Filename Search-------------------------------------------------
-noremap <C-p> <ESC>:CtrlPMixed<CR>
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|packs|RESOURCE|.bundle)$',
-  \ }
-"let g:ctrlp_working_path_mode = '0'
-"let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_working_path_mode = 'r'
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+"noremap <C-p> <ESC>:CtrlPMixed<CR>
+"let g:ctrlp_cmd = 'CtrlPMixed'
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/](\.(git|hg|svn)|packs|RESOURCE|.bundle)$',
+"  \ }
+""let g:ctrlp_working_path_mode = '0'
+""let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_working_path_mode = 'r'
+"if executable('ag')
+"  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"endif
 
 " ===============================================================TAG_NAVIGATION
 let g:rails_ctags_arguments = '-f .tags --languages=ruby --exclude=.git --exclude=log --exclude=tmp --exclude=.bundle . $(bundle list --paths |grep -e "returnly\|properties\|image_server") &'
