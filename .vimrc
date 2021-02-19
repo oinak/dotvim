@@ -1,6 +1,7 @@
 " == INDEX == (use '*' to navigate)
 "
 " 1.- GENERAL_SETTINGS
+"   1.1.- AUTO_COMMANDS
 " 2.- LEADER_KEY
 " 3.- PLUGIN_SETUP
 "   3.1 AIRLINE
@@ -62,29 +63,59 @@ if &t_Co > 2 || has("gui_running")
   syntax on
 endif
 
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-if has("autocmd")
-  filetype plugin indent on
-endif
-
-" Source the vimrc file after saving it
-if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
-  autocmd FocusLost * silent! wa
-endif
-
 " Disable useless GUI Toolbar
 if has("gui_running")
   " set guioptions-=T
   " set guioptions-=m
   set guioptions=aiA
+endif
+
+
+" ----------------------------------------------------------------AUTO_COMMANDS
+if has("autocmd")
+  augroup OINAK_AUTO
+    " Unload before loading them again ](better performance upon vimrc reload)
+    autocmd!
+    " Uncomment the following to have Vim jump to the last position when
+    " reopening a file
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+    " Uncomment the following to have Vim load indentation rules and plugins
+    " according to the detected filetype.
+    filetype plugin indent on
+
+    " Source the vimrc file after saving it
+    autocmd bufwritepost .vimrc source $MYVIMRC
+    autocmd FocusLost * silent! wa
+
+    " Dark red background for trailing whitespace
+    highlight ExtraWhitespace guibg=#331111 ctermbg=52
+    au ColorScheme * highlight ExtraWhitespace guibg=#330000 ctermbg=52
+    au BufEnter * match ExtraWhitespace /\s\+$/
+    au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    au InsertLeave * match ExtraWhiteSpace /\s\+$/
+
+
+    " Color column 80 (compatible) Better after theme loading
+    if exists('+colorcolumn')
+      set colorcolumn=80
+      if exists("*matchadd")
+        augroup colorColumn
+          au!
+          au VimEnter,WinEnter * call matchadd('ColorColumn', '\%81v.\+', 100)
+        augroup END
+      endif
+      highlight ColorColumn guibg=#331111 cterm=NONE ctermbg=234
+    else
+      au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    endif
+
+    " Refresh ctags when saveing a ruby file
+    au FileType {rb} au BufWritePost <buffer> silent! Ctags
+
+    au! FileType css,scss setl iskeyword+=-
+
+  augroup END
 endif
 
 "--------------------------------------------------------------------------TERM
@@ -454,8 +485,8 @@ let g:rails_ctags_arguments = '-f .tags --languages=ruby --exclude=.git --exclud
 
 set tags=.tags
 " au FileType {rb} au BufWritePost <buffer> silent! Ctags
-au FileType {rb} au BufWritePost <buffer> silent! Ctags
-au! FileType css,scss setl iskeyword+=-
+" au FileType {rb} au BufWritePost <buffer> silent! Ctags
+" au! FileType css,scss setl iskeyword+=-
 
 " <F3> " Goto definition (ctags)
 imap <F3> <ESC>g]
@@ -494,28 +525,6 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " it is incompatible with tpope/endwise (both activate on <CR>)
 
 " =======================================================================COLORS
-" Red color for trailing spaces in insert mode
-if has("autocmd")
-  highlight ExtraWhitespace guibg=#331111 ctermbg=52
-  au ColorScheme * highlight ExtraWhitespace guibg=#330000 ctermbg=52
-  au BufEnter * match ExtraWhitespace /\s\+$/
-  au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-  au InsertLeave * match ExtraWhiteSpace /\s\+$/
-endif
-
-" Color column 80 (compatible) Better after theme loading
-if exists('+colorcolumn')
-  set colorcolumn=80
-  if exists("*matchadd")
-     augroup colorColumn
-        au!
-        au VimEnter,WinEnter * call matchadd('ColorColumn', '\%81v.\+', 100)
-     augroup END
-  endif
-  highlight ColorColumn guibg=#331111 cterm=NONE ctermbg=234
-else
-  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-endif
 
 " Toggleable current line/column highlight
 highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
