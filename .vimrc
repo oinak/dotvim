@@ -39,6 +39,7 @@ set ruler        " show a ruler at the bottom of the page
 "set rulerformat=%55(%{strftime('%a\ %e\/%b\ %H:%M\ %p')}\ %5l,%-6(%c%V%)\ %P%)
 set number
 " set norelativenumber
+set scrolloff=8 " start scrollin X lines before cursor hits screen border
 set nowrap
 set hidden
 set vb t_vb=
@@ -138,7 +139,8 @@ endif
 
 " ================================================================== LEADER_KEY
 " Required by many others:
-let mapleader=","
+" let mapleader=","
+let mapleader=" "
 
 " Edit .vimrc configuration file
 noremap <Leader>r :e $MYVIMRC<CR>
