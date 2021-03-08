@@ -14,6 +14,7 @@
 "   3.8 SOLARIZED
 "   3.9 SPLIT_JOIN
 "   3.10 TAG_ALONG
+"   3.11 VIM_WIKI
 " 4.- FILES_FINDING
 " 5.- TAG_NAVIGATION
 " 6.- AUTOCOMPLETION
@@ -205,6 +206,8 @@ Plug 'endel/vim-github-colorscheme'
 " WIP (stuff in test)
 
 Plug 'vim-test/vim-test' " run tests from vim
+Plug 'vimwiki/vimwiki'
+
 
 " make test commands execute using dispatch.vim
 let test#strategy = "vimterminal"
@@ -467,6 +470,19 @@ nmap ss :SplitjoinSplit<cr>
 " let g:tagalong_filetypes = ['html', 'xml', 'jsx', 'eruby', 'ejs', 'eco',
 "                             'php', 'htmldjango', 'javascriptreact', 'typescriptreact']
 " let g:tagalong_additional_filetypes = ['custom', 'another']
+
+" ---------------------------------------------------------------------VIM_WIKI
+let g:vimwiki_list = [{
+  \ 'path': '~/Dropbox/vimwiki/',
+  \ 'syntax': 'markdown',
+  \ 'ext': '.md',
+  \ 'template_path': '~/vimwiki/templates/',
+  \ 'template_default': 'default',
+  \ 'path_html': '~/vimwiki/site_html/',
+  \ 'custom_wiki2html': 'vimwiki_markdown',
+  \ 'html_filename_parameterization': 1,
+  \ }]
+le g:vimwiki_list =[{'auto_diary_index': 1}]
 
 " =============================================================== FILES_FINDING
 set path+=**                      " Search down into subfolders
