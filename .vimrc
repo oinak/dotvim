@@ -191,7 +191,7 @@ Plug 'junegunn/fzf.vim'          " FZF Vim integration
 
 " Unicode selector with fzf
 " needs: `ln -s ~/.vim/plugged/unicodemoji/plugin/unicodemoji ~/bin/`
-Plug 'yazgoo/unicodemoji' 
+Plug 'yazgoo/unicodemoji'
 
 " VIUSAL AIDS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'bling/vim-airline'               " Airline ruler enhancements
