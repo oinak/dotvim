@@ -388,11 +388,27 @@ au FileType go nmap <leader>gt <Plug>(go-test)
 
 " command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
 
+" Vim allows us to change the program used by :grep. We can tell Vim to use ripgrep instead of grep by adding this inside our vimrc:
+
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow
+
+" Search and repace in multiple files:
+" :grep "pizza"
+" :cfdo %s/pizza/donut/g | update
+
+" search and replace in select multiple files instead of all files using buffers. Here we can choose which files we want to perform select and replace.
+" Clear our buffers (:Buffers) first. Our buffers list should contain only the needed files. We can clear it with %bd | e# | bd# (or restart Vim).
+" Run :Files.
+" Select all files you want to perform search and replace on. To select multiple files, use Tab / Shift+Tab. This is only possible if we have -m in FZF_DEFAULT_OPTS.
+" Run :bufdo %s/pizza/donut/g | update.
+
 noremap <Leader>b :Buffers!<CR>
 noremap <Leader>f :Files!<CR>
-noremap <Leader>g :GFiles<CR>
-noremap <C-p> :GFiles<CR>
-inoremap <C-p> :GFiles<CR>
+noremap <Leader>g :GFiles!<CR>
+noremap <C-p> :Files<CR>
+inoremap <C-p> :Files<CR>
+noremap <C-f> :Rg<CR>
+inoremap <C-f> :Rg<CR>
 
 " Lines in loaded buffers
 noremap <Leader>zl :Lines<CR>
