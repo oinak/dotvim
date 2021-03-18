@@ -172,6 +172,7 @@ Plug 'tpope/vim-commentary'      " Commenting shortcuts gc
 
 " Languages
 Plug 'vim-ruby/vim-ruby'         " Ruby support
+runtime macros/matchit.vim " support to make '%' recognise do-end, etc
 Plug 'tpope/vim-rails'           " Rails support
 Plug 'tpope/vim-bundler'
 Plug 'othree/html5.vim'
@@ -179,8 +180,6 @@ Plug 'burnettk/vim-angular'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'fatih/vim-go'
-" Plug 'xolox/vim-misc'
-" Plug 'xolox/vim-easytags'
 
 " FILE/DIRECTORY OPERATIONS - - - - - - - - - - - - - - - - - - - - - - - - -
 " Plug 'jlanzarotta/bufexplorer'   " Buffer explorer
@@ -246,7 +245,7 @@ nnoremap <silent> <leader>here :call you_are_here#Toggle()<CR>
 " to close the popups, that option is available.
 " I personally prefer to use <ESC> but that's a bit
 " intrusive so I don't endorse it :)
-nnoremap <silent> <leader>bye :call you_are_here#Close()<CR>
+" nnoremap <silent> <leader>Here :call you_are_here#Close()<CR>
 
 " Most users wouldn't need to manually refresh you-are-here
 " while it's open, but it's possible:
@@ -315,7 +314,7 @@ let g:syntastic_enable_highlighting = 1
 " Enable this option if you want the cursor to jump to the first detected error
 " when saving or opening a file:
 let g:syntastic_auto_jump = 0
-let g:syntastic_always_populate_loc_list=0
+let g:syntastic_always_populate_loc_list=1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_coffee_checkers = ['coffeelint']
 
@@ -344,6 +343,16 @@ function! EslintAutocorrect()
 endfunction
 
 map <Leader>esl :call EslintAutocorrect()<cr>
+
+" QuickFixList previous and Next
+nnoremap <leader>n :cnext<CR>
+nnoremap <leader>p :cprev<CR>
+
+" LocalList previous and Next
+nnoremap <leader>q :lopen<CR>
+nnoremap <leader>Q :lclose<CR>
+nnoremap <leader>j :lnext<CR>
+nnoremap <leader>k :lprev<CR>
 
 "------------------------------------------------------------------------GOLANG
 let g:go_highlight_functions = 1
@@ -499,6 +508,12 @@ let g:vimwiki_list = [{
   \ 'html_filename_parameterization': 1,
   \ }]
 le g:vimwiki_list =[{'auto_diary_index': 1}]
+
+aug MDau
+  au!
+  autocmd FileType markdown set conceallevel=0
+  autocmd FileType vimwiki set conceallevel=0
+aug END
 
 " =============================================================== FILES_FINDING
 set path+=**                      " Search down into subfolders
