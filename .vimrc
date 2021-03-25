@@ -208,6 +208,11 @@ Plug 'endel/vim-github-colorscheme'
 Plug 'vim-test/vim-test' " run tests from vim
 Plug 'vimwiki/vimwiki'
 
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
 
 " make test commands execute using dispatch.vim
 let test#strategy = "vimterminal"
@@ -218,6 +223,25 @@ call plug#end()
 let g:rubycomplete_rails = 1
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
+
+"---------------------------------------------------------------------------LSP
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+    \ }
+
+let g:LanguageClient_autoStop = 0
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+augroup LSP
+  autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
+augroup END
 
 "-----------------------------------------------------------------------AIRLINE
 let g:airline#extensions#tabline#enabled = 1
