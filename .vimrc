@@ -15,6 +15,7 @@
 "   3.9 SPLIT_JOIN
 "   3.10 TAG_ALONG
 "   3.11 VIM_WIKI
+"   3.12 LSP
 " 4.- FILES_FINDING
 " 5.- TAG_NAVIGATION
 " 6.- AUTOCOMPLETION
@@ -222,25 +223,6 @@ call plug#end()
 let g:rubycomplete_rails = 1
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
-
-"---------------------------------------------------------------------------LSP
-" Required for operations modifying multiple buffers like rename.
-set hidden
-
-let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-    \ }
-
-let g:LanguageClient_autoStop = 0
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-augroup LSP
-  autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
-augroup END
 
 "-----------------------------------------------------------------------AIRLINE
 let g:airline#extensions#tabline#enabled = 1
@@ -539,6 +521,26 @@ aug MDau
   autocmd FileType vimwiki set conceallevel=0
 aug END
 
+"---------------------------------------------------------------------------LSP
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+    \ }
+
+let g:LanguageClient_autoStop = 0
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+augroup LSP
+  autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
+augroup END
+
+
 " =============================================================== FILES_FINDING
 set path+=**                      " Search down into subfolders
 set wildignore+=*/.bundle/*       " exclude Bundler (ruby dependencies)
@@ -546,23 +548,8 @@ set wildignore+=*/node_modules/*  " exclude node_modules (npm dependencies)
 set wildignore+=*/.git/*          " exclude git database
 set wildmenu                      " Display all matching entries when we tab complete
 
-noremap <S-F6> :BufExplorer<CR>
-noremap <F6> :Buffers<CR>
 nmap <F7> <Esc>:bp<CR>
 nmap <F8> <Esc>:bn<CR>
-
-"" CtrlP Fuzzy Filename Search-------------------------------------------------
-"noremap <C-p> <ESC>:CtrlPMixed<CR>
-"let g:ctrlp_cmd = 'CtrlPMixed'
-"let g:ctrlp_custom_ignore = {
-"  \ 'dir':  '\v[\/](\.(git|hg|svn)|packs|RESOURCE|.bundle)$',
-"  \ }
-""let g:ctrlp_working_path_mode = '0'
-""let g:ctrlp_working_path_mode = 'ra'
-"let g:ctrlp_working_path_mode = 'r'
-"if executable('ag')
-"  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-"endif
 
 " ===============================================================TAG_NAVIGATION
 let g:rails_ctags_arguments = '-f .tags --languages=ruby --exclude=.git --exclude=log --exclude=tmp --exclude=.bundle . $(bundle list --paths |grep -e "returnly\|properties\|image_server") &'
