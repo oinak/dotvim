@@ -50,6 +50,8 @@ set backspace=indent,eol,start "" allow backspacing over everything in insert mo
 set whichwrap+=<,>,h,l
 set dir=~/tmp/ " swap file outside of project grepers reach
 
+set cmdheight=2
+
 if has("gui_macvim")
   set macthinstrokes
 endif
@@ -102,12 +104,12 @@ if has("autocmd")
     " Color column 80 (compatible) Better after theme loading
     if exists('+colorcolumn')
       set colorcolumn=80
-      if exists("*matchadd")
-        augroup colorColumn
-          au!
-          au VimEnter,WinEnter * call matchadd('ColorColumn', '\%81v.\+', 100)
-        augroup END
-      endif
+      " if exists("*matchadd")
+      "   augroup colorColumn
+      "     au!
+      "     au VimEnter,WinEnter * call matchadd('ColorColumn', '\%81v.\+', 100)
+      "   augroup END
+      " endif
       highlight ColorColumn guibg=#331111 cterm=NONE ctermbg=234
     else
       au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
@@ -154,10 +156,10 @@ noremap <Leader>r :e $MYVIMRC<CR>
 call plug#begin('~/.vim/plugged')
 
 " Snippets - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-Plug 'SirVer/ultisnips' " conflitcs with pyhton2/3 installed
-Plug 'honza/vim-snippets'
-Plug 'vim-scripts/AutoComplPop'
-Plug 'ervandew/supertab'         " Completion operated by Tab
+" Plug 'SirVer/ultisnips' " conflitcs with pyhton2/3 installed
+" Plug 'honza/vim-snippets'
+" Plug 'vim-scripts/AutoComplPop'
+" Plug 'ervandew/supertab'         " Completion operated by Tab
 
 " GIT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'tpope/vim-fugitive'        " Git integration
@@ -168,6 +170,7 @@ Plug 'vim-syntastic/syntastic'   " Linters integration
 Plug 'kana/vim-textobj-user'     " requirement of vim-textobj-ruby
 Plug 'rhysd/vim-textobj-ruby'    " make vim understand ruby blocks as motions
 Plug 'AndrewRadev/splitjoin.vim' " Split/Join ruby hashes, arglists, etc
+Plug 'AndrewRadev/switch.vim'    " Automate common substitutions
 Plug 'AndrewRadev/tagalong.vim'  " Change closing html-ish tags automatically
 Plug 'tpope/vim-commentary'      " Commenting shortcuts gc
 
@@ -213,6 +216,8 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
+" Use release branch (recommend)
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " make test commands execute using dispatch.vim
 let test#strategy = "vimterminal"
@@ -534,6 +539,7 @@ let g:LanguageClient_autoStop = 0
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 augroup LSP
@@ -569,32 +575,7 @@ imap <F2> <ESC>g<C-]>
 nmap <F2> <ESC>g<C-]>
 
 " ============================================================== AUTOCOMPLETION
-"" To config preview window:
-" set complete-=.,w,b,u,t,i
-set completeopt+=preview
-set completeopt+=menuone
-
-" Managed by UltiSnips  plugin:
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
-
-" AutoComplPop makes this redundant:
-" Managed by SuperTab plugin:
-" let g:SuperTabMappingForward = "<tab>"
-" let g:SuperTabMappingBackward = "<s-tab>"
-" let g:SuperTabDefaultCompletionType = "<c-p>"
-" let g:SuperTabContextDefaultCompletionType = "<c-p>"
-
-" Change the behavior of the <Enter> key when the popup menu is visible.
-" In that case the Enter key will simply select the highlighted menu item,
-" " just as <C-Y> does
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" using the previous to confirm AutoComplPop suggestions
-" it is incompatible with tpope/endwise (both activate on <CR>)
-
+runtime config/completion.vim
 " =======================================================================COLORS
 
 " Toggleable current line/column highlight
