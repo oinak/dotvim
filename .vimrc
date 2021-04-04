@@ -123,13 +123,16 @@ endif
 
 "--------------------------------------------------------------------------TERM
 if &term =~ '^xterm'
-  " solid underscore
+  " insert mode: solid vertical bar
   let &t_SI .= "\<Esc>[6 q"
-  " solid block
+  " replace mode: solid underscore
+  let &t_SI .= "\<Esc>[4 q"
+  " normal mode ([E]lse): solid block
   let &t_EI .= "\<Esc>[2 q"
   " 1 or 0 -> blinking block
+  " 2 -> solid block 
   " 3 -> blinking underscore
-  " Recent versions of xterm (282 or above) also support
+  " 4 -> solid underscore
   " 5 -> blinking vertical bar
   " 6 -> solid vertical bar
 endif
@@ -219,6 +222,8 @@ let test#strategy = "vimterminal"
 
 " Initialize plugin system
 call plug#end()
+
+let netrw_banner=0
 
 let g:rubycomplete_rails = 1
 let g:rubycomplete_buffer_loading = 1
@@ -474,12 +479,14 @@ let g:nord_uniform_diff_background = 1
 function! ColorschemeLight()
   command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;35" --color-match "30;43"', fzf#vim#with_preview(), <bang>0)
   colorscheme thegoodluck
+  set cursorline! cursorcolumn!
   let $BAT_THEME = 'GitHub' " make bat (used for fzf previews) readable
 endfunction
 
 function! ColorschemeDark()
   command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
   colorscheme oinak
+  set cursorline! cursorcolumn!
   let $BAT_THEME = 'gruvbox' " make bat (used for fzf previews) readable
 endfunction
 
