@@ -7,7 +7,7 @@
 "   3.1 AIRLINE
 "   3.2 INDENT_GUIDES
 "   3.3 GITGUTTER
-"   3.4 SYNTASTIC
+"   3.4 LINTING
 "   3.5 GOLANG
 "   3.6 FZF
 "   3.7 BUFEXPLORER
@@ -169,7 +169,7 @@ Plug 'tpope/vim-fugitive'        " Git integration
 Plug 'airblade/vim-gitgutter'    " Git markings on the gutter
 
 " SOURCE CODE MANIPULATION - - - - - - - - - - - - - - - - - - - - - - - - - -
-Plug 'vim-syntastic/syntastic'   " Linters integration
+Plug 'dense-analysis/ale'        " Asynchronous linter integration
 Plug 'kana/vim-textobj-user'     " requirement of vim-textobj-ruby
 Plug 'rhysd/vim-textobj-ruby'    " make vim understand ruby blocks as motions
 Plug 'AndrewRadev/splitjoin.vim' " Split/Join ruby hashes, arglists, etc
@@ -294,57 +294,12 @@ else
   let g:gitgutter_sign_column_always = 1
 endif
 
-" --------------------------------------------------------------------SYNTASTIC
-" Sytastic plugin options
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-let g:syntastic_ruby_rubocop_exe = 'bundle exec rubocop'
+" ----------------------------------------------------------------------LINTING
 
-" If enabled, syntastic will do syntax checks when buffers are first loaded as
-" well as on saving
-let g:syntastic_check_on_open=0
-
-" If enabled, syntastic will error message associated with the current line to
-" the command window. If multiple errors are found, the first will be used.
-let g:syntastic_echo_current_error=1
-
-" Use this option to tell syntastic whether to use the |:sign| interface to
-" mark syntax errors:
-let g:syntastic_enable_signs=1
-
-" Use this option to control what the syntastic |:sign| text contains. Several
-" error symobls can be customized:
-let g:syntastic_error_symbol = '!!'
-let g:syntastic_style_error_symbol = 's!'
-let g:syntastic_warning_symbol = '!?'
-let g:syntastic_style_warning_symbol = 's?'
-
-" Use this option to tell syntastic whether to display error messages in
-" balloons when the mouse is hovered over erroneous lines:
-let g:syntastic_enable_balloons = 1
-
-" Use this option to tell syntastic whether to use syntax highlighting to mark
-" errors (where possible). Highlighting can be turned off with 0
-let g:syntastic_enable_highlighting = 1
-
-" Enable this option if you want the cursor to jump to the first detected error
-" when saving or opening a file:
-let g:syntastic_auto_jump = 0
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_coffee_checkers = ['coffeelint']
-
-" install with:
-" npm install -g eslint
-" npm install -g babel-eslint
-" npm install -g eslint-plugin-react
-" npm install -g syntastic-react
-let g:syntastic_javascript_checkers = ['jsxhint']
-let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
-
-imap <F4> <ESC>:SyntasticToggleMode<CR>i
-nmap <F4> <ESC>:SyntasticToggleMode<CR>
-map <F4> <ESC>:SyntasticToggleMode<CR>
+"" ALE Options
+let g:ale_linters = {
+\   'ruby': ['ruby','rubocop','brakeman','rails_best_practices', 'solargraph'],
+\}
 
 function! RubocopAutocorrect()
   execute "!rubocop -a " . bufname("%")
@@ -359,16 +314,6 @@ function! EslintAutocorrect()
 endfunction
 
 map <Leader>esl :call EslintAutocorrect()<cr>
-
-" QuickFixList previous and Next
-nnoremap <leader>n :cnext<CR>
-nnoremap <leader>p :cprev<CR>
-
-" LocalList previous and Next
-nnoremap <leader>q :lopen<CR>
-nnoremap <leader>Q :lclose<CR>
-nnoremap <leader>j :lnext<CR>
-nnoremap <leader>k :lprev<CR>
 
 "------------------------------------------------------------------------GOLANG
 let g:go_highlight_functions = 1
