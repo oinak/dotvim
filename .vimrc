@@ -610,21 +610,6 @@ nnoremap Q <nop>
 " hi Search guibg=#66aadd guifg=Black cterm=none gui=none
 " hi IncSearch guibg=#66dddd guifg=Black cterm=none gui=none
 "------------------------------------------------------------------------------
-"
-" VIMCONF
-" https://twitter.com/codingCommander
-"
-function! Writer ()
-  setlocal spell spelllang=en_us
-  setlocal formatoptions=t1
-  setlocal textwidth=80
-  setlocal noautoindent
-  setlocal shiftwidth=5
-  setlocal tabstop=5
-  setlocal expandtab
-endfunction
-com! WR call Writer()
-
 
 ab coaby co-authored-by:  <@returnly.com>
 ab cobyro co-authored-by: ro-fdm <rocio@returnly.com>
