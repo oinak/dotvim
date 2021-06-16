@@ -299,20 +299,31 @@ endif
 let g:ale_linters = {
 \   'ruby': ['ruby','rubocop','brakeman','rails_best_practices', 'solargraph'],
 \}
+let g:ale_lint_on_save = 1
+let g:ale_ruby_rubocop_executable = 'bundle'
+" let g:ale_ruby_rubocop_options = '--auto-correct-all'
+" let g:ale_ruby_rubocop_auto_correct_all = 1
+let g:ale_fixers = {
+\   'css': ['prettier'],
+\   'javascript': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'eslint'],
+\   'ruby': ['rubocop'],
+\}
+" function! RubocopAutocorrect()
+"   execute "!rubocop -a " . bufname("%")
+"   call SyntasticCheck()
+" endfunction
 
-function! RubocopAutocorrect()
-  execute "!rubocop -a " . bufname("%")
-  call SyntasticCheck()
-endfunction
-
-map <Leader>cop :call RubocopAutocorrect()<cr>
+map <Leader>cop :c ALEFix rubocop<cr>
 
 function! EslintAutocorrect()
   execute "!eslint --fix " . bufname("%")
-  call SyntasticCheck()
+  " call SyntasticCheck()
 endfunction
 
 map <Leader>esl :call EslintAutocorrect()<cr>
+
+map <Leader>fix :ALEFix<cr>
 
 "------------------------------------------------------------------------GOLANG
 let g:go_highlight_functions = 1
@@ -424,6 +435,8 @@ let g:vimwiki_list = [{
   \ 'html_filename_parameterization': 1,
   \ }]
 le g:vimwiki_list =[{'auto_diary_index': 1}]
+
+let g:markdown_fenced_languages = ['html', 'ruby', 'vim', 'javascript']
 
 aug MDau
   au!
@@ -618,3 +631,4 @@ ab cobyro co-authored-by: ro-fdm <rocio@returnly.com>
 ab cobyal co-authored-by: alegoiko <alejandra@returnly.com>
 ab cobybe co-authored-by: bertocq <alberto.calderon@returnly.com>
 
+call ColorschemeDark()
