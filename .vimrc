@@ -425,7 +425,7 @@ nmap ss :SplitjoinSplit<cr>
 
 " ---------------------------------------------------------------------VIM_WIKI
 let g:vimwiki_list = [{
-  \ 'path': '~/Dropbox/vimwiki/',
+  \ 'path': '~/vimwiki/',
   \ 'syntax': 'markdown',
   \ 'ext': '.md',
   \ 'template_path': '~/vimwiki/templates/',
