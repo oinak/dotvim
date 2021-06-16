@@ -11,11 +11,10 @@
 "   3.5 GOLANG
 "   3.6 FZF
 "   3.7 BUFEXPLORER
-"   3.8 SOLARIZED
-"   3.9 SPLIT_JOIN
-"   3.10 TAG_ALONG
-"   3.11 VIM_WIKI
-"   3.12 LSP
+"   3.8 SPLIT_JOIN
+"   3.9 TAG_ALONG
+"   3.10 VIM_WIKI
+"   3.11 LSP
 " 4.- FILES_FINDING
 " 5.- TAG_NAVIGATION
 " 6.- AUTOCOMPLETION
@@ -401,52 +400,6 @@ nmap <leader>U :UnicodemojiCode<CR>
 " I am testing to replace this with fzf :Buffers command, thus the uppercase
 " noremap <Leader>B :BufExplorer<CR>
 
-" --------------------------------------------------------------------SOLARIZED
-
-syntax enable
-
-" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
-if (has('termguicolors'))
-  set termguicolors
-endif
-
-
-let g:solarized_contrast="high"    "default value is normal
-let g:solarized_visibility="high"    "default value is normal
-" let g:solarized_hitrail=1    "default value is 0
-" hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_contrast_light = 'hard'
-set background=dark
-" colorscheme gruvbox
-" colorscheme oinak
-let g:nord_uniform_diff_background = 1
-" colorscheme nord
-
-function! ColorschemeLight()
-  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;35" --color-match "30;43"', fzf#vim#with_preview(), <bang>0)
-  colorscheme thegoodluck
-  set cursorline! cursorcolumn!
-  let $BAT_THEME = 'GitHub' " make bat (used for fzf previews) readable
-endfunction
-
-function! ColorschemeDark()
-  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
-  colorscheme oinak
-  set cursorline! cursorcolumn!
-  let $BAT_THEME = 'gruvbox' " make bat (used for fzf previews) readable
-endfunction
-
-call ColorschemeDark()
-
-nmap <Leader>cd :call ColorschemeDark()<CR>
-nmap <Leader>cl :call ColorschemeLight()<CR>
-
-
-
 " -------------------------------------------------------------------SPLIT_JOIN
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
@@ -530,6 +483,8 @@ nmap <F2> <ESC>g<C-]>
 runtime config/completion.vim
 " =======================================================================COLORS
 
+syntax enable
+
 " Toggleable current line/column highlight
 highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
@@ -549,6 +504,44 @@ imap <F12> <ESC>:set list!<CR>i
 
 hi NonText guifg=#bbbbbb
 
+" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
+" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
+" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+if (has('termguicolors'))
+  set termguicolors
+endif
+
+
+let g:solarized_contrast="high"    "default value is normal
+let g:solarized_visibility="high"    "default value is normal
+" let g:solarized_hitrail=1    "default value is 0
+" hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_light = 'hard'
+set background=dark
+" colorscheme gruvbox
+" colorscheme oinak
+let g:nord_uniform_diff_background = 1
+" colorscheme nord
+
+function! ColorschemeLight()
+  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;35" --color-match "30;43"', fzf#vim#with_preview(), <bang>0)
+  colorscheme thegoodluck
+  set cursorline! cursorcolumn!
+  let $BAT_THEME = 'GitHub' " make bat (used for fzf previews) readable
+endfunction
+
+function! ColorschemeDark()
+  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
+  colorscheme oinak
+  set nocursorline nocursorcolumn
+  let $BAT_THEME = 'gruvbox' " make bat (used for fzf previews) readable
+endfunction
+
+
+nmap <Leader>cd :call ColorschemeDark()<CR>
+nmap <Leader>cl :call ColorschemeLight()<CR>
 " ============================================================== TEXT_SELECTION
 "" Region indent/outdent
 vmap < <gv
