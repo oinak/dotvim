@@ -199,7 +199,9 @@ Plug 'junegunn/fzf.vim'          " FZF Vim integration
 Plug 'yazgoo/unicodemoji'
 
 " VIUSAL AIDS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-Plug 'bling/vim-airline'               " Airline ruler enhancements
+" Plug 'bling/vim-airline'               " Airline ruler enhancements
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
 Plug 'bignimbus/you-are-here.vim'      " name and navigate window splits
 
@@ -546,15 +548,20 @@ function! ColorschemeLight()
   colorscheme thegoodluck
   set cursorline! cursorcolumn!
   let $BAT_THEME = 'GitHub' " make bat (used for fzf previews) readable
+  let g:airline_theme='github'
 endfunction
 
 function! ColorschemeDark()
   command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
-  colorscheme oinak
+  colorscheme jellybeans
   set nocursorline nocursorcolumn
   let $BAT_THEME = 'gruvbox' " make bat (used for fzf previews) readable
+  let g:airline_theme='jellybeans'
+  " needed here to override theme value
+  hi ColorColumn guibg=#331111 cterm=NONE ctermbg=234
+  hi Search guibg=#66aadd guifg=Black cterm=none gui=none
+  hi IncSearch guibg=#66dddd guifg=Black cterm=none gui=none
 endfunction
-
 
 nmap <Leader>cd :call ColorschemeDark()<CR>
 nmap <Leader>cl :call ColorschemeLight()<CR>
