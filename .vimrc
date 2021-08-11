@@ -607,6 +607,9 @@ imap <S-Left> <ESC>vh
 vmap <S-Left> h
 nmap <S-Left> vh
 
+" reselect pasted text
+nnoremap gp `[v`]
+
 " ================================================================== MISCELANEA
 " automatically close the quick fix window when leaving a file
 aug QFClose
