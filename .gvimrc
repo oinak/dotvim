@@ -20,7 +20,8 @@ if has("gui_running")
       " set guifont=UbuntuMono-Regular:h18
       " set guifont=IBMPlexMono-Light:h17
       " set guifont=Iosevka-Light:h20
-      set guifont=IBMPlexMono-Light:h20
+      set guifont=IBMPlexMono-Light:h18
+      set guifont=FiraCode-Light:h17
     else
       set guifont=Ubuntu\ Mono\ 12
     endif
