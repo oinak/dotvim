@@ -11,11 +11,10 @@
 "   3.5 GOLANG
 "   3.6 FZF
 "   3.7 BUFEXPLORER
-"   3.8 SOLARIZED
-"   3.9 SPLIT_JOIN
-"   3.10 TAG_ALONG
-"   3.11 VIM_WIKI
-"   3.12 LSP
+"   3.8 SPLIT_JOIN
+"   3.9 TAG_ALONG
+"   3.10 VIM_WIKI
+"   3.11 LSP
 " 4.- FILES_FINDING
 " 5.- TAG_NAVIGATION
 " 6.- AUTOCOMPLETION
@@ -303,20 +302,31 @@ nmap <F9> :TagbarToggle<CR>
 let g:ale_linters = {
 \   'ruby': ['ruby','rubocop','brakeman','rails_best_practices', 'solargraph'],
 \}
+let g:ale_lint_on_save = 1
+let g:ale_ruby_rubocop_executable = 'bundle'
+" let g:ale_ruby_rubocop_options = '--auto-correct-all'
+" let g:ale_ruby_rubocop_auto_correct_all = 1
+let g:ale_fixers = {
+\   'css': ['prettier'],
+\   'javascript': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'eslint'],
+\   'ruby': ['rubocop'],
+\}
+" function! RubocopAutocorrect()
+"   execute "!rubocop -a " . bufname("%")
+"   call SyntasticCheck()
+" endfunction
 
-function! RubocopAutocorrect()
-  execute "!rubocop -a " . bufname("%")
-  call SyntasticCheck()
-endfunction
-
-map <Leader>cop :call RubocopAutocorrect()<cr>
+map <Leader>cop :c ALEFix rubocop<cr>
 
 function! EslintAutocorrect()
   execute "!eslint --fix " . bufname("%")
-  call SyntasticCheck()
+  " call SyntasticCheck()
 endfunction
 
 map <Leader>esl :call EslintAutocorrect()<cr>
+
+map <Leader>fix :ALEFix<cr>
 
 "------------------------------------------------------------------------GOLANG
 let g:go_highlight_functions = 1
@@ -380,6 +390,9 @@ noremap <Leader>f :Files!<CR>
 noremap <Leader>g :GFiles!<CR>
 noremap <C-p> :Files<CR>
 inoremap <C-p> :Files<CR>
+
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+" With the above, every time we invoke Rg, FZF + ripgrep will not consider filename as a match in Vim.
 noremap <C-f> :Rg<CR>
 inoremap <C-f> :Rg<CR>
 
@@ -404,52 +417,6 @@ nmap <leader>U :UnicodemojiCode<CR>
 " I am testing to replace this with fzf :Buffers command, thus the uppercase
 " noremap <Leader>B :BufExplorer<CR>
 
-" --------------------------------------------------------------------SOLARIZED
-
-syntax enable
-
-" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
-" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
-" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
-if (has('termguicolors'))
-  set termguicolors
-endif
-
-
-let g:solarized_contrast="high"    "default value is normal
-let g:solarized_visibility="high"    "default value is normal
-" let g:solarized_hitrail=1    "default value is 0
-" hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_contrast_light = 'hard'
-set background=dark
-" colorscheme gruvbox
-" colorscheme oinak
-let g:nord_uniform_diff_background = 1
-" colorscheme nord
-
-function! ColorschemeLight()
-  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;35" --color-match "30;43"', fzf#vim#with_preview(), <bang>0)
-  colorscheme thegoodluck
-  set cursorline! cursorcolumn!
-  let $BAT_THEME = 'GitHub' " make bat (used for fzf previews) readable
-endfunction
-
-function! ColorschemeDark()
-  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
-  colorscheme oinak
-  set cursorline! cursorcolumn!
-  let $BAT_THEME = 'gruvbox' " make bat (used for fzf previews) readable
-endfunction
-
-call ColorschemeDark()
-
-nmap <Leader>cd :call ColorschemeDark()<CR>
-nmap <Leader>cl :call ColorschemeLight()<CR>
-
-
-
 " -------------------------------------------------------------------SPLIT_JOIN
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
@@ -464,7 +431,7 @@ nmap ss :SplitjoinSplit<cr>
 
 " ---------------------------------------------------------------------VIM_WIKI
 let g:vimwiki_list = [{
-  \ 'path': '~/Dropbox/vimwiki/',
+  \ 'path': '~/vimwiki/',
   \ 'syntax': 'markdown',
   \ 'ext': '.md',
   \ 'template_path': '~/vimwiki/templates/',
@@ -474,6 +441,8 @@ let g:vimwiki_list = [{
   \ 'html_filename_parameterization': 1,
   \ }]
 le g:vimwiki_list =[{'auto_diary_index': 1}]
+
+let g:markdown_fenced_languages = ['html', 'ruby', 'vim', 'javascript']
 
 aug MDau
   au!
@@ -533,6 +502,8 @@ nmap <F2> <ESC>g<C-]>
 runtime config/completion.vim
 " =======================================================================COLORS
 
+syntax enable
+
 " Toggleable current line/column highlight
 highlight CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=234 ctermfg=NONE guibg=#222222 guifg=NONE
@@ -552,6 +523,44 @@ imap <F12> <ESC>:set list!<CR>i
 
 hi NonText guifg=#bbbbbb
 
+" For Neovim > 0.1.5 and Vim > patch 7.4.1799 - https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162
+" Based on Vim patch 7.4.1770 (`guicolors` option) - https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd
+" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+if (has('termguicolors'))
+  set termguicolors
+endif
+
+
+let g:solarized_contrast="high"    "default value is normal
+let g:solarized_visibility="high"    "default value is normal
+" let g:solarized_hitrail=1    "default value is 0
+" hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_light = 'hard'
+set background=dark
+" colorscheme gruvbox
+" colorscheme oinak
+let g:nord_uniform_diff_background = 1
+" colorscheme nord
+
+function! ColorschemeLight()
+  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;35" --color-match "30;43"', fzf#vim#with_preview(), <bang>0)
+  colorscheme thegoodluck
+  set cursorline! cursorcolumn!
+  let $BAT_THEME = 'GitHub' " make bat (used for fzf previews) readable
+endfunction
+
+function! ColorschemeDark()
+  command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
+  colorscheme oinak
+  set nocursorline nocursorcolumn
+  let $BAT_THEME = 'gruvbox' " make bat (used for fzf previews) readable
+endfunction
+
+
+nmap <Leader>cd :call ColorschemeDark()<CR>
+nmap <Leader>cl :call ColorschemeLight()<CR>
 " ============================================================== TEXT_SELECTION
 function! CmdLine(str)
     call feedkeys(":" . a:str)
@@ -632,24 +641,10 @@ nnoremap Q <nop>
 " hi Search guibg=#66aadd guifg=Black cterm=none gui=none
 " hi IncSearch guibg=#66dddd guifg=Black cterm=none gui=none
 "------------------------------------------------------------------------------
-"
-" VIMCONF
-" https://twitter.com/codingCommander
-"
-function! Writer ()
-  setlocal spell spelllang=en_us
-  setlocal formatoptions=t1
-  setlocal textwidth=80
-  setlocal noautoindent
-  setlocal shiftwidth=5
-  setlocal tabstop=5
-  setlocal expandtab
-endfunction
-com! WR call Writer()
-
 
 ab coaby co-authored-by:  <@returnly.com>
 ab cobyro co-authored-by: ro-fdm <rocio@returnly.com>
 ab cobyal co-authored-by: alegoiko <alejandra@returnly.com>
 ab cobybe co-authored-by: bertocq <alberto.calderon@returnly.com>
 
+call ColorschemeDark()
