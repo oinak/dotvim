@@ -387,13 +387,13 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 noremap <Leader>b :Buffers!<CR>
 noremap <Leader>f :Files!<CR>
 noremap <Leader>g :GFiles!<CR>
-noremap <C-p> :Files<CR>
-inoremap <C-p> :Files<CR>
+noremap <C-p> :Files!<CR>
+inoremap <C-p> :Files!<CR>
 
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 " With the above, every time we invoke Rg, FZF + ripgrep will not consider filename as a match in Vim.
-noremap <C-f> :Rg<CR>
-inoremap <C-f> :Rg<CR>
+noremap <C-f> :Rg!<CR>
+inoremap <C-f> :Rg!<CR>
 
 " Lines in loaded buffers
 noremap <Leader>zl :Lines<CR>
