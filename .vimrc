@@ -229,7 +229,13 @@ let test#strategy = "vimterminal"
 " Initialize plugin system
 call plug#end()
 
+" (disable) help banner on Netrw file explorer
 let netrw_banner=0
+" Per default, netrw leaves unmodified buffers open. This autocommand
+" deletes netrw's buffer once it's hidden (using ':q', for example)
+autocmd FileType netrw setl bufhidden=wipe
+let g:netrw_fastbrowse = 0
+
 
 let g:rubycomplete_rails = 1
 let g:rubycomplete_buffer_loading = 1
