@@ -175,6 +175,7 @@ Plug 'AndrewRadev/splitjoin.vim' " Split/Join ruby hashes, arglists, etc
 Plug 'AndrewRadev/switch.vim'    " Automate common substitutions
 Plug 'AndrewRadev/tagalong.vim'  " Change closing html-ish tags automatically
 Plug 'tpope/vim-commentary'      " Commenting shortcuts gc
+Plug 'tpope/vim-surround'        " change surrounding text object
 
 " Languages
 Plug 'vim-ruby/vim-ruby'         " Ruby support
@@ -186,6 +187,7 @@ Plug 'burnettk/vim-angular'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'fatih/vim-go'
+Plug 'preservim/tagbar'
 
 " FILE/DIRECTORY OPERATIONS - - - - - - - - - - - - - - - - - - - - - - - - -
 " Plug 'jlanzarotta/bufexplorer'   " Buffer explorer
@@ -302,6 +304,7 @@ else
 endif
 
 " ----------------------------------------------------------------------LINTING
+nmap <F9> :TagbarToggle<CR>
 
 "" ALE Options
 let g:ale_linters = {
@@ -571,6 +574,31 @@ endfunction
 nmap <Leader>cd :call ColorschemeDark()<CR>
 nmap <Leader>cl :call ColorschemeLight()<CR>
 " ============================================================== TEXT_SELECTION
+function! CmdLine(str)
+    call feedkeys(":" . a:str)
+endfunction 
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
 "" Region indent/outdent
 vmap < <gv
 vmap > >gv
