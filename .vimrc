@@ -322,7 +322,8 @@ let g:ale_fixers = {
 "   call SyntasticCheck()
 " endfunction
 
-map <Leader>cop :c ALEFix rubocop<cr>
+" map <Leader>cop :c ALEFix rubocop<cr>
+map <Leader>fix :ALEFix<cr>
 
 function! EslintAutocorrect()
   execute "!eslint --fix " . bufname("%")
@@ -330,8 +331,6 @@ function! EslintAutocorrect()
 endfunction
 
 map <Leader>esl :call EslintAutocorrect()<cr>
-
-map <Leader>fix :ALEFix<cr>
 
 "------------------------------------------------------------------------GOLANG
 let g:go_highlight_functions = 1
