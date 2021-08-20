@@ -392,6 +392,9 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 " Select all files you want to perform search and replace on. To select multiple files, use Tab / Shift+Tab. This is only possible if we have -m in FZF_DEFAULT_OPTS.
 " Run :bufdo %s/pizza/donut/g | update.
 
+" Alternate between last two open files
+nnoremap <leader><leader> <C-^>
+
 noremap <Leader>b :Buffers!<CR>
 noremap <Leader>f :Files!<CR>
 noremap <Leader>g :GFiles!<CR>
