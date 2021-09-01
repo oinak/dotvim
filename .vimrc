@@ -177,6 +177,8 @@ Plug 'AndrewRadev/tagalong.vim'  " Change closing html-ish tags automatically
 Plug 'tpope/vim-commentary'      " Commenting shortcuts gc
 Plug 'tpope/vim-surround'        " change surrounding text object
 
+Plug 'editorconfig/editorconfig-vim' " Editorconfig support
+
 " Languages
 Plug 'vim-ruby/vim-ruby'         " Ruby support
 runtime macros/matchit.vim " support to make '%' recognise do-end, etc
