@@ -211,8 +211,11 @@ Plug 'bignimbus/you-are-here.vim'      " name and navigate window splits
 
 "" COLORSCHEME PLUGINS - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
-Plug 'endel/vim-github-colorscheme'
+Plug 'gmist/vim-palette'
+Plug 'nanotech/jellybeans.vim'
+let g:jellybeans_overrides = {
+\    'background': { 'guibg': '000000' },
+\}
 
 " WIP (stuff in test)
 
