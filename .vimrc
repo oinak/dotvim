@@ -177,6 +177,8 @@ Plug 'AndrewRadev/tagalong.vim'  " Change closing html-ish tags automatically
 Plug 'tpope/vim-commentary'      " Commenting shortcuts gc
 Plug 'tpope/vim-surround'        " change surrounding text object
 
+Plug 'editorconfig/editorconfig-vim' " Editorconfig support
+
 " Languages
 Plug 'vim-ruby/vim-ruby'         " Ruby support
 runtime macros/matchit.vim " support to make '%' recognise do-end, etc
@@ -210,8 +212,11 @@ Plug 'bignimbus/you-are-here.vim'      " name and navigate window splits
 
 "" COLORSCHEME PLUGINS - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Plug 'altercation/vim-colors-solarized'
-Plug 'morhetz/gruvbox'
-Plug 'endel/vim-github-colorscheme'
+Plug 'gmist/vim-palette'
+Plug 'nanotech/jellybeans.vim'
+let g:jellybeans_overrides = {
+\    'background': { 'guibg': '000000' },
+\}
 
 " WIP (stuff in test)
 
@@ -393,8 +398,8 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 " Select all files you want to perform search and replace on. To select multiple files, use Tab / Shift+Tab. This is only possible if we have -m in FZF_DEFAULT_OPTS.
 " Run :bufdo %s/pizza/donut/g | update.
 
-" Alternate between last two open files
-nnoremap <leader><leader> <C-^>
+" Change between last two files
+nnoremap <leader><leader> <c-^>
 
 noremap <Leader>b :Buffers!<CR>
 noremap <Leader>f :Files!<CR>
