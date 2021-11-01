@@ -13,6 +13,7 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " it is incompatible with tpope/endwise (both activate on <CR>)
 
 " ------------------------------------------------------------------------- COC
+let g:coc_node_path = '/usr/local/bin/node'
 
 let g:coc_global_extensions = ['coc-json'
       \ , 'coc-git'
