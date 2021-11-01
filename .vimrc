@@ -670,5 +670,6 @@ ab coaby co-authored-by:  <@returnly.com>
 ab cobyro co-authored-by: ro-fdm <rocio@returnly.com>
 ab cobyal co-authored-by: alegoiko <alejandra@returnly.com>
 ab cobybe co-authored-by: bertocq <alberto.calderon@returnly.com>
+ab cobyam co-authored-by: alegoiko <alejandro@returnly.com>
 
 call ColorschemeDark()
