@@ -563,15 +563,15 @@ let g:nord_uniform_diff_background = 1
 function! ColorschemeLight()
   command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;35" --color-match "30;43"', fzf#vim#with_preview(), <bang>0)
   colorscheme thegoodluck
-  set cursorline! cursorcolumn!
+  " set cursorline! cursorcolumn!
   let $BAT_THEME = 'GitHub' " make bat (used for fzf previews) readable
-  let g:airline_theme='github'
+  let g:airline_theme='light'
 endfunction
 
 function! ColorschemeDark()
   command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path "0;36" --color-match "0;33"', fzf#vim#with_preview(), <bang>0)
   colorscheme jellybeans
-  set nocursorline nocursorcolumn
+  " set nocursorline nocursorcolumn
   let $BAT_THEME = 'gruvbox' " make bat (used for fzf previews) readable
   let g:airline_theme='jellybeans'
   " needed here to override theme value
