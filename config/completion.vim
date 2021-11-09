@@ -13,6 +13,7 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " it is incompatible with tpope/endwise (both activate on <CR>)
 
 " ------------------------------------------------------------------------- COC
+let g:coc_node_path = '/usr/local/bin/node'
 
 let g:coc_global_extensions = ['coc-json'
       \ , 'coc-git'
@@ -20,7 +21,11 @@ let g:coc_global_extensions = ['coc-json'
       \ , 'coc-tag'
       \ , 'coc-solargraph'
       \ , 'coc-sql'
-      \ , 'coc-snippets']
+      \ , 'coc-snippets'
+      \ , 'coc-explorer'
+      \ ]
+
+nmap <space>e <Cmd>CocCommand explorer<CR>
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
