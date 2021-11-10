@@ -228,6 +228,12 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
+" Display markers on margin
+Plug 'kshenoy/vim-signature'
+
+" Autocomplete within commandline with ctrl-N
+Plug 'j5shi/CommandlineComplete.vim'
+
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
