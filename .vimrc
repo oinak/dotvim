@@ -197,7 +197,7 @@ Plug 'preservim/tagbar'
 " BufferExplorer and ctrlp functions covered by FZF
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " FZF Binary
 Plug 'junegunn/fzf.vim'          " FZF Vim integration
-Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-vinegar' " Use - to navigate folder of current file
 
 " Unicode selector with fzf
 " needs: `ln -s ~/.vim/plugged/unicodemoji/plugin/unicodemoji ~/bin/`
