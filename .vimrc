@@ -668,6 +668,10 @@ aug END
 " Avoid accidentally enter Ex mode
 nnoremap Q <nop>
 
+" change the direction of new splits
+set splitbelow
+set splitright
+
 " hi Search guibg=#66aadd guifg=Black cterm=none gui=none
 " hi IncSearch guibg=#66dddd guifg=Black cterm=none gui=none
 "------------------------------------------------------------------------------
